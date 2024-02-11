@@ -23,6 +23,11 @@ dependencies:
   intl: ^0.18.1
   google_fonts: ^6.1.0
   go_router: ^13.2.0
+  firebase_core: ^2.25.4
+  cloud_firestore: ^4.15.4
+  firebase_app_check: ^0.2.1+13
+  firebase_auth: ^4.17.4
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -39,3 +44,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - assets/images/
