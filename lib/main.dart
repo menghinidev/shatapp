@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/firebase_options.dart';
+import 'package:shatapp/utils/env.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
 import 'package:shatapp/utils/theme/app_theme.dart';
 
@@ -18,7 +19,7 @@ Future<void> main() async {
   await FirebaseAppCheck.instance.activate(
     // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
     // argument for `webProvider`
-    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+    webProvider: ReCaptchaV3Provider(ShatAppEnv.captchaKey),
     // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
     // your preferred provider. Choose from:
     // 1. Debug provider
