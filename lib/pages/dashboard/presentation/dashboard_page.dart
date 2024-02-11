@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shatapp/pages/shit_taking/presentation/route/shit_taking_route.dart';
+import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
 
 class DashboardPage extends ConsumerWidget {

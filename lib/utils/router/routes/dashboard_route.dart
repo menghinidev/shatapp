@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:shatapp/pages/dashboard/presentation/page/dashboard_page.dart';
-import 'package:shatapp/pages/shit_taking/presentation/route/shit_taking_route.dart';
+import 'package:shatapp/pages/dashboard/presentation/dashboard_page.dart';
+import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 
 class DashboardPageRoute extends GoRoute {
   DashboardPageRoute()

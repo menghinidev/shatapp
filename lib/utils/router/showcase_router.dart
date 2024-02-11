@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shatapp/pages/dashboard/presentation/route/dashboard_route.dart';
 import 'package:shatapp/utils/logger/logger_manager.dart';
+import 'package:shatapp/utils/router/routes/dashboard_route.dart';
 
 final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>((ref) {
   return GlobalKey<NavigatorState>();

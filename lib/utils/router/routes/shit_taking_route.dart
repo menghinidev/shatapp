@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:shatapp/pages/shit_taking/presentation/page/shit_taking_page.dart';
+import 'package:shatapp/pages/shit_taking/presentation/shit_taking_page.dart';
 
 class ShitTakingPageRoute extends GoRoute {
   ShitTakingPageRoute()
