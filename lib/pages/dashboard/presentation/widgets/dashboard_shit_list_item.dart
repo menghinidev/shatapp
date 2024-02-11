@@ -17,10 +17,13 @@ class DashboardShitListItem extends StatelessWidget {
           vertical: 10,
           horizontal: 20,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Wrap(
+          runAlignment: WrapAlignment.spaceBetween,
+          alignment: WrapAlignment.spaceBetween,
           children: [
-            Text(shit.severity.name),
+            Text(shit.effort.name),
+            Text(shit.consistency.name),
+            if (shit.note != null) Text(shit.note!),
             Text(shit.creationDateTime.toString()),
           ],
         ),

@@ -19,7 +19,9 @@ mixin _$Shit {
   String get id => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   DateTime get creationDateTime => throw _privateConstructorUsedError;
-  ShitSeverity get severity => throw _privateConstructorUsedError;
+  ShitEffort get effort => throw _privateConstructorUsedError;
+  ShitConsistency get consistency => throw _privateConstructorUsedError;
+  String? get note => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShitCopyWith<Shit> get copyWith => throw _privateConstructorUsedError;
@@ -34,7 +36,9 @@ abstract class $ShitCopyWith<$Res> {
       {String id,
       String userId,
       DateTime creationDateTime,
-      ShitSeverity severity});
+      ShitEffort effort,
+      ShitConsistency consistency,
+      String? note});
 }
 
 /// @nodoc
@@ -53,7 +57,9 @@ class _$ShitCopyWithImpl<$Res, $Val extends Shit>
     Object? id = null,
     Object? userId = null,
     Object? creationDateTime = null,
-    Object? severity = null,
+    Object? effort = null,
+    Object? consistency = null,
+    Object? note = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -68,10 +74,18 @@ class _$ShitCopyWithImpl<$Res, $Val extends Shit>
           ? _value.creationDateTime
           : creationDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      severity: null == severity
-          ? _value.severity
-          : severity // ignore: cast_nullable_to_non_nullable
-              as ShitSeverity,
+      effort: null == effort
+          ? _value.effort
+          : effort // ignore: cast_nullable_to_non_nullable
+              as ShitEffort,
+      consistency: null == consistency
+          ? _value.consistency
+          : consistency // ignore: cast_nullable_to_non_nullable
+              as ShitConsistency,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -87,7 +101,9 @@ abstract class _$$ShitImplCopyWith<$Res> implements $ShitCopyWith<$Res> {
       {String id,
       String userId,
       DateTime creationDateTime,
-      ShitSeverity severity});
+      ShitEffort effort,
+      ShitConsistency consistency,
+      String? note});
 }
 
 /// @nodoc
@@ -103,7 +119,9 @@ class __$$ShitImplCopyWithImpl<$Res>
     Object? id = null,
     Object? userId = null,
     Object? creationDateTime = null,
-    Object? severity = null,
+    Object? effort = null,
+    Object? consistency = null,
+    Object? note = freezed,
   }) {
     return _then(_$ShitImpl(
       id: null == id
@@ -118,10 +136,18 @@ class __$$ShitImplCopyWithImpl<$Res>
           ? _value.creationDateTime
           : creationDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      severity: null == severity
-          ? _value.severity
-          : severity // ignore: cast_nullable_to_non_nullable
-              as ShitSeverity,
+      effort: null == effort
+          ? _value.effort
+          : effort // ignore: cast_nullable_to_non_nullable
+              as ShitEffort,
+      consistency: null == consistency
+          ? _value.consistency
+          : consistency // ignore: cast_nullable_to_non_nullable
+              as ShitConsistency,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -133,7 +159,9 @@ class _$ShitImpl implements _Shit {
       {required this.id,
       required this.userId,
       required this.creationDateTime,
-      required this.severity});
+      required this.effort,
+      required this.consistency,
+      this.note});
 
   @override
   final String id;
@@ -142,11 +170,15 @@ class _$ShitImpl implements _Shit {
   @override
   final DateTime creationDateTime;
   @override
-  final ShitSeverity severity;
+  final ShitEffort effort;
+  @override
+  final ShitConsistency consistency;
+  @override
+  final String? note;
 
   @override
   String toString() {
-    return 'Shit(id: $id, userId: $userId, creationDateTime: $creationDateTime, severity: $severity)';
+    return 'Shit(id: $id, userId: $userId, creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, note: $note)';
   }
 
   @override
@@ -158,13 +190,15 @@ class _$ShitImpl implements _Shit {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.creationDateTime, creationDateTime) ||
                 other.creationDateTime == creationDateTime) &&
-            (identical(other.severity, severity) ||
-                other.severity == severity));
+            (identical(other.effort, effort) || other.effort == effort) &&
+            (identical(other.consistency, consistency) ||
+                other.consistency == consistency) &&
+            (identical(other.note, note) || other.note == note));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, userId, creationDateTime, severity);
+  int get hashCode => Object.hash(
+      runtimeType, id, userId, creationDateTime, effort, consistency, note);
 
   @JsonKey(ignore: true)
   @override
@@ -178,7 +212,9 @@ abstract class _Shit implements Shit {
       {required final String id,
       required final String userId,
       required final DateTime creationDateTime,
-      required final ShitSeverity severity}) = _$ShitImpl;
+      required final ShitEffort effort,
+      required final ShitConsistency consistency,
+      final String? note}) = _$ShitImpl;
 
   @override
   String get id;
@@ -187,7 +223,11 @@ abstract class _Shit implements Shit {
   @override
   DateTime get creationDateTime;
   @override
-  ShitSeverity get severity;
+  ShitEffort get effort;
+  @override
+  ShitConsistency get consistency;
+  @override
+  String? get note;
   @override
   @JsonKey(ignore: true)
   _$$ShitImplCopyWith<_$ShitImpl> get copyWith =>

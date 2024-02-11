@@ -19,9 +19,15 @@ class DashboardStats extends ConsumerWidget {
             ),
           ),
           DashboardStatsItem(
-            label: 'Average severity',
+            label: 'Average effort',
             child: Text(
-              data.averageSeverity!.name,
+              data.averageEffort!.name,
+            ),
+          ),
+          DashboardStatsItem(
+            label: 'Average consistency',
+            child: Text(
+              data.averageConsistency!.name,
             ),
           ),
           DashboardStatsItem(

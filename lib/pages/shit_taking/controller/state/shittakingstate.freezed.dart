@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ShitTakingState {
-  ShitSeverity get severity => throw _privateConstructorUsedError;
+  ShitEffort get effort => throw _privateConstructorUsedError;
+  ShitConsistency get consistency => throw _privateConstructorUsedError;
+  String? get note => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShitTakingStateCopyWith<ShitTakingState> get copyWith =>
@@ -29,7 +31,7 @@ abstract class $ShitTakingStateCopyWith<$Res> {
           ShitTakingState value, $Res Function(ShitTakingState) then) =
       _$ShitTakingStateCopyWithImpl<$Res, ShitTakingState>;
   @useResult
-  $Res call({ShitSeverity severity});
+  $Res call({ShitEffort effort, ShitConsistency consistency, String? note});
 }
 
 /// @nodoc
@@ -45,13 +47,23 @@ class _$ShitTakingStateCopyWithImpl<$Res, $Val extends ShitTakingState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? severity = null,
+    Object? effort = null,
+    Object? consistency = null,
+    Object? note = freezed,
   }) {
     return _then(_value.copyWith(
-      severity: null == severity
-          ? _value.severity
-          : severity // ignore: cast_nullable_to_non_nullable
-              as ShitSeverity,
+      effort: null == effort
+          ? _value.effort
+          : effort // ignore: cast_nullable_to_non_nullable
+              as ShitEffort,
+      consistency: null == consistency
+          ? _value.consistency
+          : consistency // ignore: cast_nullable_to_non_nullable
+              as ShitConsistency,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -64,7 +76,7 @@ abstract class _$$ShitTakingStateImplCopyWith<$Res>
       __$$ShitTakingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ShitSeverity severity});
+  $Res call({ShitEffort effort, ShitConsistency consistency, String? note});
 }
 
 /// @nodoc
@@ -78,13 +90,23 @@ class __$$ShitTakingStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? severity = null,
+    Object? effort = null,
+    Object? consistency = null,
+    Object? note = freezed,
   }) {
     return _then(_$ShitTakingStateImpl(
-      severity: null == severity
-          ? _value.severity
-          : severity // ignore: cast_nullable_to_non_nullable
-              as ShitSeverity,
+      effort: null == effort
+          ? _value.effort
+          : effort // ignore: cast_nullable_to_non_nullable
+              as ShitEffort,
+      consistency: null == consistency
+          ? _value.consistency
+          : consistency // ignore: cast_nullable_to_non_nullable
+              as ShitConsistency,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -92,14 +114,19 @@ class __$$ShitTakingStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ShitTakingStateImpl implements _ShitTakingState {
-  _$ShitTakingStateImpl({required this.severity});
+  _$ShitTakingStateImpl(
+      {required this.effort, required this.consistency, this.note});
 
   @override
-  final ShitSeverity severity;
+  final ShitEffort effort;
+  @override
+  final ShitConsistency consistency;
+  @override
+  final String? note;
 
   @override
   String toString() {
-    return 'ShitTakingState(severity: $severity)';
+    return 'ShitTakingState(effort: $effort, consistency: $consistency, note: $note)';
   }
 
   @override
@@ -107,12 +134,14 @@ class _$ShitTakingStateImpl implements _ShitTakingState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ShitTakingStateImpl &&
-            (identical(other.severity, severity) ||
-                other.severity == severity));
+            (identical(other.effort, effort) || other.effort == effort) &&
+            (identical(other.consistency, consistency) ||
+                other.consistency == consistency) &&
+            (identical(other.note, note) || other.note == note));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, severity);
+  int get hashCode => Object.hash(runtimeType, effort, consistency, note);
 
   @JsonKey(ignore: true)
   @override
@@ -123,11 +152,17 @@ class _$ShitTakingStateImpl implements _ShitTakingState {
 }
 
 abstract class _ShitTakingState implements ShitTakingState {
-  factory _ShitTakingState({required final ShitSeverity severity}) =
-      _$ShitTakingStateImpl;
+  factory _ShitTakingState(
+      {required final ShitEffort effort,
+      required final ShitConsistency consistency,
+      final String? note}) = _$ShitTakingStateImpl;
 
   @override
-  ShitSeverity get severity;
+  ShitEffort get effort;
+  @override
+  ShitConsistency get consistency;
+  @override
+  String? get note;
   @override
   @JsonKey(ignore: true)
   _$$ShitTakingStateImplCopyWith<_$ShitTakingStateImpl> get copyWith =>

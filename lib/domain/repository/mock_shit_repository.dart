@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shatapp/domain/enum/shit_severity_enum.dart';
+import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
+import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
 import 'package:shatapp/domain/model/stats/stats.dart';
 import 'package:shatapp/domain/repository/i_shit_repository.dart';
@@ -13,13 +14,19 @@ class MockShitRepository implements ShitRepository {
   }
 
   @override
-  Future<void> registerShit({required ShitSeverity severity}) async {
+  Future<void> registerShit({
+    required ShitEffort effort,
+    required ShitConsistency consistency,
+    String? note,
+  }) async {
     _shits.add(
       Shit(
         id: (_shits.length + 1).toString(),
         userId: 'me',
         creationDateTime: DateTime.now(),
-        severity: severity,
+        consistency: consistency,
+        effort: effort,
+        note: note,
       ),
     );
   }
@@ -45,9 +52,15 @@ class MockShitRepository implements ShitRepository {
       );
     return Stats(
       totalCount: _shits.length,
-      averageSeverity: ShitSeverity.values[(_shits.fold(
+      averageEffort: ShitEffort.values[(_shits.fold(
                 0,
-                (previousValue, element) => previousValue + ShitSeverity.values.indexOf(element.severity),
+                (previousValue, element) => previousValue + ShitEffort.values.indexOf(element.effort),
+              ) /
+              _shits.length)
+          .ceil()],
+      averageConsistency: ShitConsistency.values[(_shits.fold(
+                0,
+                (previousValue, element) => previousValue + ShitConsistency.values.indexOf(element.consistency),
               ) /
               _shits.length)
           .ceil()],
@@ -61,19 +74,30 @@ class MockShitRepository implements ShitRepository {
       id: '1',
       userId: 'me',
       creationDateTime: DateTime(2024, 2, 10),
-      severity: ShitSeverity.likeAPiss,
+      consistency: ShitConsistency.cement,
+      effort: ShitEffort.legendary,
+      note: 'asasda dads',
     ),
     Shit(
       id: '2',
       userId: 'me',
       creationDateTime: DateTime(2024, 2, 2),
-      severity: ShitSeverity.almostFaint,
+      consistency: ShitConsistency.normal,
+      effort: ShitEffort.legendary,
     ),
     Shit(
       id: '3',
       userId: 'me',
       creationDateTime: DateTime(2024, 1, 28),
-      severity: ShitSeverity.hard,
+      consistency: ShitConsistency.cement,
+      effort: ShitEffort.legendary,
+    ),
+    Shit(
+      id: '4',
+      userId: 'me',
+      creationDateTime: DateTime(2024, 1, 28),
+      consistency: ShitConsistency.liquid,
+      effort: ShitEffort.easy,
     ),
   ];
 }
