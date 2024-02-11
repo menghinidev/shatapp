@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class DashboardStatsItem extends StatelessWidget {
+class DashboardStatsItem extends StatelessWidget with UiUtility, UiDimension, UiShape {
   const DashboardStatsItem({
     required this.label,
     required this.child,
@@ -13,22 +14,16 @@ class DashboardStatsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Theme.of(context).primaryColor),
-        color: Theme.of(context).cardColor,
-      ),
+      padding: mediumPadding,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              label,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
+          smallDivider,
           child,
         ],
       ),

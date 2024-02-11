@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(User user) logged,
+    required TResult Function(ShatAppUser user) logged,
     required TResult Function() unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User user)? logged,
+    TResult? Function(ShatAppUser user)? logged,
     TResult? Function()? unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User user)? logged,
+    TResult Function(ShatAppUser user)? logged,
     TResult Function()? unknown,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,9 @@ abstract class _$$LoggedImplCopyWith<$Res> {
           _$LoggedImpl value, $Res Function(_$LoggedImpl) then) =
       __$$LoggedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({User user});
+  $Res call({ShatAppUser user});
+
+  $ShatAppUserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -100,8 +102,16 @@ class __$$LoggedImplCopyWithImpl<$Res>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as User,
+              as ShatAppUser,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ShatAppUserCopyWith<$Res> get user {
+    return $ShatAppUserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
@@ -111,7 +121,7 @@ class _$LoggedImpl implements Logged {
   _$LoggedImpl({required this.user});
 
   @override
-  final User user;
+  final ShatAppUser user;
 
   @override
   String toString() {
@@ -138,7 +148,7 @@ class _$LoggedImpl implements Logged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(User user) logged,
+    required TResult Function(ShatAppUser user) logged,
     required TResult Function() unknown,
   }) {
     return logged(user);
@@ -147,7 +157,7 @@ class _$LoggedImpl implements Logged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User user)? logged,
+    TResult? Function(ShatAppUser user)? logged,
     TResult? Function()? unknown,
   }) {
     return logged?.call(user);
@@ -156,7 +166,7 @@ class _$LoggedImpl implements Logged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User user)? logged,
+    TResult Function(ShatAppUser user)? logged,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {
@@ -199,9 +209,9 @@ class _$LoggedImpl implements Logged {
 }
 
 abstract class Logged implements AuthenticationState {
-  factory Logged({required final User user}) = _$LoggedImpl;
+  factory Logged({required final ShatAppUser user}) = _$LoggedImpl;
 
-  User get user;
+  ShatAppUser get user;
   @JsonKey(ignore: true)
   _$$LoggedImplCopyWith<_$LoggedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -245,7 +255,7 @@ class _$UnknownImpl implements Unknown {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(User user) logged,
+    required TResult Function(ShatAppUser user) logged,
     required TResult Function() unknown,
   }) {
     return unknown();
@@ -254,7 +264,7 @@ class _$UnknownImpl implements Unknown {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User user)? logged,
+    TResult? Function(ShatAppUser user)? logged,
     TResult? Function()? unknown,
   }) {
     return unknown?.call();
@@ -263,7 +273,7 @@ class _$UnknownImpl implements Unknown {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User user)? logged,
+    TResult Function(ShatAppUser user)? logged,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {

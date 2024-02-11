@@ -60,7 +60,6 @@ class ShatApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en'), // English
         Locale('it'), // Italian
       ],
     );

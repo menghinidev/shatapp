@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/dashboard/presentation/widgets/dashboard_stats_item.dart';
+import 'package:shatapp/utils/provider_extension.dart';
+import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
 class DashboardStats extends ConsumerWidget {
   const DashboardStats({super.key});
@@ -9,8 +11,10 @@ class DashboardStats extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final stats = ref.watch(dashboardStatsStateProvider);
-    return stats.when(
+    return stats.loadUntil(
       data: (data) => Wrap(
+        spacing: UiDimension.mediumSize,
+        runSpacing: UiDimension.mediumSize,
         children: [
           DashboardStatsItem(
             label: 'Total count',
@@ -45,14 +49,6 @@ class DashboardStats extends ConsumerWidget {
             ),
           ),
         ],
-      ),
-      error: (error, stackTrace) => Center(
-        child: Text(
-          error.toString(),
-        ),
-      ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
       ),
     );
   }

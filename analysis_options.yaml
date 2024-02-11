@@ -5,6 +5,9 @@ analyzer:
     - custom_lint
   exclude:
     - lib/firebase_options.dart
+    - lib/**.g.dart
+  errors:
+    invalid_annotation_target: ignore
 
 linter:
   rules:

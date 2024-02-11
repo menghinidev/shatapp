@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 mixin UiUtility {
+  Widget get largeDivider => const SizedBox.square(dimension: UiDimension.largeSize);
   Widget get mediumSliverDivider => SliverToBoxAdapter(child: mediumDivider);
   Widget get mediumDivider => const SizedBox.square(dimension: UiDimension.mediumSize);
   Widget get smallSliverDivider => SliverToBoxAdapter(child: smallDivider);
   Widget get smallDivider => const SizedBox.square(dimension: UiDimension.smallSize);
+  Widget get extraSmallDivider => const SizedBox.square(dimension: UiDimension.extraSmallSize);
   double get elevation => 10;
   double get smallElevation => elevation / 2;
 }
@@ -47,4 +49,5 @@ extension TextThemeProvider on BuildContext {
 extension TextStyleModifier on TextStyle? {
   TextStyle? get withGrayColor => this?.copyWith(color: Colors.grey);
   TextStyle? get withLightBlack => this?.copyWith(color: Colors.black54);
+  TextStyle? get withBold => this?.copyWith(fontWeight: FontWeight.bold);
 }

@@ -21,4 +21,4 @@ jobs:
         with:
           webRenderer: canvaskit
           baseHref: /shatapp/
-        
+          customArgs: --dart-define="ENV=Prod"

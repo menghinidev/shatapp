@@ -9,10 +9,8 @@ final appThemeProvider = Provider<AppTheme>((ref) {
 class AppTheme {
   ThemeData get lightTheme => FlexThemeData.light(
         scheme: FlexScheme.bahamaBlue,
-        useMaterial3: true,
       );
   ThemeData get darkTheme => FlexThemeData.dark(
         scheme: FlexScheme.aquaBlue,
-        useMaterial3: true,
       );
 }

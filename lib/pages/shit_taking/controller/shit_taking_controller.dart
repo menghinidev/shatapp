@@ -1,12 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
+import 'package:shatapp/domain/repository/firestore_repository.dart';
 import 'package:shatapp/domain/repository/i_shit_repository.dart';
-import 'package:shatapp/domain/repository/mock_shit_repository.dart';
 import 'package:shatapp/pages/shit_taking/controller/state/shittakingstate.dart';
 
 final shitTakingStateProvider = StateNotifierProvider<ShitTakingController, ShitTakingState>((ref) {
-  final repo = ref.read(mockShitRepository);
+  final repo = ref.read(shitRepository);
   return ShitTakingController(
     repository: repo,
   );

@@ -1,4 +1,4 @@
-class FlutterShowcaseEnv {
-  static const sentryApiKey = String.fromEnvironment('SENTRY_DSN');
+class ShatAppEnv {
   static const env = String.fromEnvironment('ENV', defaultValue: 'Dev');
+  static const bool isDevEnv = env == 'Dev';
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/session/state/authenticationstate.dart';
 import 'package:shatapp/utils/dialog/dialog_manager.dart';
 import 'package:shatapp/utils/logger/logger_manager.dart';
@@ -64,7 +65,12 @@ class AuthenticationSessionController extends StateNotifier<AuthenticationState>
       logger.logMessage('User is currently signed out!');
       state = AuthenticationState.unknown();
     } else {
-      state = AuthenticationState.logged(user: user);
+      final shatappUser = ShatAppUser(
+        id: user.uid,
+        name: user.displayName!,
+        imageUrl: user.photoURL,
+      );
+      state = AuthenticationState.logged(user: shatappUser);
       logger.logMessage('User is signed in!');
     }
   }

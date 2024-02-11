@@ -60,12 +60,14 @@ class _ShitForLoginButtonState extends ConsumerState<ShitForLoginButton> {
         child: AnimatedScale(
           scale: scale,
           duration: const Duration(milliseconds: 100),
-          child: GestureDetector(
-            onTapDown: (detail) => _startDecreasing(),
-            onTapUp: (detail) => _startIncreasing(),
-            onTapCancel: _startIncreasing,
-            child: Image.asset(
-              'assets/images/poo.png',
+          child: Listener(
+            behavior: HitTestBehavior.translucent,
+            onPointerUp: (event) => _startIncreasing(),
+            child: GestureDetector(
+              onTapDown: (detail) => _startDecreasing(),
+              child: Image.asset(
+                'assets/images/poo.png',
+              ),
             ),
           ),
         ),

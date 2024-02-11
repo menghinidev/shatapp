@@ -1,11 +1,8 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
 import 'package:shatapp/domain/model/stats/stats.dart';
 import 'package:shatapp/domain/repository/i_shit_repository.dart';
-
-final mockShitRepository = Provider<ShitRepository>((ref) => MockShitRepository());
 
 class MockShitRepository implements ShitRepository {
   @override
@@ -22,7 +19,6 @@ class MockShitRepository implements ShitRepository {
     _shits.add(
       Shit(
         id: (_shits.length + 1).toString(),
-        userId: 'me',
         creationDateTime: DateTime.now(),
         consistency: consistency,
         effort: effort,
@@ -72,7 +68,6 @@ class MockShitRepository implements ShitRepository {
   static final _shits = [
     Shit(
       id: '1',
-      userId: 'me',
       creationDateTime: DateTime(2024, 2, 10),
       consistency: ShitConsistency.cement,
       effort: ShitEffort.legendary,
@@ -80,21 +75,18 @@ class MockShitRepository implements ShitRepository {
     ),
     Shit(
       id: '2',
-      userId: 'me',
       creationDateTime: DateTime(2024, 2, 2),
       consistency: ShitConsistency.normal,
       effort: ShitEffort.legendary,
     ),
     Shit(
       id: '3',
-      userId: 'me',
       creationDateTime: DateTime(2024, 1, 28),
       consistency: ShitConsistency.cement,
       effort: ShitEffort.legendary,
     ),
     Shit(
       id: '4',
-      userId: 'me',
       creationDateTime: DateTime(2024, 1, 28),
       consistency: ShitConsistency.liquid,
       effort: ShitEffort.easy,
