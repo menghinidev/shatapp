@@ -5,6 +5,7 @@ part 'shatappuser.g.dart';
 
 @freezed
 class ShatAppUser with _$ShatAppUser {
+  @JsonSerializable(includeIfNull: false)
   factory ShatAppUser({
     required String id,
     required String name,

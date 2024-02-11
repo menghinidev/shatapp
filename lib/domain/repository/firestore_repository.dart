@@ -56,9 +56,15 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
       effort: effort,
       consistency: consistency,
       note: note,
-      user: loggedUser,
+      //user: loggedUser,
     );
-    await collection.add(data.toJson());
+    final userJson = loggedUser.toJson();
+    final json = data.toJson()
+      ..update(
+        'user',
+        (_) => userJson,
+      );
+    await collection.add(json);
     return Future.value();
   }
 }
