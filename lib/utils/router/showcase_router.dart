@@ -2,22 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/utils/logger/logger_manager.dart';
+import 'package:shatapp/utils/router/router_notifier.dart';
 import 'package:shatapp/utils/router/routes/dashboard_route.dart';
+import 'package:shatapp/utils/router/routes/login_route.dart';
 
 final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>((ref) {
   return GlobalKey<NavigatorState>();
 });
 
-final routerProvider = Provider<GoRouter>((ref) {
+final routerProvider = Provider.autoDispose<GoRouter>((ref) {
   final key = ref.watch(navigatorKeyProvider);
+  final notifier = ref.watch(routerNotifierProvider.notifier);
   return GoRouter(
     navigatorKey: key,
+    redirect: notifier.redirect,
+    refreshListenable: notifier,
     observers: [
       LoggerNavigatorObserver(
         logger: ref.read(loggerManagerProvider),
       ),
     ],
-    routes: [DashboardPageRoute()],
+    routes: [
+      DashboardPageRoute(),
+      LoginPageRoute(),
+    ],
   );
 });
 
