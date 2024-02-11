@@ -59,7 +59,7 @@ class ShitTakingController extends StateNotifier<ShitTakingState> {
       );
       onSuccess();
     } catch (e) {
-      await dialogManager.showWarningDialog<void>(text: 'Error');
+      await dialogManager.showWarningDialog<void>(text: 'Error: $e');
     }
   }
 }
