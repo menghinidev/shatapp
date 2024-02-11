@@ -5,10 +5,11 @@ import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 class DashboardPageRoute extends GoRoute {
   DashboardPageRoute()
       : super(
-          path: '/',
+          path: pagePath,
           builder: (context, state) => const DashboardPage(),
           routes: [
             ShitTakingPageRoute(),
           ],
         );
+  static String pagePath = '/';
 }
