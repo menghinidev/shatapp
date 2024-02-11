@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Stats {
   int get totalCount => throw _privateConstructorUsedError;
-  ShitSeverity? get averageSeverity => throw _privateConstructorUsedError;
+  ShitEffort? get averageEffort => throw _privateConstructorUsedError;
+  ShitConsistency? get averageConsistency => throw _privateConstructorUsedError;
   int? get shittiestDayCount => throw _privateConstructorUsedError;
   DateTime? get shittiestDay => throw _privateConstructorUsedError;
 
@@ -32,7 +33,8 @@ abstract class $StatsCopyWith<$Res> {
   @useResult
   $Res call(
       {int totalCount,
-      ShitSeverity? averageSeverity,
+      ShitEffort? averageEffort,
+      ShitConsistency? averageConsistency,
       int? shittiestDayCount,
       DateTime? shittiestDay});
 }
@@ -51,7 +53,8 @@ class _$StatsCopyWithImpl<$Res, $Val extends Stats>
   @override
   $Res call({
     Object? totalCount = null,
-    Object? averageSeverity = freezed,
+    Object? averageEffort = freezed,
+    Object? averageConsistency = freezed,
     Object? shittiestDayCount = freezed,
     Object? shittiestDay = freezed,
   }) {
@@ -60,10 +63,14 @@ class _$StatsCopyWithImpl<$Res, $Val extends Stats>
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      averageSeverity: freezed == averageSeverity
-          ? _value.averageSeverity
-          : averageSeverity // ignore: cast_nullable_to_non_nullable
-              as ShitSeverity?,
+      averageEffort: freezed == averageEffort
+          ? _value.averageEffort
+          : averageEffort // ignore: cast_nullable_to_non_nullable
+              as ShitEffort?,
+      averageConsistency: freezed == averageConsistency
+          ? _value.averageConsistency
+          : averageConsistency // ignore: cast_nullable_to_non_nullable
+              as ShitConsistency?,
       shittiestDayCount: freezed == shittiestDayCount
           ? _value.shittiestDayCount
           : shittiestDayCount // ignore: cast_nullable_to_non_nullable
@@ -85,7 +92,8 @@ abstract class _$$StatsImplCopyWith<$Res> implements $StatsCopyWith<$Res> {
   @useResult
   $Res call(
       {int totalCount,
-      ShitSeverity? averageSeverity,
+      ShitEffort? averageEffort,
+      ShitConsistency? averageConsistency,
       int? shittiestDayCount,
       DateTime? shittiestDay});
 }
@@ -102,7 +110,8 @@ class __$$StatsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? totalCount = null,
-    Object? averageSeverity = freezed,
+    Object? averageEffort = freezed,
+    Object? averageConsistency = freezed,
     Object? shittiestDayCount = freezed,
     Object? shittiestDay = freezed,
   }) {
@@ -111,10 +120,14 @@ class __$$StatsImplCopyWithImpl<$Res>
           ? _value.totalCount
           : totalCount // ignore: cast_nullable_to_non_nullable
               as int,
-      averageSeverity: freezed == averageSeverity
-          ? _value.averageSeverity
-          : averageSeverity // ignore: cast_nullable_to_non_nullable
-              as ShitSeverity?,
+      averageEffort: freezed == averageEffort
+          ? _value.averageEffort
+          : averageEffort // ignore: cast_nullable_to_non_nullable
+              as ShitEffort?,
+      averageConsistency: freezed == averageConsistency
+          ? _value.averageConsistency
+          : averageConsistency // ignore: cast_nullable_to_non_nullable
+              as ShitConsistency?,
       shittiestDayCount: freezed == shittiestDayCount
           ? _value.shittiestDayCount
           : shittiestDayCount // ignore: cast_nullable_to_non_nullable
@@ -132,14 +145,17 @@ class __$$StatsImplCopyWithImpl<$Res>
 class _$StatsImpl implements _Stats {
   _$StatsImpl(
       {required this.totalCount,
-      this.averageSeverity,
+      this.averageEffort,
+      this.averageConsistency,
       this.shittiestDayCount,
       this.shittiestDay});
 
   @override
   final int totalCount;
   @override
-  final ShitSeverity? averageSeverity;
+  final ShitEffort? averageEffort;
+  @override
+  final ShitConsistency? averageConsistency;
   @override
   final int? shittiestDayCount;
   @override
@@ -147,7 +163,7 @@ class _$StatsImpl implements _Stats {
 
   @override
   String toString() {
-    return 'Stats(totalCount: $totalCount, averageSeverity: $averageSeverity, shittiestDayCount: $shittiestDayCount, shittiestDay: $shittiestDay)';
+    return 'Stats(totalCount: $totalCount, averageEffort: $averageEffort, averageConsistency: $averageConsistency, shittiestDayCount: $shittiestDayCount, shittiestDay: $shittiestDay)';
   }
 
   @override
@@ -157,8 +173,10 @@ class _$StatsImpl implements _Stats {
             other is _$StatsImpl &&
             (identical(other.totalCount, totalCount) ||
                 other.totalCount == totalCount) &&
-            (identical(other.averageSeverity, averageSeverity) ||
-                other.averageSeverity == averageSeverity) &&
+            (identical(other.averageEffort, averageEffort) ||
+                other.averageEffort == averageEffort) &&
+            (identical(other.averageConsistency, averageConsistency) ||
+                other.averageConsistency == averageConsistency) &&
             (identical(other.shittiestDayCount, shittiestDayCount) ||
                 other.shittiestDayCount == shittiestDayCount) &&
             (identical(other.shittiestDay, shittiestDay) ||
@@ -166,8 +184,8 @@ class _$StatsImpl implements _Stats {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, totalCount, averageSeverity,
-      shittiestDayCount, shittiestDay);
+  int get hashCode => Object.hash(runtimeType, totalCount, averageEffort,
+      averageConsistency, shittiestDayCount, shittiestDay);
 
   @JsonKey(ignore: true)
   @override
@@ -179,14 +197,17 @@ class _$StatsImpl implements _Stats {
 abstract class _Stats implements Stats {
   factory _Stats(
       {required final int totalCount,
-      final ShitSeverity? averageSeverity,
+      final ShitEffort? averageEffort,
+      final ShitConsistency? averageConsistency,
       final int? shittiestDayCount,
       final DateTime? shittiestDay}) = _$StatsImpl;
 
   @override
   int get totalCount;
   @override
-  ShitSeverity? get averageSeverity;
+  ShitEffort? get averageEffort;
+  @override
+  ShitConsistency? get averageConsistency;
   @override
   int? get shittiestDayCount;
   @override
