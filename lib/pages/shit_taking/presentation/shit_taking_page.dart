@@ -15,7 +15,7 @@ class ShitTakingPage extends ConsumerWidget {
       body: const Padding(
         padding: EdgeInsets.symmetric(vertical: 40, horizontal: 50),
         child: CustomScrollConfiguration(
-          child: ShitTakingForm(),
+          child: SingleChildScrollView(child: ShitTakingForm()),
         ),
       ),
     );

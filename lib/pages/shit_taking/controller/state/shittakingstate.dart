@@ -10,5 +10,6 @@ class ShitTakingState with _$ShitTakingState {
     required ShitEffort effort,
     required ShitConsistency consistency,
     String? note,
+    int? color,
   }) = _ShitTakingState;
 }
