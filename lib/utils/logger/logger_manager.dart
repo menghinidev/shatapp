@@ -16,4 +16,8 @@ class LoggerManager {
   final Logger logger;
 
   void logMessage(String message) => logger.i(message);
+
+  void logExeption(Exception e) {
+    logger.e(e);
+  }
 }

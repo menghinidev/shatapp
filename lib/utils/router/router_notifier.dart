@@ -9,6 +9,7 @@ final routerNotifierProvider = AutoDisposeAsyncNotifierProvider<RouterNotifier, 
 });
 
 class RouterNotifier extends AutoDisposeAsyncNotifier<bool> implements Listenable {
+  // ignore: avoid_public_notifier_properties
   VoidCallback? routerListener;
 
   @override
