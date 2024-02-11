@@ -1,0 +1,8 @@
+{
+    "@@locale": "it",
+    "@@author": "Lorenzo Menghini",
+    "title": "ShatApp",
+    "@title": {
+        "description": "Nome dell'applicazione"
+    }
+}
