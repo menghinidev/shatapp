@@ -3,19 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
 import 'package:shatapp/domain/model/user/shatappuser.dart';
+import 'package:shatapp/domain/repository/firestore_repository.dart';
+import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/utils/localization/date_formatter.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class DashboardShitListItem extends StatelessWidget with DateFormatter, UiUtility {
+class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility {
   const DashboardShitListItem({
     required this.shit,
+    this.canDelete = false,
     super.key,
   });
 
   final Shit shit;
+  final bool canDelete;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,6 +46,20 @@ class DashboardShitListItem extends StatelessWidget with DateFormatter, UiUtilit
                 ],
               ),
             ),
+            if (canDelete) ...[
+              smallDivider,
+              IconButton.outlined(
+                onPressed: () async {
+                  await ref.read(shitRepository).removeShit(shit.id);
+                  ref
+                    ..invalidate(myShitProvider)
+                    ..invalidate(globalShitProvider);
+                },
+                visualDensity: VisualDensity.compact,
+                color: Theme.of(context).colorScheme.error,
+                icon: const Icon(Icons.delete_outline_rounded),
+              ),
+            ],
           ],
         ),
         smallDivider,

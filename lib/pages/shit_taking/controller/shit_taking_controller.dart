@@ -16,7 +16,9 @@ final shitTakingStateProvider = StateNotifierProvider<ShitTakingController, Shit
     repository: repo,
     dialogManager: dialogManager,
     onSuccess: () {
-      ref.invalidate(dashboardProvider);
+      ref
+        ..invalidate(myShitProvider)
+        ..invalidate(globalShitProvider);
       ref.read(routerProvider).go(DashboardPageRoute.pagePath);
     },
   );

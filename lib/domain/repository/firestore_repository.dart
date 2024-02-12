@@ -24,16 +24,12 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
   final AuthenticationState authState;
 
   @override
-  Future<List<Shit>> getShits() async {
+  Future<List<Shit>> getMyShitDiary() async {
     final loggedUser = authState.mapOrNull(logged: (data) => data.user);
     if (loggedUser == null) return Future.value(<Shit>[]);
     final collection = firestore.collection(shitCollectionKey);
-    final documents = await collection.get();
-    return documents.docs
-        .map((e) => mapDtoFromJson(e.id, e.data()))
-        .map(mapFromDto)
-        .where((element) => element.user?.id == loggedUser.id)
-        .toList();
+    final documents = await collection.where('user.id', isEqualTo: loggedUser.id).get();
+    return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList();
   }
 
   @override
@@ -67,8 +63,22 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
     await collection.add(json);
     return Future.value();
   }
-}
 
-extension DocumentIdComposer on Map<String, dynamic> {
-  Map<String, dynamic> addId(String id) => {for (final i in entries) i.key: i.value}..putIfAbsent('id', () => id);
+  @override
+  Future<List<Shit>> getGlobalShit() async {
+    final loggedUser = authState.mapOrNull(logged: (data) => data.user);
+    if (loggedUser == null) return Future.value(<Shit>[]);
+    final collection = firestore.collection(shitCollectionKey);
+    final documents = await collection.get();
+    return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList();
+  }
+
+  @override
+  Future<void> removeShit(String shitId) async {
+    final loggedUser = authState.mapOrNull(logged: (data) => data.user);
+    if (loggedUser == null) return Future.value();
+    final collection = firestore.collection(shitCollectionKey);
+    await collection.doc(shitId).delete();
+    return Future.value();
+  }
 }
