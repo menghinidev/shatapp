@@ -44,15 +44,6 @@ class MyShitTeamListItem extends ConsumerWidget with UiShape, UiDimension, UiUti
                     Text(team.shits.length.toString()),
                   ],
                 ),
-                /* IconButton.filledTonal(
-                  onPressed: () {
-                    ref
-                        .read(shitTeamRepositoryProvider)
-                        .removeShitTeam(team)
-                        .then((value) => ref.invalidate(myShitTeamsProvider));
-                  },
-                  icon: const Icon(Icons.delete_rounded),
-                ), */
               ],
             ),
             smallDivider,

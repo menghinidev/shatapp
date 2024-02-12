@@ -4,7 +4,9 @@ import 'package:shatapp/domain/session/authentication_session_controller.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/dashboard_shit_list.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/global_shit_section.dart';
+import 'package:shatapp/pages/my_shit_teams/presentation/edit_shit_teams_dialog.dart';
 import 'package:shatapp/pages/my_shit_teams/presentation/my_shit_teams_page.dart';
+import 'package:shatapp/pages/my_shit_teams/presentation/new_shit_team_dialog.dart';
 import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
 import 'package:shatapp/utils/theme/theme_switch.dart';
@@ -23,7 +25,7 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
   Widget? getFAB(int index) {
     if (index == 0) {
       return const NewShitTakingButton();
-    } else if (index == 2) return const ShowTeamCreationButton();
+    }
     return null;
   }
 
@@ -64,12 +66,32 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
               SliverAppBar.large(
                 title: Text(pagesTitle[index]),
                 actions: [
-                  const ThemeModeSwitch(),
-                  extraSmallDivider,
-                  IconButton.filledTonal(
-                    onPressed: () => ref.authController.logout(),
-                    icon: const Icon(Icons.logout_outlined),
-                  ),
+                  if (index == 0) ...[
+                    const ThemeModeSwitch(),
+                    extraSmallDivider,
+                    IconButton(
+                      onPressed: () => ref.authController.logout(),
+                      icon: const Icon(Icons.logout_outlined),
+                    ),
+                  ],
+                  if (index == 2) ...[
+                    IconButton(
+                      onPressed: () => showModalBottomSheet<void>(
+                        context: context,
+                        builder: (_) => const EditShitTeamsBottomSheet(),
+                      ),
+                      visualDensity: VisualDensity.compact,
+                      icon: const Icon(Icons.edit_rounded),
+                    ),
+                    IconButton(
+                      onPressed: () => showModalBottomSheet<void>(
+                        context: context,
+                        builder: (_) => CreateShitTeamBottomSheet(),
+                      ),
+                      visualDensity: VisualDensity.compact,
+                      icon: const Icon(Icons.add),
+                    ),
+                  ],
                   extraSmallDivider,
                 ],
               ),

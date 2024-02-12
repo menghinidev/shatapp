@@ -28,6 +28,11 @@ abstract class IShitTeamRepository {
     List<ShatAppUser>? members,
   });
 
+  Future<void> registerShit({
+    required ShitTeam team,
+    required Shit shit,
+  });
+
   Future<List<ShitTeam>> myShitTeams();
 
   Future<void> removeShitTeam(ShitTeam team);
@@ -110,5 +115,15 @@ class FirestoreShitTeamRepository extends IShitTeamRepository with ShitDtoMapper
       shits.add(mapped);
     }
     return Future.value(shits);
+  }
+
+  @override
+  Future<void> registerShit({
+    required ShitTeam team,
+    required Shit shit,
+  }) async {
+    final loggedUser = authState.mapOrNull(logged: (data) => data.user);
+    if (loggedUser == null) return Future.value();
+    return Future.value();
   }
 }
