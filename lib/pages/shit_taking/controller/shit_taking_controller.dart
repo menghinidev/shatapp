@@ -9,7 +9,7 @@ import 'package:shatapp/utils/dialog/dialog_manager.dart';
 import 'package:shatapp/utils/router/routes/dashboard_route.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
 
-final shitTakingStateProvider = StateNotifierProvider<ShitTakingController, ShitTakingState>((ref) {
+final shitTakingStateProvider = StateNotifierProvider.autoDispose<ShitTakingController, ShitTakingState>((ref) {
   final repo = ref.read(shitRepository);
   final dialogManager = ref.read(dialogManagerProvider);
   return ShitTakingController(
@@ -62,6 +62,7 @@ class ShitTakingController extends StateNotifier<ShitTakingState> {
         effort: state.effort,
         consistency: state.consistency,
         note: state.note,
+        color: state.color.toString(),
       );
       onSuccess();
     } catch (e) {

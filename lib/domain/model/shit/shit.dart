@@ -15,6 +15,7 @@ mixin ShitDtoMapper {
       effort: dto.data.effort,
       note: dto.data.note,
       user: dto.data.user,
+      color: dto.data.color,
     );
   }
 
@@ -35,6 +36,7 @@ class Shit with _$Shit {
     required ShitConsistency consistency,
     ShatAppUser? user,
     String? note,
+    String? color,
   }) = _Shit;
 
   factory Shit.fromJson(Map<String, dynamic> json) => _$ShitFromJson(json);
@@ -52,12 +54,14 @@ class ShitDto with _$ShitDto {
 
 @freezed
 class ShitDataDto with _$ShitDataDto {
+  @JsonSerializable(includeIfNull: false)
   factory ShitDataDto({
     required DateTime creationDateTime,
     required ShitEffort effort,
     required ShitConsistency consistency,
     ShatAppUser? user,
     String? note,
+    String? color,
   }) = _ShitDataDto;
 
   factory ShitDataDto.fromJson(Map<String, dynamic> json) => _$ShitDataDtoFromJson(json);

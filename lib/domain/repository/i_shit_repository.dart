@@ -11,6 +11,7 @@ abstract class ShitRepository {
     required ShitEffort effort,
     required ShitConsistency consistency,
     String? note,
+    String? color,
   });
 
   Future<void> removeShit(String shitId);

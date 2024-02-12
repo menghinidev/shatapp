@@ -14,6 +14,7 @@ class MockShitRepository implements ShitRepository {
   Future<void> registerShit({
     required ShitEffort effort,
     required ShitConsistency consistency,
+    String? color,
     String? note,
   }) async {
     _shits.add(
