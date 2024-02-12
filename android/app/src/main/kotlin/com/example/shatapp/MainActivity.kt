@@ -1,4 +1,4 @@
-package com.example.shatapp
+package it.venturini.shatapp
 
 import io.flutter.embedding.android.FlutterActivity
 

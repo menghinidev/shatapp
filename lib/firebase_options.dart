@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAW6m8UwhcF8H84zhwZQJ4oAAWGAHsdRx0',
-    appId: '1:1071891098375:android:ec5825d64a846fec4d73a2',
+    appId: '1:1071891098375:android:0eae2d01af86d8b24d73a2',
     messagingSenderId: '1071891098375',
     projectId: 'shatapp-930a6',
     storageBucket: 'shatapp-930a6.appspot.com',
@@ -66,12 +66,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyD4NpeBcg9PsR4bwRsJbJ6I0DpmyyDPdBY',
-    appId: '1:1071891098375:ios:999cf123834eda9a4d73a2',
+    appId: '1:1071891098375:ios:295d9de32060450e4d73a2',
     messagingSenderId: '1071891098375',
     projectId: 'shatapp-930a6',
     storageBucket: 'shatapp-930a6.appspot.com',
     androidClientId: '1071891098375-a535pn23aq9gr3cpisbmnri71i8n8hl7.apps.googleusercontent.com',
-    iosClientId: '1071891098375-1p1eb2s9tdf8ahbouflea6nvhsmu52es.apps.googleusercontent.com',
-    iosBundleId: 'com.example.shatapp',
+    iosClientId: '1071891098375-2jlg1tq9lkbggbaovs72sqq02pql1ogv.apps.googleusercontent.com',
+    iosBundleId: 'it.venturini.shatapp',
   );
 }
