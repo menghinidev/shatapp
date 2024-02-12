@@ -117,7 +117,8 @@ class __$$ShatAppUserImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$ShatAppUserImpl implements _ShatAppUser {
   _$ShatAppUserImpl({required this.id, required this.name, this.imageUrl});
 

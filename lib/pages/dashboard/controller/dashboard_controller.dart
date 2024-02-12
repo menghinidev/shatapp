@@ -4,7 +4,7 @@ import 'package:shatapp/domain/model/stats/stats.dart';
 import 'package:shatapp/domain/repository/firestore_repository.dart';
 
 final dashboardProvider = FutureProvider<List<Shit>>((ref) async {
-  final repo = ref.read(shitRepository);
+  final repo = ref.watch(shitRepository);
   return repo.getShits();
 });
 
