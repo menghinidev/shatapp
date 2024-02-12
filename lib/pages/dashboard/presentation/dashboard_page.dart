@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/session/authentication_session_controller.dart';
+import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/dashboard_shit_list.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/global_shit_section.dart';
 import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
+import 'package:shatapp/utils/ui_utils/scroll_utility.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
 final _homePageIndexProvider = StateProvider<int>((ref) {
@@ -17,22 +18,11 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = usePageController();
     final index = ref.watch(_homePageIndexProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-        actions: [
-          IconButton.filledTonal(
-            onPressed: () => ref.authController.logout(),
-            icon: const Icon(Icons.logout_outlined),
-          ),
-          smallDivider,
-        ],
-      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
-        onTap: pageController.jumpToPage,
+        onTap: (value) => ref.read(_homePageIndexProvider.notifier).state = value,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -46,13 +36,33 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
           ),
         ],
       ),
-      body: PageView(
-        controller: pageController,
-        onPageChanged: (value) => ref.read(_homePageIndexProvider.notifier).state = value,
-        children: const [
-          MyShitDiarySection(),
-          GlobalShitSection(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () {
+          ref
+            ..invalidate(myShitProvider)
+            ..invalidate(globalShitProvider);
+          return Future.value();
+        },
+        child: CustomScrollConfiguration(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar.large(
+                title: Text(index == 0 ? 'MyShit' : 'Community'),
+                actions: [
+                  IconButton.filledTonal(
+                    onPressed: () => ref.authController.logout(),
+                    icon: const Icon(Icons.logout_outlined),
+                  ),
+                  extraSmallDivider,
+                ],
+              ),
+              const [
+                MyShitDiarySection(),
+                GlobalShitSection(),
+              ][index],
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => ref.read(routerProvider).go(ShitTakingPageRoute.fromHome),
