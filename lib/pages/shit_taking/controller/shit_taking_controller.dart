@@ -3,6 +3,7 @@ import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/domain/repository/firestore_repository.dart';
 import 'package:shatapp/domain/repository/i_shit_repository.dart';
+import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/shit_taking/controller/state/shittakingstate.dart';
 import 'package:shatapp/utils/dialog/dialog_manager.dart';
 import 'package:shatapp/utils/router/routes/dashboard_route.dart';
@@ -14,7 +15,10 @@ final shitTakingStateProvider = StateNotifierProvider<ShitTakingController, Shit
   return ShitTakingController(
     repository: repo,
     dialogManager: dialogManager,
-    onSuccess: () => ref.read(routerProvider).go(DashboardPageRoute.pagePath),
+    onSuccess: () {
+      ref.invalidate(dashboardProvider);
+      ref.read(routerProvider).go(DashboardPageRoute.pagePath);
+    },
   );
 });
 

@@ -22,13 +22,7 @@ class DashboardPage extends ConsumerWidget with UiUtility {
           smallDivider,
         ],
       ),
-      body: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //DashboardStats(),
-          DashBoardShitList(),
-        ],
-      ),
+      body: const DashBoardShitList(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => ref.read(routerProvider).go(ShitTakingPageRoute.fromHome),
         icon: const Icon(Icons.wc_outlined),
