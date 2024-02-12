@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/session/state/authenticationstate.dart';
+import 'package:shatapp/domain/session/user_session_controller.dart';
 import 'package:shatapp/utils/dialog/dialog_manager.dart';
 import 'package:shatapp/utils/logger/logger_manager.dart';
 
@@ -10,9 +11,11 @@ final authenticationSessionController =
     StateNotifierProvider<AuthenticationSessionController, AuthenticationState>((ref) {
   final dialogMaganer = ref.read(dialogManagerProvider);
   final logger = ref.read(loggerManagerProvider);
+  final userSessionController = ref.read(userSessionProvider.notifier);
   return AuthenticationSessionController(
     logger: logger,
     dialogManager: dialogMaganer,
+    userSessionController: userSessionController,
   );
 });
 
@@ -20,6 +23,7 @@ class AuthenticationSessionController extends StateNotifier<AuthenticationState>
   AuthenticationSessionController({
     required this.logger,
     required this.dialogManager,
+    required this.userSessionController,
   }) : super(AuthenticationState.unknown()) {
     authInstance.userChanges().listen(_listenAuthChanges);
   }
@@ -27,6 +31,7 @@ class AuthenticationSessionController extends StateNotifier<AuthenticationState>
   final authInstance = FirebaseAuth.instance;
   final LoggerManager logger;
   final DialogManager dialogManager;
+  final UserSessionController userSessionController;
   final googleScopes = [
     'openid',
     'email',
@@ -39,6 +44,7 @@ class AuthenticationSessionController extends StateNotifier<AuthenticationState>
   }
 
   Future<void> logout() async {
+    await userSessionController.handleLogout();
     await authInstance.signOut();
   }
 
