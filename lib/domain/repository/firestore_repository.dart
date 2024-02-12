@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
-import 'package:shatapp/domain/model/stats/stats.dart';
 import 'package:shatapp/domain/repository/i_shit_repository.dart';
 import 'package:shatapp/domain/repository/mock_shit_repository.dart';
 import 'package:shatapp/domain/session/authentication_session_controller.dart';
@@ -31,12 +30,6 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
     final documents = await collection.where('user.id', isEqualTo: loggedUser.id).get();
     return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList()
       ..sort((a, b) => b.creationDateTime.compareTo(a.creationDateTime));
-  }
-
-  @override
-  Future<Stats> getStats() {
-    // TODO: implement getStats
-    throw UnimplementedError();
   }
 
   @override
