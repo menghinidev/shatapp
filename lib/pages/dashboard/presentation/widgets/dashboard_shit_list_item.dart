@@ -2,7 +2,6 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
-import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/repository/firestore_repository.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/dashboard/presentation/widgets/shit_user_avatar.dart';
@@ -104,20 +103,6 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
           ],
         ),
       ),
-    );
-  }
-}
-
-class _UserAvatar extends ConsumerWidget {
-  const _UserAvatar({this.user});
-
-  final ShatAppUser? user;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return CircleAvatar(
-      foregroundImage: NetworkImage(user?.imageUrl ?? ''),
-      child: const Icon(Icons.person),
     );
   }
 }

@@ -27,7 +27,7 @@ class UserSessionRepositoryImpl implements UserSessionRepository {
           isLessThan: Timestamp.fromDate(
             DateTime.now().subtract(
               const Duration(
-                minutes: ShatAppEnv.userSessionInvalidMinutes,
+                seconds: ShatAppEnv.userSessionInvalidSeconds,
               ),
             ),
           ),

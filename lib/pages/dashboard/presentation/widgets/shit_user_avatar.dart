@@ -22,6 +22,7 @@ class ShitUserAvatar extends ConsumerWidget with DateFormatter {
   Widget build(BuildContext context, WidgetRef ref) {
     final session = ref.watch(_userSessionStateProvider(user?.id));
     return Tooltip(
+      triggerMode: TooltipTriggerMode.tap,
       message: session.getMessage(dateFormatter: formatDateTime),
       child: Stack(
         children: [
@@ -63,7 +64,7 @@ extension on AsyncValue<UserSession> {
   }
 
   Color get color => on(
-        orElse: () => Colors.red,
+        orElse: () => Colors.transparent,
         onOnline: (_) => Colors.green,
       );
 

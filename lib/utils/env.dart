@@ -10,8 +10,8 @@ class ShatAppEnv {
     'SESSION_REFRESH',
     defaultValue: 30,
   );
-  static const int userSessionInvalidMinutes = int.fromEnvironment(
+  static const int userSessionInvalidSeconds = int.fromEnvironment(
     'SESSION_INVALID',
-    defaultValue: 5,
+    defaultValue: 35,
   );
 }
