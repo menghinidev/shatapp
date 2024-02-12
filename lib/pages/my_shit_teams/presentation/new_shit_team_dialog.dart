@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shatapp/domain/repository/shit_team_repository.dart';
 import 'package:shatapp/utils/logger/logger_manager.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
@@ -35,7 +36,12 @@ class CreateShitTeamBottomSheet extends HookConsumerWidget with UiDimension, UiU
                 ),
                 smallDivider,
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ref
+                        .read(shitTeamRepositoryProvider)
+                        .createShitTeam(name: controllerName.text)
+                        .then((value) => ref.invalidate(myShitTeamsProvider));
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: roundedShape,
                   ),

@@ -28,6 +28,7 @@ class MyShitTeamsPage extends ConsumerWidget with UiDimension, UiUtility {
             ),
           ),
           childBuilder: (context) => SliverList.separated(
+            itemCount: data.length,
             itemBuilder: (context, index) => MyShitTeamListItem(team: data[index]),
             separatorBuilder: (context, _) => mediumDivider,
           ),

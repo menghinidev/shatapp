@@ -49,9 +49,24 @@ class FirestoreShitTeamRepository extends IShitTeamRepository with ShitDtoMapper
     final dto = ShitTeamDtoData(
       name: name,
       creator: loggedUser,
-      members: members ?? <ShatAppUser>[],
+      members: <ShatAppUser>[],
     );
-    await collection.add(dto.toJson());
+    final userJson = loggedUser.toJson();
+    final membersJson = [for (final i in members ?? <ShatAppUser>[]) i.toJson()];
+    final data = dto.toJson()
+      ..update('creator', (value) => userJson, ifAbsent: () => userJson)
+      ..update(
+        'members',
+        (value) => [
+          userJson,
+          ...membersJson,
+        ],
+        ifAbsent: () => [
+          userJson,
+          ...membersJson,
+        ],
+      );
+    await collection.add(data);
     return Future.value();
   }
 
@@ -60,8 +75,12 @@ class FirestoreShitTeamRepository extends IShitTeamRepository with ShitDtoMapper
     final loggedUser = authState.mapOrNull(logged: (data) => data.user);
     if (loggedUser == null) return Future.value(<ShitTeam>[]);
     final collection = firestore.collection(shitTeamCollectionKey);
-    final documents = await collection.where('members.id', arrayContains: loggedUser.id).get();
-    return documents.docs.map((e) => mapShitTeamDtoFromJson(e.id, e.data())).map(mapShitTeamFromDto).toList()
+    final documents = await collection.get();
+    return documents.docs
+        .map((e) => mapShitTeamDtoFromJson(e.id, e.data()))
+        .map(mapShitTeamFromDto)
+        .where((element) => element.members.contains(loggedUser))
+        .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
   }
 
