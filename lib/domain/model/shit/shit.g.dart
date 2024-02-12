@@ -15,6 +15,7 @@ _$ShitImpl _$$ShitImplFromJson(Map<String, dynamic> json) => _$ShitImpl(
           ? null
           : ShatAppUser.fromJson(json['user'] as Map<String, dynamic>),
       note: json['note'] as String?,
+      color: json['color'] as String?,
     );
 
 Map<String, dynamic> _$$ShitImplToJson(_$ShitImpl instance) =>
@@ -25,6 +26,7 @@ Map<String, dynamic> _$$ShitImplToJson(_$ShitImpl instance) =>
       'consistency': _$ShitConsistencyEnumMap[instance.consistency]!,
       'user': instance.user,
       'note': instance.note,
+      'color': instance.color,
     };
 
 const _$ShitEffortEnumMap = {
@@ -64,13 +66,24 @@ _$ShitDataDtoImpl _$$ShitDataDtoImplFromJson(Map<String, dynamic> json) =>
           ? null
           : ShatAppUser.fromJson(json['user'] as Map<String, dynamic>),
       note: json['note'] as String?,
+      color: json['color'] as String?,
     );
 
-Map<String, dynamic> _$$ShitDataDtoImplToJson(_$ShitDataDtoImpl instance) =>
-    <String, dynamic>{
-      'creationDateTime': instance.creationDateTime.toIso8601String(),
-      'effort': _$ShitEffortEnumMap[instance.effort]!,
-      'consistency': _$ShitConsistencyEnumMap[instance.consistency]!,
-      'user': instance.user,
-      'note': instance.note,
-    };
+Map<String, dynamic> _$$ShitDataDtoImplToJson(_$ShitDataDtoImpl instance) {
+  final val = <String, dynamic>{
+    'creationDateTime': instance.creationDateTime.toIso8601String(),
+    'effort': _$ShitEffortEnumMap[instance.effort]!,
+    'consistency': _$ShitConsistencyEnumMap[instance.consistency]!,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('user', instance.user);
+  writeNotNull('note', instance.note);
+  writeNotNull('color', instance.color);
+  return val;
+}

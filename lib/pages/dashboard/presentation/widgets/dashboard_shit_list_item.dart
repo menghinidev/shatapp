@@ -8,7 +8,7 @@ import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/utils/localization/date_formatter.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility {
+class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility, UiShape, UiDimension {
   const DashboardShitListItem({
     required this.shit,
     this.canDelete = false,
@@ -20,56 +20,89 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Card(
+      shape: roundedShape,
+      elevation: smallElevation,
+      child: Padding(
+        padding: mediumPadding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _UserAvatar(user: shit.user),
-            smallDivider,
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    shit.user?.name ?? 'User',
-                    style: context.textTheme.bodyLarge.withBold,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _UserAvatar(user: shit.user),
+                smallDivider,
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        shit.user?.name ?? 'User',
+                        style: context.textTheme.bodyLarge.withBold,
+                      ),
+                      extraSmallDivider,
+                      Text(
+                        formatDateTime(shit.creationDateTime),
+                        style: context.textTheme.bodySmall,
+                      ),
+                    ],
                   ),
-                  extraSmallDivider,
-                  Text(
-                    formatDateTime(shit.creationDateTime),
-                    style: context.textTheme.bodySmall,
+                ),
+                if (canDelete) ...[
+                  smallDivider,
+                  IconButton.outlined(
+                    onPressed: () async {
+                      await ref.read(shitRepository).removeShit(shit.id);
+                      ref
+                        ..invalidate(myShitProvider)
+                        ..invalidate(globalShitProvider);
+                    },
+                    visualDensity: VisualDensity.compact,
+                    color: Theme.of(context).colorScheme.error,
+                    icon: const Icon(Icons.delete_outline_rounded),
                   ),
                 ],
-              ),
+              ],
             ),
-            if (canDelete) ...[
-              smallDivider,
-              IconButton.outlined(
-                onPressed: () async {
-                  await ref.read(shitRepository).removeShit(shit.id);
-                  ref
-                    ..invalidate(myShitProvider)
-                    ..invalidate(globalShitProvider);
-                },
-                visualDensity: VisualDensity.compact,
-                color: Theme.of(context).colorScheme.error,
-                icon: const Icon(Icons.delete_outline_rounded),
+            smallDivider,
+            Row(
+              children: [
+                if (shit.color != null) ...[
+                  Image.asset(
+                    'assets/images/poo.png',
+                    width: 36,
+                    height: 36,
+                    color: Color(
+                      int.parse(shit.color!),
+                    ),
+                  ),
+                  smallDivider,
+                ],
+                Expanded(
+                  child: _ShitBadgeBar(
+                    badges: [
+                      shit.effort.name,
+                      shit.consistency.name,
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (shit.note != null) ...[
+              extraSmallDivider,
+              Text(
+                shit.note!,
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ],
         ),
-        smallDivider,
-        _ShitBadgeBar(
-          badges: [
-            shit.effort.name,
-            shit.consistency.name,
-          ],
-        ),
-      ],
+      ),
     );
   }
 }

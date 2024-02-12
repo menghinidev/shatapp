@@ -6,9 +6,9 @@ import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/pages/shit_taking/controller/shit_taking_controller.dart';
 import 'package:shatapp/pages/shit_taking/presentation/widgets/shit_color_picker.dart';
 import 'package:shatapp/pages/shit_taking/presentation/widgets/shit_slider_picker.dart';
-import 'package:shatapp/utils/snackbar/snackbar_service.dart';
+import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class ShitTakingForm extends ConsumerWidget {
+class ShitTakingForm extends ConsumerWidget with UiUtility, UiDimension {
   const ShitTakingForm({super.key});
 
   @override
@@ -24,7 +24,7 @@ class ShitTakingForm extends ConsumerWidget {
           values: ShitEffort.values,
           itemBuilder: (p0) => p0.name.capitalize,
         ),
-        separator,
+        largeDivider,
         ShitSliderPicker<ShitConsistency>(
           label: 'Rate consistency',
           onSelect: (p0) => ref.read(shitTakingStateProvider.notifier).setConsistency(p0),
@@ -32,10 +32,12 @@ class ShitTakingForm extends ConsumerWidget {
           values: ShitConsistency.values,
           itemBuilder: (p0) => p0.name.capitalize,
         ),
-        separator,
+        largeDivider,
         TextField(
           decoration: InputDecoration(
-            hintText: 'Add a note',
+            hintText: 'Note someting about your shit experience',
+            label: const Text('Note'),
+            alignLabelWithHint: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
@@ -44,9 +46,8 @@ class ShitTakingForm extends ConsumerWidget {
             ),
           ),
           onChanged: (value) => ref.read(shitTakingStateProvider.notifier).setNote(value),
-          maxLength: 20,
+          maxLength: 256,
         ),
-        separator,
         Align(
           alignment: Alignment.bottomLeft,
           child: ShitColorPicker(
@@ -54,24 +55,20 @@ class ShitTakingForm extends ConsumerWidget {
             onSelect: (p0) => ref.read(shitTakingStateProvider.notifier).setColor(p0?.value),
           ),
         ),
-        separator,
+        largeDivider,
         FilledButton(
           style: ButtonStyle(
-            padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
+            padding: MaterialStatePropertyAll(mediumPadding),
             textStyle: MaterialStatePropertyAll(
-              Theme.of(context).textTheme.titleMedium,
+              Theme.of(context).textTheme.titleLarge,
             ),
           ),
-          onPressed: () => ref.read(shitTakingStateProvider.notifier).createShit().then(
-                (value) => ref.read(snackBarManagerProvider).showMessage(context, 'Shit flushed'),
-              ),
+          onPressed: () => ref.read(shitTakingStateProvider.notifier).createShit(),
           child: const Text(
-            'Confirm',
+            'Save your shit',
           ),
         ),
       ],
     );
   }
-
-  Widget get separator => const SizedBox(height: 24);
 }

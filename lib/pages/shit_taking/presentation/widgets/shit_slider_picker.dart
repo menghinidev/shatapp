@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class ShitSliderPicker<T> extends StatelessWidget {
+class ShitSliderPicker<T> extends StatelessWidget with UiUtility, UiDimension {
   const ShitSliderPicker({
     required this.label,
     required this.onSelect,
@@ -18,49 +19,34 @@ class ShitSliderPicker<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Text(
+          label,
+          style: context.textTheme.titleLarge,
+        ),
+        Slider.adaptive(
+          label: itemBuilder(selected),
+          max: (values.length - 1).toDouble(),
+          value: values.indexOf(selected).toDouble(),
+          divisions: values.length - 1,
+          onChanged: (value) => onSelect(
+            values[value.toInt()],
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              label,
-              style: Theme.of(context).textTheme.titleMedium,
+              itemBuilder(values.first),
+              style: context.textTheme.labelMedium.withGrayColor,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Slider(
-                label: itemBuilder(selected),
-                max: (values.length - 1).toDouble(),
-                value: values.indexOf(selected).toDouble(),
-                divisions: values.length - 1,
-                onChanged: (value) => onSelect(
-                  values[value.toInt()],
-                ),
-              ),
+            Text(
+              itemBuilder(values.last),
+              style: Theme.of(context).textTheme.labelMedium.withGrayColor,
             ),
           ],
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          child: Text(
-            itemBuilder(values.first),
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: Theme.of(context).hintColor,
-                ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: Text(
-            itemBuilder(values.last),
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: Theme.of(context).hintColor,
-                ),
-          ),
         ),
       ],
     );

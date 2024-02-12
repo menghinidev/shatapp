@@ -1,8 +1,9 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class ShitColorPicker extends ConsumerWidget {
+class ShitColorPicker extends ConsumerWidget with UiUtility {
   const ShitColorPicker({
     required this.selected,
     required this.onSelect,
@@ -14,34 +15,33 @@ class ShitColorPicker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return OutlinedButton.icon(
-      style: ButtonStyle(
-        side: const MaterialStatePropertyAll(BorderSide.none),
-        padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
-        shape: MaterialStatePropertyAll(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
-      onPressed: () => showDialog<bool>(
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => showDialog<bool>(
         context: context,
         builder: (context) => _ColorPickerDialog(
           selected: selected ?? Colors.brown,
           onSelect: onSelect,
         ),
       ),
-      icon: Container(
-        decoration: BoxDecoration(
-          color: selected ?? Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Theme.of(context).primaryColor),
-        ),
-        width: 40,
-        height: 40,
-        margin: const EdgeInsets.only(right: 20),
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: selected ?? Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Theme.of(context).primaryColor),
+            ),
+            width: 36,
+            height: 36,
+          ),
+          mediumDivider,
+          Text(
+            'Add your shit color',
+            style: context.textTheme.bodyMedium,
+          ),
+        ],
       ),
-      label: const Text('Pick a color'),
     );
   }
 }

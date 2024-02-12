@@ -44,6 +44,7 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
     required ShitEffort effort,
     required ShitConsistency consistency,
     String? note,
+    String? color,
   }) async {
     final loggedUser = authState.mapOrNull(logged: (data) => data.user);
     if (loggedUser == null) return Future.value();
@@ -53,6 +54,7 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
       effort: effort,
       consistency: consistency,
       note: note,
+      color: color,
       //user: loggedUser,
     );
     final userJson = loggedUser.toJson();
@@ -60,6 +62,7 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
       ..update(
         'user',
         (_) => userJson,
+        ifAbsent: () => userJson,
       );
     await collection.add(json);
     return Future.value();
