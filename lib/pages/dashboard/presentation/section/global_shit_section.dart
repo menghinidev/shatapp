@@ -30,7 +30,7 @@ class GlobalShitSection extends ConsumerWidget with UiDimension, UiUtility {
             itemBuilder: (context, index) => DashboardShitListItem(
               shit: data[index],
             ),
-            separatorBuilder: (context, index) => largeDivider,
+            separatorBuilder: (context, index) => mediumDivider,
             itemCount: data.length,
           ),
         ),
