@@ -6,6 +6,7 @@ import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/pages/shit_taking/controller/shit_taking_controller.dart';
 import 'package:shatapp/pages/shit_taking/presentation/widgets/shit_color_picker.dart';
 import 'package:shatapp/pages/shit_taking/presentation/widgets/shit_slider_picker.dart';
+import 'package:shatapp/utils/snackbar/snackbar_service.dart';
 
 class ShitTakingForm extends ConsumerWidget {
   const ShitTakingForm({super.key});
@@ -61,7 +62,9 @@ class ShitTakingForm extends ConsumerWidget {
               Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          onPressed: () => ref.read(shitTakingStateProvider.notifier).createShit(),
+          onPressed: () => ref.read(shitTakingStateProvider.notifier).createShit().then(
+                (value) => ref.read(snackBarManagerProvider).showMessage(context, 'Shit flushed'),
+              ),
           child: const Text(
             'Confirm',
           ),

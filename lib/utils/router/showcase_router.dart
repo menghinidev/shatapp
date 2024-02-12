@@ -10,6 +10,10 @@ final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>((ref) {
   return GlobalKey<NavigatorState>();
 });
 
+final scaffoldMessangerKeyProvider = Provider<GlobalKey<ScaffoldMessengerState>>((ref) {
+  return GlobalKey<ScaffoldMessengerState>();
+});
+
 final routerProvider = Provider.autoDispose<GoRouter>((ref) {
   final key = ref.watch(navigatorKeyProvider);
   final notifier = ref.watch(routerNotifierProvider.notifier);

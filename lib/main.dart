@@ -47,8 +47,10 @@ class ShatApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final scaffoldKey = ref.watch(scaffoldMessangerKeyProvider);
     final appTheme = ref.watch(appThemeProvider);
     return MaterialApp.router(
+      scaffoldMessengerKey: scaffoldKey,
       theme: appTheme.lightTheme,
       darkTheme: appTheme.darkTheme,
       themeMode: ThemeMode.light,
