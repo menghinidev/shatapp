@@ -1,11 +1,11 @@
 {
-    "name": "shatapp",
-    "short_name": "shatapp",
+    "name": "ShatApp",
+    "short_name": "ShatApp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FFFFFF",
     "theme_color": "#FFFFFF",
-    "description": "A new Flutter project.",
+    "description": "Il tuo assistente personale per le tue cagate quotidiane",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
