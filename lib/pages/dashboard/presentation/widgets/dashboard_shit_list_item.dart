@@ -5,6 +5,7 @@ import 'package:shatapp/domain/model/shit/shit.dart';
 import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/repository/firestore_repository.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
+import 'package:shatapp/pages/dashboard/presentation/widgets/shit_user_avatar.dart';
 import 'package:shatapp/utils/localization/date_formatter.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
@@ -32,7 +33,7 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _UserAvatar(user: shit.user),
+                ShitUserAvatar(user: shit.user),
                 smallDivider,
                 Expanded(
                   child: Column(

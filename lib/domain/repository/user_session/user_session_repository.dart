@@ -27,7 +27,7 @@ class UserSessionRepositoryImpl implements UserSessionRepository {
           isLessThan: Timestamp.fromDate(
             DateTime.now().subtract(
               const Duration(
-                seconds: ShatAppEnv.userSessionInvalidMinutes,
+                minutes: ShatAppEnv.userSessionInvalidMinutes,
               ),
             ),
           ),
@@ -40,5 +40,22 @@ class UserSessionRepositoryImpl implements UserSessionRepository {
       });
     }
     await batch.commit();
+  }
+
+  @override
+  Stream<UserSession> getUserSession({
+    required String? userId,
+  }) {
+    final collection = firestore.collection(shitCollectionKey);
+    return collection
+        .doc(userId)
+        .withConverter<UserSession>(
+          fromFirestore: (snapshot, options) => UserSession.fromJson(snapshot.data()!),
+          toFirestore: (value, options) => value.toJson(),
+        )
+        .snapshots()
+        .map(
+          (event) => event.data() ?? UserSession.invalid(),
+        );
   }
 }

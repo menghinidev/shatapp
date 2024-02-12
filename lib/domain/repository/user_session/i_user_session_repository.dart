@@ -12,4 +12,6 @@ abstract class UserSessionRepository {
   });
 
   Future<void> updateAllSessions();
+
+  Stream<UserSession> getUserSession({required String? userId});
 }
