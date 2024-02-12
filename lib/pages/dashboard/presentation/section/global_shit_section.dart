@@ -7,16 +7,16 @@ import 'package:shatapp/utils/provider_extension.dart';
 import 'package:shatapp/utils/ui_utils/scroll_utility.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class MyShitDiarySection extends ConsumerWidget with UiDimension, UiUtility {
-  const MyShitDiarySection({super.key});
+class GlobalShitSection extends ConsumerWidget with UiDimension, UiUtility {
+  const GlobalShitSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final shits = ref.watch(myShitProvider);
+    final shits = ref.watch(globalShitProvider);
     return CustomScrollConfiguration(
       child: RefreshIndicator(
         onRefresh: () {
-          ref.invalidate(myShitProvider);
+          ref.invalidate(globalShitProvider);
           return Future.value();
         },
         child: shits.loadUntil(
@@ -37,7 +37,6 @@ class MyShitDiarySection extends ConsumerWidget with UiDimension, UiUtility {
                   childBuilder: (context) => SliverList.separated(
                     itemBuilder: (context, index) => DashboardShitListItem(
                       shit: data[index],
-                      canDelete: true,
                     ),
                     separatorBuilder: (context, index) => largeDivider,
                     itemCount: data.length,

@@ -6,7 +6,7 @@ import 'package:shatapp/domain/repository/i_shit_repository.dart';
 
 class MockShitRepository implements ShitRepository {
   @override
-  Future<List<Shit>> getShits() async {
+  Future<List<Shit>> getMyShitDiary() async {
     return _shits;
   }
 
@@ -92,4 +92,16 @@ class MockShitRepository implements ShitRepository {
       effort: ShitEffort.easy,
     ),
   ];
+
+  @override
+  Future<List<Shit>> getGlobalShit() {
+    // TODO: implement getGlobalShit
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeShit(String shitId) {
+    // TODO: implement removeShit
+    throw UnimplementedError();
+  }
 }
