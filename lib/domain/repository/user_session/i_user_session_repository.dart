@@ -12,7 +12,4 @@ abstract class UserSessionRepository {
   });
 
   Future<void> updateAllSessions();
-
-  static const refreshSessionSeconds = 90;
-  static const invalidSessionAfterSeconds = 120;
 }

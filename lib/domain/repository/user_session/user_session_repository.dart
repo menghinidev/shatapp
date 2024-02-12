@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shatapp/domain/model/user_session/user_session.dart';
 import 'package:shatapp/domain/repository/user_session/i_user_session_repository.dart';
+import 'package:shatapp/utils/env.dart';
 
 class UserSessionRepositoryImpl implements UserSessionRepository {
   final firestore = FirebaseFirestore.instance;
@@ -26,7 +27,7 @@ class UserSessionRepositoryImpl implements UserSessionRepository {
           isLessThan: Timestamp.fromDate(
             DateTime.now().subtract(
               const Duration(
-                seconds: UserSessionRepository.invalidSessionAfterSeconds,
+                seconds: ShatAppEnv.userSessionInvalidMinutes,
               ),
             ),
           ),

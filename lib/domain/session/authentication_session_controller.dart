@@ -44,7 +44,7 @@ class AuthenticationSessionController extends StateNotifier<AuthenticationState>
   }
 
   Future<void> logout() async {
-    await userSessionController.handleLogout();
+    await userSessionController.handleLogout((state as Logged).user.id);
     await authInstance.signOut();
   }
 
@@ -77,6 +77,7 @@ class AuthenticationSessionController extends StateNotifier<AuthenticationState>
         imageUrl: user.photoURL,
       );
       state = AuthenticationState.logged(user: shatappUser);
+      userSessionController.handleLogin(user.uid);
       logger.logMessage('User is signed in!');
     }
   }
