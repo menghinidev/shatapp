@@ -6,6 +6,7 @@ import 'package:shatapp/pages/dashboard/presentation/section/dashboard_shit_list
 import 'package:shatapp/pages/dashboard/presentation/section/global_shit_section.dart';
 import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
+import 'package:shatapp/utils/theme/theme_switch.dart';
 import 'package:shatapp/utils/ui_utils/scroll_utility.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
@@ -47,8 +48,10 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
           child: CustomScrollView(
             slivers: [
               SliverAppBar.large(
-                title: Text(index == 0 ? 'MyShit' : 'Community'),
+                title: Text(index == 0 ? 'Personal' : 'Community'),
                 actions: [
+                  const ThemeModeSwitch(),
+                  extraSmallDivider,
                   IconButton.filledTonal(
                     onPressed: () => ref.authController.logout(),
                     icon: const Icon(Icons.logout_outlined),
@@ -64,10 +67,15 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => ref.read(routerProvider).go(ShitTakingPageRoute.fromHome),
-        icon: const Icon(Icons.wc_outlined),
-        label: const Text('Take a shit'),
+        child: Image.asset(
+          'assets/images/poo.png',
+          color: Colors.white,
+          width: 24,
+          height: 24,
+        ),
+        //label: const Text('Take a shit'),
       ),
     );
   }
