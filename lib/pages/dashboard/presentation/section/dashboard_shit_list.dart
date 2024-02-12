@@ -19,14 +19,19 @@ class DashBoardShitList extends ConsumerWidget with UiDimension, UiUtility {
           return Future.value();
         },
         child: shits.loadUntil(
-          data: (data) => ListView.separated(
-            shrinkWrap: true,
-            padding: mediumPadding,
-            itemBuilder: (context, index) => DashboardShitListItem(
-              shit: data[index],
-            ),
-            separatorBuilder: (context, index) => largeDivider,
-            itemCount: data.length,
+          data: (data) => CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: mediumPadding,
+                sliver: SliverList.separated(
+                  itemBuilder: (context, index) => DashboardShitListItem(
+                    shit: data[index],
+                  ),
+                  separatorBuilder: (context, index) => largeDivider,
+                  itemCount: data.length,
+                ),
+              ),
+            ],
           ),
         ),
       ),
