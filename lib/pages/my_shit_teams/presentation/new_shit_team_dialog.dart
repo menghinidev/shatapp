@@ -40,7 +40,8 @@ class CreateShitTeamBottomSheet extends HookConsumerWidget with UiDimension, UiU
                     ref
                         .read(shitTeamRepositoryProvider)
                         .createShitTeam(name: controllerName.text)
-                        .then((value) => ref.invalidate(myShitTeamsProvider));
+                        .then((value) => ref.invalidate(myShitTeamsProvider))
+                        .then((value) => Navigator.pop(context));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: roundedShape,

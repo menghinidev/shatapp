@@ -11,6 +11,11 @@ final myShitTeamsProvider = FutureProvider<List<ShitTeam>>((ref) async {
   return repo.myShitTeams();
 });
 
+final shitTeamShitsProvider = FutureProvider.family<List<Shit>, ShitTeam>((ref, team) async {
+  final repo = ref.watch(shitTeamRepositoryProvider);
+  return repo.getTeamShitList(team);
+});
+
 final shitTeamRepositoryProvider = Provider<IShitTeamRepository>((ref) {
   return FirestoreShitTeamRepository(
     authState: ref.watch(authenticationSessionController),
@@ -25,7 +30,7 @@ abstract class IShitTeamRepository {
 
   Future<List<ShitTeam>> myShitTeams();
 
-  Future<void> removeShitTeam();
+  Future<void> removeShitTeam(ShitTeam team);
 
   Future<List<Shit>> getTeamShitList(ShitTeam team);
 }
@@ -85,9 +90,12 @@ class FirestoreShitTeamRepository extends IShitTeamRepository with ShitDtoMapper
   }
 
   @override
-  Future<void> removeShitTeam() {
-    // TODO: implement removeShitTeam
-    throw UnimplementedError();
+  Future<void> removeShitTeam(ShitTeam team) async {
+    final loggedUser = authState.mapOrNull(logged: (data) => data.user);
+    if (loggedUser == null) return Future.value();
+    final collection = firestore.collection(shitTeamCollectionKey);
+    await collection.doc(team.id).delete();
+    return Future.value();
   }
 
   @override
