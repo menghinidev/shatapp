@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/user_session/user_session.dart';
 import 'package:shatapp/domain/repository/user_session/i_user_session_repository.dart';
+import 'package:shatapp/utils/env.dart';
 
 final userSessionProvider = StateNotifierProvider<UserSessionController, UserSession>((ref) {
   final repo = ref.read(userSessionRepositoryProvider);
@@ -15,34 +15,15 @@ final userSessionProvider = StateNotifierProvider<UserSessionController, UserSes
 class UserSessionController extends StateNotifier<UserSession> {
   UserSessionController({
     required this.repository,
-  }) : super(
-          UserSession.invalid(),
-        ) {
-    authInstance.userChanges().listen(_listenAuthChanges);
-  }
+  }) : super(UserSession.invalid());
 
   final UserSessionRepository repository;
-  final authInstance = FirebaseAuth.instance;
   Timer? refreshTimer;
-
-  void _listenAuthChanges(User? user) {
-    refreshTimer?.cancel();
-    if (user != null) {
-      state = UserSession(
-        id: user.uid,
-        lastOnlineDateTime: DateTime.now(),
-        online: true,
-      );
-      setTimer();
-    } else {
-      state = UserSession.invalid();
-    }
-  }
 
   void setTimer() {
     Timer.run(updadeSession);
     refreshTimer = Timer.periodic(
-      const Duration(seconds: UserSessionRepository.refreshSessionSeconds),
+      const Duration(seconds: ShatAppEnv.userSessionRefreshSeconds),
       (timer) => updadeSession(),
     );
   }
@@ -52,8 +33,26 @@ class UserSessionController extends StateNotifier<UserSession> {
     await repository.updateAllSessions();
   }
 
-  Future<void> handleLogout() async {
+  void handleLogin(String userId) {
+    refreshTimer?.cancel();
+    state = UserSession(
+      id: userId,
+      lastOnlineDateTime: DateTime.now(),
+      online: true,
+    );
+    setTimer();
+  }
+
+  Future<void> handleLogout(String userId) async {
+    refreshTimer?.cancel();
     state = UserSession.invalid();
+    await repository.setUserSession(
+      session: CurrentSession(
+        id: userId,
+        lastOnlineDateTime: DateTime.now(),
+        online: false,
+      ),
+    );
   }
 
   @override
