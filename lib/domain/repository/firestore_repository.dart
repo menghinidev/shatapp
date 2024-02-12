@@ -29,7 +29,8 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
     if (loggedUser == null) return Future.value(<Shit>[]);
     final collection = firestore.collection(shitCollectionKey);
     final documents = await collection.where('user.id', isEqualTo: loggedUser.id).get();
-    return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList();
+    return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList()
+      ..sort((a, b) => b.creationDateTime.compareTo(a.creationDateTime));
   }
 
   @override
@@ -70,7 +71,8 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
     if (loggedUser == null) return Future.value(<Shit>[]);
     final collection = firestore.collection(shitCollectionKey);
     final documents = await collection.get();
-    return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList();
+    return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList()
+      ..sort((a, b) => b.creationDateTime.compareTo(a.creationDateTime));
   }
 
   @override

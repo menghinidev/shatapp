@@ -5,7 +5,7 @@ import 'package:shatapp/utils/datetime/datetime_extension.dart';
 mixin DateFormatter {
   String formatTimeOfDay(TimeOfDay time) => DateFormat.jm().format(time.withDate());
 
-  String formatDateTime(DateTime dateTime) => DateFormat('dd/MM/yyyy hh:mm').format(dateTime.toLocal());
+  String formatDateTime(DateTime dateTime) => DateFormat.yMd('it').add_Hm().format(dateTime.toLocal());
   String formatDate(DateTime dateTime) => DateFormat.yMMMMd().format(dateTime.toLocal());
   String formatDateWithSlash(DateTime dateTime) => DateFormat('dd/MM').format(dateTime.toLocal());
   String formatWeekDay(DateTime dateTime) => DateFormat.EEEE().format(dateTime.toLocal());

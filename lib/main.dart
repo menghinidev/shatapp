@@ -49,11 +49,12 @@ class ShatApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     final scaffoldKey = ref.watch(scaffoldMessangerKeyProvider);
     final appTheme = ref.watch(appThemeProvider);
+    final themeMode = ref.watch(themeModeProvider);
     return MaterialApp.router(
       scaffoldMessengerKey: scaffoldKey,
       theme: appTheme.lightTheme,
       darkTheme: appTheme.darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: themeMode,
       routerConfig: router,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
