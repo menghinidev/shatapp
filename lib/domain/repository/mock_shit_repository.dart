@@ -1,7 +1,6 @@
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
-import 'package:shatapp/domain/model/stats/stats.dart';
 import 'package:shatapp/domain/repository/i_shit_repository.dart';
 
 class MockShitRepository implements ShitRepository {
@@ -25,44 +24,6 @@ class MockShitRepository implements ShitRepository {
         effort: effort,
         note: note,
       ),
-    );
-  }
-
-  @override
-  Future<Stats> getStats() async {
-    final shitsByDate = <DateTime, List<Shit>>{};
-    for (final shit in _shits) {
-      final date = DateTime(
-        shit.creationDateTime.year,
-        shit.creationDateTime.month,
-        shit.creationDateTime.day,
-      );
-      shitsByDate.update(
-        date,
-        (value) => value..add(shit),
-        ifAbsent: () => [shit],
-      );
-    }
-    final shittestDayOrderedList = shitsByDate.entries.toList()
-      ..sort(
-        (a, b) => a.value.length.compareTo(b.value.length),
-      );
-    return Stats(
-      totalCount: _shits.length,
-      averageEffort: ShitEffort.values[(_shits.fold(
-                0,
-                (previousValue, element) => previousValue + ShitEffort.values.indexOf(element.effort),
-              ) /
-              _shits.length)
-          .ceil()],
-      averageConsistency: ShitConsistency.values[(_shits.fold(
-                0,
-                (previousValue, element) => previousValue + ShitConsistency.values.indexOf(element.consistency),
-              ) /
-              _shits.length)
-          .ceil()],
-      shittiestDay: shittestDayOrderedList.firstOrNull?.key,
-      shittiestDayCount: shittestDayOrderedList.firstOrNull?.value.length,
     );
   }
 

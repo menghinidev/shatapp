@@ -31,7 +31,7 @@ class MyShitDiarySection extends ConsumerWidget with UiDimension, UiUtility {
               shit: data[index],
               canDelete: true,
             ),
-            separatorBuilder: (context, index) => largeDivider,
+            separatorBuilder: (context, index) => mediumDivider,
             itemCount: data.length,
           ),
         ),

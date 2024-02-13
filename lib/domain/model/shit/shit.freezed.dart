@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Shit _$ShitFromJson(Map<String, dynamic> json) {
-  return _Shit.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Shit {
   String get id => throw _privateConstructorUsedError;
@@ -28,7 +24,6 @@ mixin _$Shit {
   String? get note => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ShitCopyWith<Shit> get copyWith => throw _privateConstructorUsedError;
 }
@@ -188,7 +183,7 @@ class __$$ShitImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$ShitImpl implements _Shit {
   _$ShitImpl(
       {required this.id,
@@ -198,9 +193,6 @@ class _$ShitImpl implements _Shit {
       this.user,
       this.note,
       this.color});
-
-  factory _$ShitImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ShitImplFromJson(json);
 
   @override
   final String id;
@@ -238,7 +230,6 @@ class _$ShitImpl implements _Shit {
             (identical(other.color, color) || other.color == color));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, creationDateTime, effort,
       consistency, user, note, color);
@@ -248,13 +239,6 @@ class _$ShitImpl implements _Shit {
   @pragma('vm:prefer-inline')
   _$$ShitImplCopyWith<_$ShitImpl> get copyWith =>
       __$$ShitImplCopyWithImpl<_$ShitImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ShitImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _Shit implements Shit {
@@ -266,8 +250,6 @@ abstract class _Shit implements Shit {
       final ShatAppUser? user,
       final String? note,
       final String? color}) = _$ShitImpl;
-
-  factory _Shit.fromJson(Map<String, dynamic> json) = _$ShitImpl.fromJson;
 
   @override
   String get id;

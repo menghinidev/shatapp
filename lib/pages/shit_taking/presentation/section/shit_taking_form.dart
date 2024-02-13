@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
+import 'package:shatapp/domain/model/shit_team/shitteam.dart';
+import 'package:shatapp/domain/repository/shit_team_repository.dart';
 import 'package:shatapp/pages/shit_taking/controller/shit_taking_controller.dart';
 import 'package:shatapp/pages/shit_taking/presentation/widgets/shit_color_picker.dart';
 import 'package:shatapp/pages/shit_taking/presentation/widgets/shit_slider_picker.dart';
+import 'package:shatapp/utils/provider_extension.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
 class ShitTakingForm extends ConsumerWidget with UiUtility, UiDimension {
@@ -32,6 +35,8 @@ class ShitTakingForm extends ConsumerWidget with UiUtility, UiDimension {
           values: ShitConsistency.values,
           itemBuilder: (p0) => p0.name.capitalize,
         ),
+        largeDivider,
+        const ShitTeamDropdown(),
         largeDivider,
         TextField(
           decoration: InputDecoration(
@@ -69,6 +74,37 @@ class ShitTakingForm extends ConsumerWidget with UiUtility, UiDimension {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ShitTeamDropdown extends ConsumerWidget {
+  const ShitTeamDropdown({
+    super.key,
+    this.team,
+  });
+
+  final ShitTeam? team;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final teams = ref.watch(myShitTeamsProvider);
+    return teams.loadUntil(
+      data: (data) => DropdownButtonFormField<ShitTeam>(
+        decoration: const InputDecoration(
+          hintText: 'Team',
+        ),
+        items: data
+            .map(
+              (e) => DropdownMenuItem<ShitTeam>(
+                value: e,
+                child: Text(e.name),
+              ),
+            )
+            .toList(),
+        onChanged: ref.read(shitTakingStateProvider.notifier).setTeam,
+        value: team,
+      ),
     );
   }
 }

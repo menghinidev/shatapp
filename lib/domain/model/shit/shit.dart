@@ -38,8 +38,6 @@ class Shit with _$Shit {
     String? note,
     String? color,
   }) = _Shit;
-
-  factory Shit.fromJson(Map<String, dynamic> json) => _$ShitFromJson(json);
 }
 
 @freezed

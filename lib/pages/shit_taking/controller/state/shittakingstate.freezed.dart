@@ -20,6 +20,7 @@ mixin _$ShitTakingState {
   ShitConsistency get consistency => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   int? get color => throw _privateConstructorUsedError;
+  ShitTeam? get team => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShitTakingStateCopyWith<ShitTakingState> get copyWith =>
@@ -36,7 +37,10 @@ abstract class $ShitTakingStateCopyWith<$Res> {
       {ShitEffort effort,
       ShitConsistency consistency,
       String? note,
-      int? color});
+      int? color,
+      ShitTeam? team});
+
+  $ShitTeamCopyWith<$Res>? get team;
 }
 
 /// @nodoc
@@ -56,6 +60,7 @@ class _$ShitTakingStateCopyWithImpl<$Res, $Val extends ShitTakingState>
     Object? consistency = null,
     Object? note = freezed,
     Object? color = freezed,
+    Object? team = freezed,
   }) {
     return _then(_value.copyWith(
       effort: null == effort
@@ -74,7 +79,23 @@ class _$ShitTakingStateCopyWithImpl<$Res, $Val extends ShitTakingState>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as int?,
+      team: freezed == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as ShitTeam?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ShitTeamCopyWith<$Res>? get team {
+    if (_value.team == null) {
+      return null;
+    }
+
+    return $ShitTeamCopyWith<$Res>(_value.team!, (value) {
+      return _then(_value.copyWith(team: value) as $Val);
+    });
   }
 }
 
@@ -90,7 +111,11 @@ abstract class _$$ShitTakingStateImplCopyWith<$Res>
       {ShitEffort effort,
       ShitConsistency consistency,
       String? note,
-      int? color});
+      int? color,
+      ShitTeam? team});
+
+  @override
+  $ShitTeamCopyWith<$Res>? get team;
 }
 
 /// @nodoc
@@ -108,6 +133,7 @@ class __$$ShitTakingStateImplCopyWithImpl<$Res>
     Object? consistency = null,
     Object? note = freezed,
     Object? color = freezed,
+    Object? team = freezed,
   }) {
     return _then(_$ShitTakingStateImpl(
       effort: null == effort
@@ -126,6 +152,10 @@ class __$$ShitTakingStateImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as int?,
+      team: freezed == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as ShitTeam?,
     ));
   }
 }
@@ -134,7 +164,11 @@ class __$$ShitTakingStateImplCopyWithImpl<$Res>
 
 class _$ShitTakingStateImpl implements _ShitTakingState {
   _$ShitTakingStateImpl(
-      {required this.effort, required this.consistency, this.note, this.color});
+      {required this.effort,
+      required this.consistency,
+      this.note,
+      this.color,
+      this.team});
 
   @override
   final ShitEffort effort;
@@ -144,10 +178,12 @@ class _$ShitTakingStateImpl implements _ShitTakingState {
   final String? note;
   @override
   final int? color;
+  @override
+  final ShitTeam? team;
 
   @override
   String toString() {
-    return 'ShitTakingState(effort: $effort, consistency: $consistency, note: $note, color: $color)';
+    return 'ShitTakingState(effort: $effort, consistency: $consistency, note: $note, color: $color, team: $team)';
   }
 
   @override
@@ -159,12 +195,13 @@ class _$ShitTakingStateImpl implements _ShitTakingState {
             (identical(other.consistency, consistency) ||
                 other.consistency == consistency) &&
             (identical(other.note, note) || other.note == note) &&
-            (identical(other.color, color) || other.color == color));
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.team, team) || other.team == team));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, effort, consistency, note, color);
+      Object.hash(runtimeType, effort, consistency, note, color, team);
 
   @JsonKey(ignore: true)
   @override
@@ -179,7 +216,8 @@ abstract class _ShitTakingState implements ShitTakingState {
       {required final ShitEffort effort,
       required final ShitConsistency consistency,
       final String? note,
-      final int? color}) = _$ShitTakingStateImpl;
+      final int? color,
+      final ShitTeam? team}) = _$ShitTakingStateImpl;
 
   @override
   ShitEffort get effort;
@@ -189,6 +227,8 @@ abstract class _ShitTakingState implements ShitTakingState {
   String? get note;
   @override
   int? get color;
+  @override
+  ShitTeam? get team;
   @override
   @JsonKey(ignore: true)
   _$$ShitTakingStateImplCopyWith<_$ShitTakingStateImpl> get copyWith =>
