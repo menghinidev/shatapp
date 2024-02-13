@@ -33,7 +33,7 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
   }
 
   @override
-  Future<void> registerShit({
+  Future<Shit?> registerShit({
     required ShitEffort effort,
     required ShitConsistency consistency,
     String? note,
@@ -48,7 +48,6 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
       consistency: consistency,
       note: note,
       color: color,
-      //user: loggedUser,
     );
     final userJson = loggedUser.toJson();
     final json = data.toJson()
@@ -57,8 +56,8 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
         (_) => userJson,
         ifAbsent: () => userJson,
       );
-    await collection.add(json);
-    return Future.value();
+    final response = await collection.add(json);
+    return mapFromDto(mapDtoFromJson(response.id, json));
   }
 
   @override

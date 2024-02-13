@@ -12,6 +12,6 @@ class ShatAppEnv {
   );
   static const int userSessionInvalidSeconds = int.fromEnvironment(
     'SESSION_INVALID',
-    defaultValue: 35,
+    defaultValue: 120,
   );
 }

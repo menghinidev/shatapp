@@ -44,6 +44,7 @@ class FirestoreShitTeamRepository extends IShitTeamRepository with ShitDtoMapper
   FirestoreShitTeamRepository({required this.authState});
 
   static const shitTeamCollectionKey = 'shit-team';
+  static const shitCollectionKey = 'shit';
 
   final AuthenticationState authState;
   final firestore = FirebaseFirestore.instance;
@@ -107,10 +108,10 @@ class FirestoreShitTeamRepository extends IShitTeamRepository with ShitDtoMapper
   Future<List<Shit>> getTeamShitList(ShitTeam team) async {
     final loggedUser = authState.mapOrNull(logged: (data) => data.user);
     if (loggedUser == null) return Future.value(<Shit>[]);
-    final collection = firestore.collection(shitTeamCollectionKey);
+    final shitCollection = firestore.collection(shitCollectionKey);
     final shits = <Shit>[];
     for (final shit in team.shits) {
-      final doc = await collection.doc(shit).get();
+      final doc = await shitCollection.doc(shit).get();
       final mapped = mapFromDto(mapDtoFromJson(doc.id, doc.data()!));
       shits.add(mapped);
     }
@@ -124,6 +125,23 @@ class FirestoreShitTeamRepository extends IShitTeamRepository with ShitDtoMapper
   }) async {
     final loggedUser = authState.mapOrNull(logged: (data) => data.user);
     if (loggedUser == null) return Future.value();
+    final collection = firestore.collection(shitTeamCollectionKey);
+    final newTeam = team.copyWith(shits: [...team.shits, shit.id]);
+    final userJson = loggedUser.toJson();
+    final membersJson = [for (final i in team.members) i.toJson()];
+    final data = newTeam.toJson()
+      ..update('creator', (value) => userJson, ifAbsent: () => userJson)
+      ..update(
+        'members',
+        (value) => [
+          ...membersJson,
+        ],
+        ifAbsent: () => [
+          userJson,
+          ...membersJson,
+        ],
+      );
+    await collection.doc(team.id).update(data);
     return Future.value();
   }
 }

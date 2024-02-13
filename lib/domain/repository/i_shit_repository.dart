@@ -6,7 +6,7 @@ abstract class ShitRepository {
   Future<List<Shit>> getMyShitDiary();
   Future<List<Shit>> getGlobalShit();
 
-  Future<void> registerShit({
+  Future<Shit?> registerShit({
     required ShitEffort effort,
     required ShitConsistency consistency,
     String? note,
