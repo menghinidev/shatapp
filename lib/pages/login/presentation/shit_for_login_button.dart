@@ -16,7 +16,7 @@ class _ShitForLoginButtonState extends ConsumerState<ShitForLoginButton> {
   Timer? timer;
 
   void _decreaseScale() {
-    if (scale > 0.1) {
+    if (scale > 0.75) {
       setState(() {
         scale -= 0.05;
       });
