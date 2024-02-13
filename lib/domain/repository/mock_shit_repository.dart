@@ -10,7 +10,7 @@ class MockShitRepository implements ShitRepository {
   }
 
   @override
-  Future<void> registerShit({
+  Future<Shit?> registerShit({
     required ShitEffort effort,
     required ShitConsistency consistency,
     String? color,
@@ -25,6 +25,7 @@ class MockShitRepository implements ShitRepository {
         note: note,
       ),
     );
+    return null;
   }
 
   static final _shits = [

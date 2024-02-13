@@ -70,13 +70,16 @@ class ShitTakingController extends StateNotifier<ShitTakingState> {
 
   Future<void> createShit() async {
     try {
-      await repository.registerShit(
+      final shit = await repository.registerShit(
         effort: state.effort,
         consistency: state.consistency,
         note: state.note,
-        color: state.color.toString(),
+        color: state.color?.toString(),
       );
-      if (state.team != null) {}
+      if (shit == null) return;
+      if (state.team != null) {
+        await teamRepository.registerShit(team: state.team!, shit: shit);
+      }
       onSuccess();
     } catch (e) {
       await dialogManager.showWarningDialog<void>(text: 'Error: $e');

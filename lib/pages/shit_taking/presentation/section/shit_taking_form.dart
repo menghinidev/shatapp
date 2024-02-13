@@ -90,20 +90,23 @@ class ShitTeamDropdown extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final teams = ref.watch(myShitTeamsProvider);
     return teams.loadUntil(
-      data: (data) => DropdownButtonFormField<ShitTeam>(
-        decoration: const InputDecoration(
-          hintText: 'Team',
+      data: (data) => DropdownButtonHideUnderline(
+        child: DropdownButtonFormField<ShitTeam>(
+          hint: const Text('Select team'),
+          disabledHint: const Text('Disabled (like you)'),
+          style: context.textTheme.bodyLarge,
+          icon: const Icon(Icons.people_rounded),
+          items: data
+              .map(
+                (e) => DropdownMenuItem<ShitTeam>(
+                  value: e,
+                  child: Text(e.name),
+                ),
+              )
+              .toList(),
+          onChanged: ref.read(shitTakingStateProvider.notifier).setTeam,
+          value: team,
         ),
-        items: data
-            .map(
-              (e) => DropdownMenuItem<ShitTeam>(
-                value: e,
-                child: Text(e.name),
-              ),
-            )
-            .toList(),
-        onChanged: ref.read(shitTakingStateProvider.notifier).setTeam,
-        value: team,
       ),
     );
   }

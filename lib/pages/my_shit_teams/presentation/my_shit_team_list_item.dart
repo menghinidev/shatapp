@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/shit_team/shitteam.dart';
 import 'package:shatapp/domain/model/user/shatappuser.dart';
-import 'package:shatapp/domain/repository/shit_team_repository.dart';
-import 'package:shatapp/pages/dashboard/presentation/widgets/dashboard_shit_list_item.dart';
-import 'package:shatapp/utils/builder/empty_data_builder.dart';
-import 'package:shatapp/utils/provider_extension.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
 class MyShitTeamListItem extends ConsumerWidget with UiShape, UiDimension, UiUtility {
@@ -18,7 +14,6 @@ class MyShitTeamListItem extends ConsumerWidget with UiShape, UiDimension, UiUti
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final shits = ref.watch(shitTeamShitsProvider(team));
     return Card(
       shape: roundedShape,
       child: Container(
@@ -40,33 +35,22 @@ class MyShitTeamListItem extends ConsumerWidget with UiShape, UiDimension, UiUti
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('Shit count', style: context.textTheme.titleMedium),
+                    Text(
+                      'Shit count',
+                      style: context.textTheme.titleMedium.withBold,
+                    ),
                     Text(team.shits.length.toString()),
                   ],
                 ),
               ],
             ),
-            smallDivider,
-            shits.loadUntil(
-              data: (data) => EmptyDataWidget(
-                emptyCondition: data.isEmpty,
-                emptyPlaceholderBuilder: (context) => Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Non ci sono cagate',
-                    style: context.textTheme.bodyMedium.withGrayColor,
-                  ),
-                ),
-                childBuilder: (context) => Flexible(
-                  child: ListView.separated(
-                    itemBuilder: (context, index) => DashboardShitListItem(
-                      shit: data[index],
-                    ),
-                    separatorBuilder: (context, _) => mediumDivider,
-                    itemCount: data.length,
-                  ),
-                ),
-              ),
+            extraSmallDivider,
+            Wrap(
+              spacing: UiDimension.smallSize,
+              runSpacing: UiDimension.smallSize,
+              children: [
+                for (final member in team.members) _UserAvatar(user: member, size: UiDimension.mediumSize),
+              ],
             ),
           ],
         ),

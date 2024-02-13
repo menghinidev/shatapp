@@ -4,11 +4,10 @@ import 'package:shatapp/domain/session/authentication_session_controller.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/dashboard_shit_list.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/global_shit_section.dart';
-import 'package:shatapp/pages/my_shit_teams/presentation/edit_shit_teams_dialog.dart';
 import 'package:shatapp/pages/my_shit_teams/presentation/my_shit_teams_page.dart';
-import 'package:shatapp/pages/my_shit_teams/presentation/new_shit_team_dialog.dart';
 import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
+import 'package:shatapp/utils/snackbar/snackbar_service.dart';
 import 'package:shatapp/utils/theme/theme_switch.dart';
 import 'package:shatapp/utils/ui_utils/scroll_utility.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
@@ -76,18 +75,12 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
                   ],
                   if (index == 2) ...[
                     IconButton(
-                      onPressed: () => showModalBottomSheet<void>(
-                        context: context,
-                        builder: (_) => const EditShitTeamsBottomSheet(),
-                      ),
+                      onPressed: () => _showEditTeamsBottomSheet(context, ref),
                       visualDensity: VisualDensity.compact,
                       icon: const Icon(Icons.edit_rounded),
                     ),
                     IconButton(
-                      onPressed: () => showModalBottomSheet<void>(
-                        context: context,
-                        builder: (_) => CreateShitTeamBottomSheet(),
-                      ),
+                      onPressed: () => _showAddTeamBottomSheet(context, ref),
                       visualDensity: VisualDensity.compact,
                       icon: const Icon(Icons.add),
                     ),
@@ -106,6 +99,24 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
       ),
       floatingActionButton: getFAB(index),
     );
+  }
+
+  Future<void> _showAddTeamBottomSheet(BuildContext context, WidgetRef ref) {
+    ref.read(snackBarManagerProvider).showMessage(context, 'Coming soon');
+    return Future.value();
+    /* return showModalBottomSheet<void>(
+      context: context,
+      builder: (_) => const EditShitTeamsBottomSheet(),
+    ); */
+  }
+
+  Future<void> _showEditTeamsBottomSheet(BuildContext context, WidgetRef ref) {
+    ref.read(snackBarManagerProvider).showMessage(context, 'Coming soon');
+    return Future.value();
+    /* return showModalBottomSheet<void>(
+      context: context,
+      builder: (_) => const EditShitTeamsBottomSheet(),
+    ); */
   }
 }
 
