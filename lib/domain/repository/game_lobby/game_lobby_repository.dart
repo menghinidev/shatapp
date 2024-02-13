@@ -17,20 +17,21 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
   @override
   Future<GameLobby> createLobby({required GameLobby lobby}) async {
     final document = await collection.add(lobby);
+    await document.update({'id': document.id});
     final newLobby = await document.get();
-    return newLobby.data()!.copyWith(id: newLobby.id);
+    return newLobby.data()!;
   }
 
   @override
   Future<GameLobby?> getPendingGameLobby({required Games game}) async {
     final document = await firestore
         .collection(shitCollectionKey)
-        .where('game', isEqualTo: game.toString())
+        .where('game', isEqualTo: game.name)
         .where('status', isEqualTo: GameLobbyStatus.pending.name)
         .limit(1)
         .get();
-    final lobby = document.docs.firstOrNull?.data();
-    return lobby != null ? GameLobby.fromJson(lobby) : null;
+    final doc = document.docs.firstOrNull;
+    return doc != null ? GameLobby.fromJson(doc.data()) : null;
   }
 
   @override
@@ -39,18 +40,25 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
     required ShatAppUser user,
   }) async {
     final document = await collection.doc(id).get();
-    final gameLobby = document.data()!;
+    var gameLobby = document.data()!;
+    if (gameLobby.players.contains(user)) return gameLobby;
+    if (gameLobby.spectators.contains(user)) {
+      gameLobby = gameLobby.copyWith(
+        spectators: gameLobby.spectators.where((element) => element.id != user.id).toList(),
+      );
+    }
+
     final status = gameLobby.status;
     if (status == GameLobbyStatus.pending && gameLobby.maxPlayers > gameLobby.players.length) {
-      final players = gameLobby.players..add(user);
+      final players = [...gameLobby.players, user];
+      final updateLobby = gameLobby.copyWith(
+        players: players,
+        status: players.length > gameLobby.minPlayers ? GameLobbyStatus.playing : gameLobby.status,
+      );
       await collection.doc(id).update(
-            gameLobby
-                .copyWith(
-                  players: players,
-                  status: players.length > gameLobby.minPlayers ? GameLobbyStatus.playing : gameLobby.status,
-                )
-                .toJson(),
+            updateLobby.toJson(),
           );
+      return updateLobby;
     }
     return joinLobbyAsSpectator(id: id, user: user);
   }
@@ -61,8 +69,10 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
     required ShatAppUser user,
   }) async {
     final document = await collection.doc(id).get();
-    final spectators = (document.data()?.spectators ?? [])..add(user);
+
     final gameLobby = document.data()!;
+    if (gameLobby.spectators.contains(user)) return gameLobby;
+    final spectators = <ShatAppUser>[...gameLobby.spectators, user];
     await collection.doc(id).update(
           gameLobby
               .copyWith(
