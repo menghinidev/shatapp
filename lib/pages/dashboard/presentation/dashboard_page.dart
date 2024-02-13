@@ -4,6 +4,7 @@ import 'package:shatapp/domain/session/authentication_session_controller.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/dashboard_shit_list.dart';
 import 'package:shatapp/pages/dashboard/presentation/section/global_shit_section.dart';
+import 'package:shatapp/pages/games/presentation/section/game_list_section.dart';
 import 'package:shatapp/pages/my_shit_teams/presentation/my_shit_teams_page.dart';
 import 'package:shatapp/utils/router/routes/shit_taking_route.dart';
 import 'package:shatapp/utils/router/showcase_router.dart';
@@ -19,7 +20,7 @@ final _homePageIndexProvider = StateProvider<int>((ref) {
 class DashboardPage extends HookConsumerWidget with UiUtility {
   const DashboardPage({super.key});
 
-  static const List<String> pagesTitle = ['Personal', 'Community', 'Teams'];
+  static const List<String> pagesTitle = ['Personal', 'Community', 'Teams', 'Games'];
 
   Widget? getFAB(int index) {
     if (index == 0) {
@@ -49,6 +50,10 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
           BottomNavigationBarItem(
             label: 'Teams',
             icon: Icon(Icons.people_alt_outlined),
+          ),
+          BottomNavigationBarItem(
+            label: 'Games',
+            icon: Icon(Icons.games_outlined),
           ),
         ],
       ),
@@ -92,6 +97,7 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
                 MyShitDiarySection(),
                 GlobalShitSection(),
                 MyShitTeamsPage(),
+                GameListSection(),
               ][index],
             ],
           ),

@@ -20,11 +20,16 @@ GameLobby _$GameLobbyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$GameLobby {
-  List<String> get players => throw _privateConstructorUsedError;
-  List<String> get spectators => throw _privateConstructorUsedError;
+  @ShatAppUserConverter()
+  List<ShatAppUser> get players => throw _privateConstructorUsedError;
+  @ShatAppUserConverter()
+  List<ShatAppUser> get spectators => throw _privateConstructorUsedError;
+  @GameLobbyStatusConverter()
   GameLobbyStatus get status => throw _privateConstructorUsedError;
   int get maxPlayers => throw _privateConstructorUsedError;
   int get minPlayers => throw _privateConstructorUsedError;
+  @GamesConverter()
+  Games get game => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,11 +44,12 @@ abstract class $GameLobbyCopyWith<$Res> {
       _$GameLobbyCopyWithImpl<$Res, GameLobby>;
   @useResult
   $Res call(
-      {List<String> players,
-      List<String> spectators,
-      GameLobbyStatus status,
+      {@ShatAppUserConverter() List<ShatAppUser> players,
+      @ShatAppUserConverter() List<ShatAppUser> spectators,
+      @GameLobbyStatusConverter() GameLobbyStatus status,
       int maxPlayers,
       int minPlayers,
+      @GamesConverter() Games game,
       String? id});
 }
 
@@ -65,17 +71,18 @@ class _$GameLobbyCopyWithImpl<$Res, $Val extends GameLobby>
     Object? status = null,
     Object? maxPlayers = null,
     Object? minPlayers = null,
+    Object? game = null,
     Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       players: null == players
           ? _value.players
           : players // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<ShatAppUser>,
       spectators: null == spectators
           ? _value.spectators
           : spectators // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<ShatAppUser>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -88,6 +95,10 @@ class _$GameLobbyCopyWithImpl<$Res, $Val extends GameLobby>
           ? _value.minPlayers
           : minPlayers // ignore: cast_nullable_to_non_nullable
               as int,
+      game: null == game
+          ? _value.game
+          : game // ignore: cast_nullable_to_non_nullable
+              as Games,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -105,11 +116,12 @@ abstract class _$$GameLobbyImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<String> players,
-      List<String> spectators,
-      GameLobbyStatus status,
+      {@ShatAppUserConverter() List<ShatAppUser> players,
+      @ShatAppUserConverter() List<ShatAppUser> spectators,
+      @GameLobbyStatusConverter() GameLobbyStatus status,
       int maxPlayers,
       int minPlayers,
+      @GamesConverter() Games game,
       String? id});
 }
 
@@ -129,17 +141,18 @@ class __$$GameLobbyImplCopyWithImpl<$Res>
     Object? status = null,
     Object? maxPlayers = null,
     Object? minPlayers = null,
+    Object? game = null,
     Object? id = freezed,
   }) {
     return _then(_$GameLobbyImpl(
       players: null == players
           ? _value._players
           : players // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<ShatAppUser>,
       spectators: null == spectators
           ? _value._spectators
           : spectators // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<ShatAppUser>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -152,6 +165,10 @@ class __$$GameLobbyImplCopyWithImpl<$Res>
           ? _value.minPlayers
           : minPlayers // ignore: cast_nullable_to_non_nullable
               as int,
+      game: null == game
+          ? _value.game
+          : game // ignore: cast_nullable_to_non_nullable
+              as Games,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -165,11 +182,12 @@ class __$$GameLobbyImplCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _$GameLobbyImpl implements _GameLobby {
   _$GameLobbyImpl(
-      {required final List<String> players,
-      required final List<String> spectators,
-      required this.status,
+      {@ShatAppUserConverter() required final List<ShatAppUser> players,
+      @ShatAppUserConverter() required final List<ShatAppUser> spectators,
+      @GameLobbyStatusConverter() required this.status,
       required this.maxPlayers,
       required this.minPlayers,
+      @GamesConverter() required this.game,
       this.id})
       : _players = players,
         _spectators = spectators;
@@ -177,34 +195,40 @@ class _$GameLobbyImpl implements _GameLobby {
   factory _$GameLobbyImpl.fromJson(Map<String, dynamic> json) =>
       _$$GameLobbyImplFromJson(json);
 
-  final List<String> _players;
+  final List<ShatAppUser> _players;
   @override
-  List<String> get players {
+  @ShatAppUserConverter()
+  List<ShatAppUser> get players {
     if (_players is EqualUnmodifiableListView) return _players;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_players);
   }
 
-  final List<String> _spectators;
+  final List<ShatAppUser> _spectators;
   @override
-  List<String> get spectators {
+  @ShatAppUserConverter()
+  List<ShatAppUser> get spectators {
     if (_spectators is EqualUnmodifiableListView) return _spectators;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_spectators);
   }
 
   @override
+  @GameLobbyStatusConverter()
   final GameLobbyStatus status;
   @override
   final int maxPlayers;
   @override
   final int minPlayers;
   @override
+  @GamesConverter()
+  final Games game;
+  @override
   final String? id;
 
   @override
   String toString() {
-    return 'GameLobby(players: $players, spectators: $spectators, status: $status, maxPlayers: $maxPlayers, minPlayers: $minPlayers, id: $id)';
+    return 'GameLobby(players: $players, spectators: $spectators, status: $status, maxPlayers: $maxPlayers, minPlayers: $minPlayers, game: $game, id: $id)';
   }
 
   @override
@@ -220,6 +244,7 @@ class _$GameLobbyImpl implements _GameLobby {
                 other.maxPlayers == maxPlayers) &&
             (identical(other.minPlayers, minPlayers) ||
                 other.minPlayers == minPlayers) &&
+            (identical(other.game, game) || other.game == game) &&
             (identical(other.id, id) || other.id == id));
   }
 
@@ -232,6 +257,7 @@ class _$GameLobbyImpl implements _GameLobby {
       status,
       maxPlayers,
       minPlayers,
+      game,
       id);
 
   @JsonKey(ignore: true)
@@ -250,26 +276,33 @@ class _$GameLobbyImpl implements _GameLobby {
 
 abstract class _GameLobby implements GameLobby {
   factory _GameLobby(
-      {required final List<String> players,
-      required final List<String> spectators,
-      required final GameLobbyStatus status,
+      {@ShatAppUserConverter() required final List<ShatAppUser> players,
+      @ShatAppUserConverter() required final List<ShatAppUser> spectators,
+      @GameLobbyStatusConverter() required final GameLobbyStatus status,
       required final int maxPlayers,
       required final int minPlayers,
+      @GamesConverter() required final Games game,
       final String? id}) = _$GameLobbyImpl;
 
   factory _GameLobby.fromJson(Map<String, dynamic> json) =
       _$GameLobbyImpl.fromJson;
 
   @override
-  List<String> get players;
+  @ShatAppUserConverter()
+  List<ShatAppUser> get players;
   @override
-  List<String> get spectators;
+  @ShatAppUserConverter()
+  List<ShatAppUser> get spectators;
   @override
+  @GameLobbyStatusConverter()
   GameLobbyStatus get status;
   @override
   int get maxPlayers;
   @override
   int get minPlayers;
+  @override
+  @GamesConverter()
+  Games get game;
   @override
   String? get id;
   @override
