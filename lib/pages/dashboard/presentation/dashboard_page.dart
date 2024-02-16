@@ -35,6 +35,7 @@ class DashboardPage extends HookConsumerWidget with UiUtility {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
+        type: BottomNavigationBarType.fixed,
         onTap: (value) => ref.read(_homePageIndexProvider.notifier).state = value,
         items: const [
           BottomNavigationBarItem(
