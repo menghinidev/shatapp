@@ -3,6 +3,7 @@ import 'package:shatapp/domain/model/game_lobby/game_lobby.dart';
 import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/pages/dashboard/presentation/widgets/shit_user_avatar.dart';
 import 'package:shatapp/pages/games/utils/games_extension.dart';
+import 'package:shatapp/utils/loader/shitting_progress_indicator.dart';
 
 class GameLobbyPendingSection extends StatelessWidget {
   const GameLobbyPendingSection({
@@ -25,6 +26,7 @@ class GameLobbyPendingSection extends StatelessWidget {
           title: 'Current spectators',
           users: gameLobby.spectators,
         ),
+        const ShittingProgressIndicator(),
       ],
     );
   }
