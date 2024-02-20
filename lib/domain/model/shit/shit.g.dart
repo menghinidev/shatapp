@@ -23,11 +23,10 @@ _$ShitDataDtoImpl _$$ShitDataDtoImplFromJson(Map<String, dynamic> json) =>
       creationDateTime: DateTime.parse(json['creationDateTime'] as String),
       effort: $enumDecode(_$ShitEffortEnumMap, json['effort']),
       consistency: $enumDecode(_$ShitConsistencyEnumMap, json['consistency']),
-      user: json['user'] == null
-          ? null
-          : ShatAppUser.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'] as String?,
       note: json['note'] as String?,
       color: json['color'] as String?,
+      team: json['team'] as String?,
     );
 
 Map<String, dynamic> _$$ShitDataDtoImplToJson(_$ShitDataDtoImpl instance) {
@@ -46,6 +45,7 @@ Map<String, dynamic> _$$ShitDataDtoImplToJson(_$ShitDataDtoImpl instance) {
   writeNotNull('user', instance.user);
   writeNotNull('note', instance.note);
   writeNotNull('color', instance.color);
+  writeNotNull('team', instance.team);
   return val;
 }
 

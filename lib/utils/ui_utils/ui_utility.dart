@@ -27,19 +27,23 @@ mixin UiDimension {
 }
 
 mixin UiShape {
-  RoundedRectangleBorder get topRounded => const RoundedRectangleBorder(
+  RoundedRectangleBorder get mediumTopRounded => const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(UiDimension.mediumSize)),
       );
 
-  RoundedRectangleBorder get bottomRounded => const RoundedRectangleBorder(
+  RoundedRectangleBorder get mediumBottomRounded => const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(UiDimension.mediumSize)),
       );
 
-  RoundedRectangleBorder get roundedShape => RoundedRectangleBorder(
-        borderRadius: roundedBorderRadius,
+  RoundedRectangleBorder get mediumRoundedShape => RoundedRectangleBorder(
+        borderRadius: mediumRoundedBorderRadius,
+      );
+  RoundedRectangleBorder get smallRoundedShape => RoundedRectangleBorder(
+        borderRadius: smallRoundedBorderRadius,
       );
 
-  BorderRadius get roundedBorderRadius => const BorderRadius.all(Radius.circular(UiDimension.mediumSize));
+  BorderRadius get mediumRoundedBorderRadius => const BorderRadius.all(Radius.circular(UiDimension.mediumSize));
+  BorderRadius get smallRoundedBorderRadius => const BorderRadius.all(Radius.circular(UiDimension.smallSize));
 }
 
 extension TextThemeProvider on BuildContext {

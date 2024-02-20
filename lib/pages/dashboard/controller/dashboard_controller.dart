@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
-import 'package:shatapp/domain/repository/firestore_repository.dart';
+import 'package:shatapp/domain/repository/shit/firestore_shit_repository.dart';
 
 final myShitProvider = FutureProvider<List<Shit>>((ref) async {
   final repo = ref.watch(shitRepository);
@@ -9,5 +9,5 @@ final myShitProvider = FutureProvider<List<Shit>>((ref) async {
 
 final globalShitProvider = FutureProvider<List<Shit>>((ref) async {
   final repo = ref.watch(shitRepository);
-  return repo.getGlobalShit();
+  return repo.getCommunityShitDiary();
 });

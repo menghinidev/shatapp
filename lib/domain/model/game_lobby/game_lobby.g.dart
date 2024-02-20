@@ -8,13 +8,10 @@ part of 'game_lobby.dart';
 
 _$GameLobbyImpl _$$GameLobbyImplFromJson(Map<String, dynamic> json) =>
     _$GameLobbyImpl(
-      players: (json['players'] as List<dynamic>)
-          .map((e) =>
-              const ShatAppUserConverter().fromJson(e as Map<String, dynamic>))
-          .toList(),
+      players:
+          (json['players'] as List<dynamic>).map((e) => e as String).toList(),
       spectators: (json['spectators'] as List<dynamic>)
-          .map((e) =>
-              const ShatAppUserConverter().fromJson(e as Map<String, dynamic>))
+          .map((e) => e as String)
           .toList(),
       status:
           const GameLobbyStatusConverter().fromJson(json['status'] as String),
@@ -26,10 +23,8 @@ _$GameLobbyImpl _$$GameLobbyImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$GameLobbyImplToJson(_$GameLobbyImpl instance) {
   final val = <String, dynamic>{
-    'players':
-        instance.players.map(const ShatAppUserConverter().toJson).toList(),
-    'spectators':
-        instance.spectators.map(const ShatAppUserConverter().toJson).toList(),
+    'players': instance.players,
+    'spectators': instance.spectators,
     'status': const GameLobbyStatusConverter().toJson(instance.status),
     'maxPlayers': instance.maxPlayers,
     'minPlayers': instance.minPlayers,

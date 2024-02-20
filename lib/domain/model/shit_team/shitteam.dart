@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shatapp/domain/model/user/shatappuser.dart';
 
 part 'shitteam.freezed.dart';
 part 'shitteam.g.dart';
@@ -11,7 +10,6 @@ mixin ShitTeamDtoMapper {
       creator: dto.data.creator,
       members: dto.data.members,
       name: dto.data.name,
-      shits: dto.data.shits ?? <String>[],
     );
   }
 
@@ -28,9 +26,8 @@ class ShitTeam with _$ShitTeam {
   factory ShitTeam({
     required String id,
     required String name,
-    required ShatAppUser creator,
-    required List<ShatAppUser> members,
-    @Default(<String>[]) List<String> shits,
+    required String creator,
+    required List<String> members,
   }) = _ShitTeam;
 
   factory ShitTeam.fromJson(Map<String, dynamic> json) => _$ShitTeamFromJson(json);
@@ -51,9 +48,8 @@ class ShitTeamDtoData with _$ShitTeamDtoData {
   @JsonSerializable(includeIfNull: false)
   factory ShitTeamDtoData({
     required String name,
-    required ShatAppUser creator,
-    required List<ShatAppUser> members,
-    List<String>? shits,
+    required String creator,
+    required List<String> members,
   }) = _ShitTeamDtoData;
 
   factory ShitTeamDtoData.fromJson(Map<String, dynamic> json) => _$ShitTeamDtoDataFromJson(json);

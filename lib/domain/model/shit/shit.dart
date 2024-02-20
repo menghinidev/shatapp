@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
-import 'package:shatapp/domain/model/user/shatappuser.dart';
 
 part 'shit.freezed.dart';
 part 'shit.g.dart';
@@ -16,6 +15,7 @@ mixin ShitDtoMapper {
       note: dto.data.note,
       user: dto.data.user,
       color: dto.data.color,
+      teamId: dto.data.team,
     );
   }
 
@@ -34,9 +34,10 @@ class Shit with _$Shit {
     required DateTime creationDateTime,
     required ShitEffort effort,
     required ShitConsistency consistency,
-    ShatAppUser? user,
+    String? user,
     String? note,
     String? color,
+    String? teamId,
   }) = _Shit;
 }
 
@@ -57,9 +58,10 @@ class ShitDataDto with _$ShitDataDto {
     required DateTime creationDateTime,
     required ShitEffort effort,
     required ShitConsistency consistency,
-    ShatAppUser? user,
+    String? user,
     String? note,
     String? color,
+    String? team,
   }) = _ShitDataDto;
 
   factory ShitDataDto.fromJson(Map<String, dynamic> json) => _$ShitDataDtoFromJson(json);

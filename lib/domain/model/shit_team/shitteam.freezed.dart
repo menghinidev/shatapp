@@ -22,9 +22,8 @@ ShitTeam _$ShitTeamFromJson(Map<String, dynamic> json) {
 mixin _$ShitTeam {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  ShatAppUser get creator => throw _privateConstructorUsedError;
-  List<ShatAppUser> get members => throw _privateConstructorUsedError;
-  List<String> get shits => throw _privateConstructorUsedError;
+  String get creator => throw _privateConstructorUsedError;
+  List<String> get members => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,14 +36,7 @@ abstract class $ShitTeamCopyWith<$Res> {
   factory $ShitTeamCopyWith(ShitTeam value, $Res Function(ShitTeam) then) =
       _$ShitTeamCopyWithImpl<$Res, ShitTeam>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      ShatAppUser creator,
-      List<ShatAppUser> members,
-      List<String> shits});
-
-  $ShatAppUserCopyWith<$Res> get creator;
+  $Res call({String id, String name, String creator, List<String> members});
 }
 
 /// @nodoc
@@ -64,7 +56,6 @@ class _$ShitTeamCopyWithImpl<$Res, $Val extends ShitTeam>
     Object? name = null,
     Object? creator = null,
     Object? members = null,
-    Object? shits = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -78,24 +69,12 @@ class _$ShitTeamCopyWithImpl<$Res, $Val extends ShitTeam>
       creator: null == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser,
+              as String,
       members: null == members
           ? _value.members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
-      shits: null == shits
-          ? _value.shits
-          : shits // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ShatAppUserCopyWith<$Res> get creator {
-    return $ShatAppUserCopyWith<$Res>(_value.creator, (value) {
-      return _then(_value.copyWith(creator: value) as $Val);
-    });
   }
 }
 
@@ -107,15 +86,7 @@ abstract class _$$ShitTeamImplCopyWith<$Res>
       __$$ShitTeamImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      ShatAppUser creator,
-      List<ShatAppUser> members,
-      List<String> shits});
-
-  @override
-  $ShatAppUserCopyWith<$Res> get creator;
+  $Res call({String id, String name, String creator, List<String> members});
 }
 
 /// @nodoc
@@ -133,7 +104,6 @@ class __$$ShitTeamImplCopyWithImpl<$Res>
     Object? name = null,
     Object? creator = null,
     Object? members = null,
-    Object? shits = null,
   }) {
     return _then(_$ShitTeamImpl(
       id: null == id
@@ -147,14 +117,10 @@ class __$$ShitTeamImplCopyWithImpl<$Res>
       creator: null == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser,
+              as String,
       members: null == members
           ? _value._members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
-      shits: null == shits
-          ? _value._shits
-          : shits // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -167,10 +133,8 @@ class _$ShitTeamImpl implements _ShitTeam {
       {required this.id,
       required this.name,
       required this.creator,
-      required final List<ShatAppUser> members,
-      final List<String> shits = const <String>[]})
-      : _members = members,
-        _shits = shits;
+      required final List<String> members})
+      : _members = members;
 
   factory _$ShitTeamImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShitTeamImplFromJson(json);
@@ -180,27 +144,18 @@ class _$ShitTeamImpl implements _ShitTeam {
   @override
   final String name;
   @override
-  final ShatAppUser creator;
-  final List<ShatAppUser> _members;
+  final String creator;
+  final List<String> _members;
   @override
-  List<ShatAppUser> get members {
+  List<String> get members {
     if (_members is EqualUnmodifiableListView) return _members;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_members);
   }
 
-  final List<String> _shits;
-  @override
-  @JsonKey()
-  List<String> get shits {
-    if (_shits is EqualUnmodifiableListView) return _shits;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_shits);
-  }
-
   @override
   String toString() {
-    return 'ShitTeam(id: $id, name: $name, creator: $creator, members: $members, shits: $shits)';
+    return 'ShitTeam(id: $id, name: $name, creator: $creator, members: $members)';
   }
 
   @override
@@ -211,19 +166,13 @@ class _$ShitTeamImpl implements _ShitTeam {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.creator, creator) || other.creator == creator) &&
-            const DeepCollectionEquality().equals(other._members, _members) &&
-            const DeepCollectionEquality().equals(other._shits, _shits));
+            const DeepCollectionEquality().equals(other._members, _members));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      creator,
-      const DeepCollectionEquality().hash(_members),
-      const DeepCollectionEquality().hash(_shits));
+  int get hashCode => Object.hash(runtimeType, id, name, creator,
+      const DeepCollectionEquality().hash(_members));
 
   @JsonKey(ignore: true)
   @override
@@ -243,9 +192,8 @@ abstract class _ShitTeam implements ShitTeam {
   factory _ShitTeam(
       {required final String id,
       required final String name,
-      required final ShatAppUser creator,
-      required final List<ShatAppUser> members,
-      final List<String> shits}) = _$ShitTeamImpl;
+      required final String creator,
+      required final List<String> members}) = _$ShitTeamImpl;
 
   factory _ShitTeam.fromJson(Map<String, dynamic> json) =
       _$ShitTeamImpl.fromJson;
@@ -255,11 +203,9 @@ abstract class _ShitTeam implements ShitTeam {
   @override
   String get name;
   @override
-  ShatAppUser get creator;
+  String get creator;
   @override
-  List<ShatAppUser> get members;
-  @override
-  List<String> get shits;
+  List<String> get members;
   @override
   @JsonKey(ignore: true)
   _$$ShitTeamImplCopyWith<_$ShitTeamImpl> get copyWith =>
@@ -440,9 +386,8 @@ ShitTeamDtoData _$ShitTeamDtoDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ShitTeamDtoData {
   String get name => throw _privateConstructorUsedError;
-  ShatAppUser get creator => throw _privateConstructorUsedError;
-  List<ShatAppUser> get members => throw _privateConstructorUsedError;
-  List<String>? get shits => throw _privateConstructorUsedError;
+  String get creator => throw _privateConstructorUsedError;
+  List<String> get members => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -456,13 +401,7 @@ abstract class $ShitTeamDtoDataCopyWith<$Res> {
           ShitTeamDtoData value, $Res Function(ShitTeamDtoData) then) =
       _$ShitTeamDtoDataCopyWithImpl<$Res, ShitTeamDtoData>;
   @useResult
-  $Res call(
-      {String name,
-      ShatAppUser creator,
-      List<ShatAppUser> members,
-      List<String>? shits});
-
-  $ShatAppUserCopyWith<$Res> get creator;
+  $Res call({String name, String creator, List<String> members});
 }
 
 /// @nodoc
@@ -481,7 +420,6 @@ class _$ShitTeamDtoDataCopyWithImpl<$Res, $Val extends ShitTeamDtoData>
     Object? name = null,
     Object? creator = null,
     Object? members = null,
-    Object? shits = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -491,24 +429,12 @@ class _$ShitTeamDtoDataCopyWithImpl<$Res, $Val extends ShitTeamDtoData>
       creator: null == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser,
+              as String,
       members: null == members
           ? _value.members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
-      shits: freezed == shits
-          ? _value.shits
-          : shits // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ShatAppUserCopyWith<$Res> get creator {
-    return $ShatAppUserCopyWith<$Res>(_value.creator, (value) {
-      return _then(_value.copyWith(creator: value) as $Val);
-    });
   }
 }
 
@@ -520,14 +446,7 @@ abstract class _$$ShitTeamDtoDataImplCopyWith<$Res>
       __$$ShitTeamDtoDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String name,
-      ShatAppUser creator,
-      List<ShatAppUser> members,
-      List<String>? shits});
-
-  @override
-  $ShatAppUserCopyWith<$Res> get creator;
+  $Res call({String name, String creator, List<String> members});
 }
 
 /// @nodoc
@@ -544,7 +463,6 @@ class __$$ShitTeamDtoDataImplCopyWithImpl<$Res>
     Object? name = null,
     Object? creator = null,
     Object? members = null,
-    Object? shits = freezed,
   }) {
     return _then(_$ShitTeamDtoDataImpl(
       name: null == name
@@ -554,15 +472,11 @@ class __$$ShitTeamDtoDataImplCopyWithImpl<$Res>
       creator: null == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser,
+              as String,
       members: null == members
           ? _value._members
           : members // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
-      shits: freezed == shits
-          ? _value._shits
-          : shits // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
     ));
   }
 }
@@ -574,10 +488,8 @@ class _$ShitTeamDtoDataImpl implements _ShitTeamDtoData {
   _$ShitTeamDtoDataImpl(
       {required this.name,
       required this.creator,
-      required final List<ShatAppUser> members,
-      final List<String>? shits})
-      : _members = members,
-        _shits = shits;
+      required final List<String> members})
+      : _members = members;
 
   factory _$ShitTeamDtoDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShitTeamDtoDataImplFromJson(json);
@@ -585,28 +497,18 @@ class _$ShitTeamDtoDataImpl implements _ShitTeamDtoData {
   @override
   final String name;
   @override
-  final ShatAppUser creator;
-  final List<ShatAppUser> _members;
+  final String creator;
+  final List<String> _members;
   @override
-  List<ShatAppUser> get members {
+  List<String> get members {
     if (_members is EqualUnmodifiableListView) return _members;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_members);
   }
 
-  final List<String>? _shits;
-  @override
-  List<String>? get shits {
-    final value = _shits;
-    if (value == null) return null;
-    if (_shits is EqualUnmodifiableListView) return _shits;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   @override
   String toString() {
-    return 'ShitTeamDtoData(name: $name, creator: $creator, members: $members, shits: $shits)';
+    return 'ShitTeamDtoData(name: $name, creator: $creator, members: $members)';
   }
 
   @override
@@ -616,18 +518,13 @@ class _$ShitTeamDtoDataImpl implements _ShitTeamDtoData {
             other is _$ShitTeamDtoDataImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.creator, creator) || other.creator == creator) &&
-            const DeepCollectionEquality().equals(other._members, _members) &&
-            const DeepCollectionEquality().equals(other._shits, _shits));
+            const DeepCollectionEquality().equals(other._members, _members));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      creator,
-      const DeepCollectionEquality().hash(_members),
-      const DeepCollectionEquality().hash(_shits));
+  int get hashCode => Object.hash(runtimeType, name, creator,
+      const DeepCollectionEquality().hash(_members));
 
   @JsonKey(ignore: true)
   @override
@@ -647,9 +544,8 @@ class _$ShitTeamDtoDataImpl implements _ShitTeamDtoData {
 abstract class _ShitTeamDtoData implements ShitTeamDtoData {
   factory _ShitTeamDtoData(
       {required final String name,
-      required final ShatAppUser creator,
-      required final List<ShatAppUser> members,
-      final List<String>? shits}) = _$ShitTeamDtoDataImpl;
+      required final String creator,
+      required final List<String> members}) = _$ShitTeamDtoDataImpl;
 
   factory _ShitTeamDtoData.fromJson(Map<String, dynamic> json) =
       _$ShitTeamDtoDataImpl.fromJson;
@@ -657,11 +553,9 @@ abstract class _ShitTeamDtoData implements ShitTeamDtoData {
   @override
   String get name;
   @override
-  ShatAppUser get creator;
+  String get creator;
   @override
-  List<ShatAppUser> get members;
-  @override
-  List<String>? get shits;
+  List<String> get members;
   @override
   @JsonKey(ignore: true)
   _$$ShitTeamDtoDataImplCopyWith<_$ShitTeamDtoDataImpl> get copyWith =>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shatapp/domain/repository/shit_team_repository.dart';
+import 'package:shatapp/components/banner.dart';
+import 'package:shatapp/domain/repository/team/shit_team_repository.dart';
 import 'package:shatapp/pages/my_shit_teams/presentation/my_shit_team_list_item.dart';
 import 'package:shatapp/pages/my_shit_teams/presentation/new_shit_team_dialog.dart';
 import 'package:shatapp/utils/builder/empty_data_builder.dart';
@@ -19,12 +20,9 @@ class MyShitTeamsPage extends ConsumerWidget with UiDimension, UiUtility {
         applySliver: true,
         data: (data) => EmptyDataWidget(
           emptyCondition: data.isEmpty,
-          emptyPlaceholderBuilder: (context) => SliverFillRemaining(
-            child: Center(
-              child: Text(
-                'Non ci sono teams',
-                style: context.textTheme.titleLarge.withGrayColor,
-              ),
+          emptyPlaceholderBuilder: (context) => const SliverFillRemaining(
+            child: TextBanner(
+              text: 'Non ci sono teams',
             ),
           ),
           childBuilder: (context) => SliverList.separated(

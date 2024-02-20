@@ -2,7 +2,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/game_lobby_status.dart';
 import 'package:shatapp/domain/enum/games_enum.dart';
 import 'package:shatapp/domain/model/game_lobby/game_lobby.dart';
-import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/repository/game_lobby/i_game_lobby_repository.dart';
 import 'package:shatapp/pages/games/utils/games_extension.dart';
 
@@ -20,9 +19,9 @@ class GameManager {
   final Games game;
   final GameLobbyRepository repository;
 
-  GameLobby _createGameLobby({required ShatAppUser user}) {
+  GameLobby _createGameLobby({required String userId}) {
     return GameLobby(
-      players: [user],
+      players: [userId],
       spectators: [],
       status: GameLobbyStatus.pending,
       maxPlayers: game.getMaxPlayers(),
@@ -32,20 +31,20 @@ class GameManager {
   }
 
   Future<GameLobby> _createNewLobby({
-    required ShatAppUser user,
+    required String userId,
   }) {
     return repository.createLobby(
-      lobby: _createGameLobby(user: user),
+      lobby: _createGameLobby(userId: userId),
     );
   }
 
   Future<GameLobby> joinLobby({
-    required ShatAppUser user,
+    required String userId,
   }) async {
     final lobby = await repository.getPendingGameLobby(game: game);
     if (lobby == null) {
-      return _createNewLobby(user: user);
+      return _createNewLobby(userId: userId);
     }
-    return repository.joinLobby(id: lobby.id!, user: user);
+    return repository.joinLobby(id: lobby.id!, userId: userId);
   }
 }

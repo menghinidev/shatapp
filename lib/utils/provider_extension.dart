@@ -20,4 +20,22 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
               )
             : const Center(child: LoadingWidget()),
       );
+
+  Widget emptyUntil({
+    required Widget Function(T value) data,
+    bool applySliver = false,
+  }) =>
+      when(
+        data: data,
+        error: (_, __) => applySliver
+            ? const SliverToBoxAdapter(
+                child: Text('Error'),
+              )
+            : const Text('Error'),
+        loading: () => applySliver
+            ? const SliverFillRemaining(
+                child: SizedBox.shrink(),
+              )
+            : const SizedBox.shrink(),
+      );
 }

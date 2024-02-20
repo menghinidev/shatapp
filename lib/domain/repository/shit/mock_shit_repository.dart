@@ -1,7 +1,8 @@
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
-import 'package:shatapp/domain/repository/i_shit_repository.dart';
+import 'package:shatapp/domain/model/shit_team/shitteam.dart';
+import 'package:shatapp/domain/repository/shit/i_shit_repository.dart';
 
 class MockShitRepository implements ShitRepository {
   @override
@@ -13,6 +14,7 @@ class MockShitRepository implements ShitRepository {
   Future<Shit?> registerShit({
     required ShitEffort effort,
     required ShitConsistency consistency,
+    ShitTeam? team,
     String? color,
     String? note,
   }) async {
@@ -57,14 +59,20 @@ class MockShitRepository implements ShitRepository {
   ];
 
   @override
-  Future<List<Shit>> getGlobalShit() {
-    // TODO: implement getGlobalShit
+  Future<List<Shit>> getCommunityShitDiary() {
+    // TODO(mengo): implement getGlobalShit
     throw UnimplementedError();
   }
 
   @override
   Future<void> removeShit(String shitId) {
-    // TODO: implement removeShit
+    // TODO(mengo): implement removeShit
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Shit>> getTeamShitDiary(String teamId) {
+    // TODO: implement getTeamShitDiary
     throw UnimplementedError();
   }
 }

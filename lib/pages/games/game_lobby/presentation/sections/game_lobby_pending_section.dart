@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/game_lobby/game_lobby.dart';
-import 'package:shatapp/domain/model/user/shatappuser.dart';
+import 'package:shatapp/domain/repository/user/firestore_user_repository.dart';
 import 'package:shatapp/pages/dashboard/presentation/widgets/shit_user_avatar.dart';
 import 'package:shatapp/pages/games/utils/games_extension.dart';
 import 'package:shatapp/utils/loader/shitting_progress_indicator.dart';
+import 'package:shatapp/utils/provider_extension.dart';
 
 class GameLobbyPendingSection extends StatelessWidget {
   const GameLobbyPendingSection({
@@ -58,7 +60,7 @@ class _GameLobbyPendingUsers extends StatelessWidget {
     required this.title,
   });
 
-  final List<ShatAppUser> users;
+  final List<String> users;
   final String title;
 
   @override
@@ -69,13 +71,31 @@ class _GameLobbyPendingUsers extends StatelessWidget {
         Wrap(
           children: users
               .map(
-                (e) => ShitUserAvatar(
-                  user: e,
+                (e) => _GameLobbyPendingUser(
+                  userId: e,
                 ),
               )
               .toList(),
         ),
       ],
+    );
+  }
+}
+
+class _GameLobbyPendingUser extends ConsumerWidget {
+  const _GameLobbyPendingUser({
+    required this.userId,
+  });
+
+  final String userId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userByIdProvider(userId));
+    return user.emptyUntil(
+      data: (data) => ShitUserAvatar(
+        user: data,
+      ),
     );
   }
 }

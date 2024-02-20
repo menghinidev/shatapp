@@ -20,10 +20,8 @@ GameLobby _$GameLobbyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$GameLobby {
-  @ShatAppUserConverter()
-  List<ShatAppUser> get players => throw _privateConstructorUsedError;
-  @ShatAppUserConverter()
-  List<ShatAppUser> get spectators => throw _privateConstructorUsedError;
+  List<String> get players => throw _privateConstructorUsedError;
+  List<String> get spectators => throw _privateConstructorUsedError;
   @GameLobbyStatusConverter()
   GameLobbyStatus get status => throw _privateConstructorUsedError;
   int get maxPlayers => throw _privateConstructorUsedError;
@@ -44,8 +42,8 @@ abstract class $GameLobbyCopyWith<$Res> {
       _$GameLobbyCopyWithImpl<$Res, GameLobby>;
   @useResult
   $Res call(
-      {@ShatAppUserConverter() List<ShatAppUser> players,
-      @ShatAppUserConverter() List<ShatAppUser> spectators,
+      {List<String> players,
+      List<String> spectators,
       @GameLobbyStatusConverter() GameLobbyStatus status,
       int maxPlayers,
       int minPlayers,
@@ -78,11 +76,11 @@ class _$GameLobbyCopyWithImpl<$Res, $Val extends GameLobby>
       players: null == players
           ? _value.players
           : players // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
+              as List<String>,
       spectators: null == spectators
           ? _value.spectators
           : spectators // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
+              as List<String>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -116,8 +114,8 @@ abstract class _$$GameLobbyImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@ShatAppUserConverter() List<ShatAppUser> players,
-      @ShatAppUserConverter() List<ShatAppUser> spectators,
+      {List<String> players,
+      List<String> spectators,
       @GameLobbyStatusConverter() GameLobbyStatus status,
       int maxPlayers,
       int minPlayers,
@@ -148,11 +146,11 @@ class __$$GameLobbyImplCopyWithImpl<$Res>
       players: null == players
           ? _value._players
           : players // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
+              as List<String>,
       spectators: null == spectators
           ? _value._spectators
           : spectators // ignore: cast_nullable_to_non_nullable
-              as List<ShatAppUser>,
+              as List<String>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -182,8 +180,8 @@ class __$$GameLobbyImplCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _$GameLobbyImpl implements _GameLobby {
   _$GameLobbyImpl(
-      {@ShatAppUserConverter() required final List<ShatAppUser> players,
-      @ShatAppUserConverter() required final List<ShatAppUser> spectators,
+      {required final List<String> players,
+      required final List<String> spectators,
       @GameLobbyStatusConverter() required this.status,
       required this.maxPlayers,
       required this.minPlayers,
@@ -195,19 +193,17 @@ class _$GameLobbyImpl implements _GameLobby {
   factory _$GameLobbyImpl.fromJson(Map<String, dynamic> json) =>
       _$$GameLobbyImplFromJson(json);
 
-  final List<ShatAppUser> _players;
+  final List<String> _players;
   @override
-  @ShatAppUserConverter()
-  List<ShatAppUser> get players {
+  List<String> get players {
     if (_players is EqualUnmodifiableListView) return _players;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_players);
   }
 
-  final List<ShatAppUser> _spectators;
+  final List<String> _spectators;
   @override
-  @ShatAppUserConverter()
-  List<ShatAppUser> get spectators {
+  List<String> get spectators {
     if (_spectators is EqualUnmodifiableListView) return _spectators;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_spectators);
@@ -276,8 +272,8 @@ class _$GameLobbyImpl implements _GameLobby {
 
 abstract class _GameLobby implements GameLobby {
   factory _GameLobby(
-      {@ShatAppUserConverter() required final List<ShatAppUser> players,
-      @ShatAppUserConverter() required final List<ShatAppUser> spectators,
+      {required final List<String> players,
+      required final List<String> spectators,
       @GameLobbyStatusConverter() required final GameLobbyStatus status,
       required final int maxPlayers,
       required final int minPlayers,
@@ -288,11 +284,9 @@ abstract class _GameLobby implements GameLobby {
       _$GameLobbyImpl.fromJson;
 
   @override
-  @ShatAppUserConverter()
-  List<ShatAppUser> get players;
+  List<String> get players;
   @override
-  @ShatAppUserConverter()
-  List<ShatAppUser> get spectators;
+  List<String> get spectators;
   @override
   @GameLobbyStatusConverter()
   GameLobbyStatus get status;

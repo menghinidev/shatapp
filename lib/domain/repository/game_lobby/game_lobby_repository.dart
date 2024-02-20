@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shatapp/domain/enum/game_lobby_status.dart';
 import 'package:shatapp/domain/enum/games_enum.dart';
 import 'package:shatapp/domain/model/game_lobby/game_lobby.dart';
-import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/repository/game_lobby/i_game_lobby_repository.dart';
 
 class GameLobbyRepositoryImpl implements GameLobbyRepository {
@@ -37,20 +36,20 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
   @override
   Future<GameLobby> joinLobby({
     required String id,
-    required ShatAppUser user,
+    required String userId,
   }) async {
     final document = await collection.doc(id).get();
     var gameLobby = document.data()!;
-    if (gameLobby.players.contains(user)) return gameLobby;
-    if (gameLobby.spectators.contains(user)) {
+    if (gameLobby.players.contains(userId)) return gameLobby;
+    if (gameLobby.spectators.contains(userId)) {
       gameLobby = gameLobby.copyWith(
-        spectators: gameLobby.spectators.where((element) => element.id != user.id).toList(),
+        spectators: gameLobby.spectators.where((element) => element != userId).toList(),
       );
     }
 
     final status = gameLobby.status;
     if (status == GameLobbyStatus.pending && gameLobby.maxPlayers > gameLobby.players.length) {
-      final players = [...gameLobby.players, user];
+      final players = [...gameLobby.players, userId];
       final updateLobby = gameLobby.copyWith(
         players: players,
         status: players.length > gameLobby.minPlayers ? GameLobbyStatus.playing : gameLobby.status,
@@ -60,44 +59,41 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
           );
       return updateLobby;
     }
-    return joinLobbyAsSpectator(id: id, user: user);
+    return joinLobbyAsSpectator(id: id, userId: userId);
   }
 
   @override
   Future<GameLobby> joinLobbyAsSpectator({
     required String id,
-    required ShatAppUser user,
+    required String userId,
   }) async {
     final document = await collection.doc(id).get();
 
     final gameLobby = document.data()!;
-    if (gameLobby.spectators.contains(user)) return gameLobby;
-    final spectators = <ShatAppUser>[...gameLobby.spectators, user];
+    if (gameLobby.spectators.contains(userId)) return gameLobby;
+    final spectators = <String>[...gameLobby.spectators, userId];
+    final newLobby = gameLobby.copyWith(spectators: spectators).toJson();
     await collection.doc(id).update(
-          gameLobby
-              .copyWith(
-                spectators: spectators,
-              )
-              .toJson(),
+          newLobby,
         );
     return gameLobby;
   }
 
   @override
   Future<List<GameLobby>> getLobbies() {
-    // TODO: implement getLobbies
+    // TODO(tommy): implement getLobbies
     throw UnimplementedError();
   }
 
   @override
   Future<void> removeLobby({required String id}) {
-    // TODO: implement removeLobby
+    // TODO(tommy): implement removeLobby
     throw UnimplementedError();
   }
 
   @override
   Future<GameLobby> updateLobby({required GameLobby lobby}) {
-    // TODO: implement updateLobby
+    // TODO(tommy): implement updateLobby
     throw UnimplementedError();
   }
 

@@ -7,6 +7,7 @@ import 'package:shatapp/domain/session/authentication_session_controller.dart';
 import 'package:shatapp/domain/session/state/authenticationstate.dart';
 import 'package:shatapp/pages/games/application/game_manager.dart';
 import 'package:shatapp/pages/games/utils/games_extension.dart';
+import 'package:shatapp/utils/logger/logger_manager.dart';
 import 'package:shatapp/utils/router/routes/game_lobby_route.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
@@ -24,14 +25,14 @@ class GameListItem extends ConsumerWidget with UiShape, UiDimension, UiUtility {
       onTap: () async {
         final user = ref.read(authenticationSessionController);
         if (user is Logged) {
-          await ref.read(gameManagerProvider(game)).joinLobby(user: user.user).then((value) {
-            print(value);
+          await ref.read(gameManagerProvider(game)).joinLobby(userId: user.user.id).then((value) {
+            ref.logMessage(value.toJson().toString());
             context.go(GameLobbyRoute.fromHome, extra: value.id);
           });
         }
       },
       child: Card(
-        shape: roundedShape,
+        shape: mediumRoundedShape,
         elevation: smallElevation,
         child: Padding(
           padding: mediumPadding,

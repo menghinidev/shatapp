@@ -1,7 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/games_enum.dart';
 import 'package:shatapp/domain/model/game_lobby/game_lobby.dart';
-import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/repository/game_lobby/game_lobby_repository.dart';
 
 final gameLobbyRepositoryProvider = Provider<GameLobbyRepository>((ref) {
@@ -23,12 +22,12 @@ abstract class GameLobbyRepository {
 
   Future<GameLobby> joinLobby({
     required String id,
-    required ShatAppUser user,
+    required String userId,
   });
 
   Future<GameLobby> joinLobbyAsSpectator({
     required String id,
-    required ShatAppUser user,
+    required String userId,
   });
 
   Future<GameLobby?> getPendingGameLobby({
