@@ -75,4 +75,10 @@ class FirestoreAuthRepository implements IAuthRepository {
     await userCollection.doc(user.id).set(userDtoJson);
     return Future.value();
   }
+
+  @override
+  Future<void> logout() {
+    // TODO(mengo): implement logout
+    throw UnimplementedError();
+  }
 }

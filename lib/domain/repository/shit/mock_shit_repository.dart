@@ -72,7 +72,7 @@ class MockShitRepository implements ShitRepository {
 
   @override
   Future<List<Shit>> getTeamShitDiary(String teamId) {
-    // TODO: implement getTeamShitDiary
+    // TODO(mengo): implement getTeamShitDiary
     throw UnimplementedError();
   }
 }
