@@ -78,9 +78,7 @@ class CreateShitTeamBottomSheet extends HookConsumerWidget with UiDimension, UiU
 }
 
 class _ShitUsersDropdown extends ConsumerWidget {
-  const _ShitUsersDropdown({
-    super.key,
-  });
+  const _ShitUsersDropdown();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -115,7 +113,6 @@ class _ShitUsersDropdown extends ConsumerWidget {
 class _ShitTeamMembersBar extends ConsumerWidget with UiDimension {
   const _ShitTeamMembersBar({
     required this.users,
-    super.key,
   });
 
   final Set<ShatAppUser> users;
@@ -135,7 +132,6 @@ class _ShitTeamMembersBar extends ConsumerWidget with UiDimension {
 class _ShitTeamMemberChip extends ConsumerWidget with UiShape {
   const _ShitTeamMemberChip({
     required this.user,
-    super.key,
   });
 
   final ShatAppUser user;

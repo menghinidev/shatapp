@@ -7,4 +7,5 @@ abstract class IUserRepository {
 
 abstract class IAuthRepository {
   Future<void> login(ShatAppUser user);
+  Future<void> logout();
 }
