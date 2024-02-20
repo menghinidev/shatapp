@@ -20,9 +20,10 @@ mixin _$Shit {
   DateTime get creationDateTime => throw _privateConstructorUsedError;
   ShitEffort get effort => throw _privateConstructorUsedError;
   ShitConsistency get consistency => throw _privateConstructorUsedError;
-  ShatAppUser? get user => throw _privateConstructorUsedError;
+  String? get user => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
+  String? get teamId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ShitCopyWith<Shit> get copyWith => throw _privateConstructorUsedError;
@@ -38,11 +39,10 @@ abstract class $ShitCopyWith<$Res> {
       DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
-      ShatAppUser? user,
+      String? user,
       String? note,
-      String? color});
-
-  $ShatAppUserCopyWith<$Res>? get user;
+      String? color,
+      String? teamId});
 }
 
 /// @nodoc
@@ -65,6 +65,7 @@ class _$ShitCopyWithImpl<$Res, $Val extends Shit>
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
+    Object? teamId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -86,7 +87,7 @@ class _$ShitCopyWithImpl<$Res, $Val extends Shit>
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser?,
+              as String?,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -95,19 +96,11 @@ class _$ShitCopyWithImpl<$Res, $Val extends Shit>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
+      teamId: freezed == teamId
+          ? _value.teamId
+          : teamId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ShatAppUserCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $ShatAppUserCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
   }
 }
 
@@ -123,12 +116,10 @@ abstract class _$$ShitImplCopyWith<$Res> implements $ShitCopyWith<$Res> {
       DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
-      ShatAppUser? user,
+      String? user,
       String? note,
-      String? color});
-
-  @override
-  $ShatAppUserCopyWith<$Res>? get user;
+      String? color,
+      String? teamId});
 }
 
 /// @nodoc
@@ -148,6 +139,7 @@ class __$$ShitImplCopyWithImpl<$Res>
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
+    Object? teamId = freezed,
   }) {
     return _then(_$ShitImpl(
       id: null == id
@@ -169,7 +161,7 @@ class __$$ShitImplCopyWithImpl<$Res>
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser?,
+              as String?,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -177,6 +169,10 @@ class __$$ShitImplCopyWithImpl<$Res>
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
+              as String?,
+      teamId: freezed == teamId
+          ? _value.teamId
+          : teamId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -192,7 +188,8 @@ class _$ShitImpl implements _Shit {
       required this.consistency,
       this.user,
       this.note,
-      this.color});
+      this.color,
+      this.teamId});
 
   @override
   final String id;
@@ -203,15 +200,17 @@ class _$ShitImpl implements _Shit {
   @override
   final ShitConsistency consistency;
   @override
-  final ShatAppUser? user;
+  final String? user;
   @override
   final String? note;
   @override
   final String? color;
+  @override
+  final String? teamId;
 
   @override
   String toString() {
-    return 'Shit(id: $id, creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, user: $user, note: $note, color: $color)';
+    return 'Shit(id: $id, creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, user: $user, note: $note, color: $color, teamId: $teamId)';
   }
 
   @override
@@ -227,12 +226,13 @@ class _$ShitImpl implements _Shit {
                 other.consistency == consistency) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.note, note) || other.note == note) &&
-            (identical(other.color, color) || other.color == color));
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.teamId, teamId) || other.teamId == teamId));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, creationDateTime, effort,
-      consistency, user, note, color);
+      consistency, user, note, color, teamId);
 
   @JsonKey(ignore: true)
   @override
@@ -247,9 +247,10 @@ abstract class _Shit implements Shit {
       required final DateTime creationDateTime,
       required final ShitEffort effort,
       required final ShitConsistency consistency,
-      final ShatAppUser? user,
+      final String? user,
       final String? note,
-      final String? color}) = _$ShitImpl;
+      final String? color,
+      final String? teamId}) = _$ShitImpl;
 
   @override
   String get id;
@@ -260,11 +261,13 @@ abstract class _Shit implements Shit {
   @override
   ShitConsistency get consistency;
   @override
-  ShatAppUser? get user;
+  String? get user;
   @override
   String? get note;
   @override
   String? get color;
+  @override
+  String? get teamId;
   @override
   @JsonKey(ignore: true)
   _$$ShitImplCopyWith<_$ShitImpl> get copyWith =>
@@ -443,9 +446,10 @@ mixin _$ShitDataDto {
   DateTime get creationDateTime => throw _privateConstructorUsedError;
   ShitEffort get effort => throw _privateConstructorUsedError;
   ShitConsistency get consistency => throw _privateConstructorUsedError;
-  ShatAppUser? get user => throw _privateConstructorUsedError;
+  String? get user => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
+  String? get team => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -463,11 +467,10 @@ abstract class $ShitDataDtoCopyWith<$Res> {
       {DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
-      ShatAppUser? user,
+      String? user,
       String? note,
-      String? color});
-
-  $ShatAppUserCopyWith<$Res>? get user;
+      String? color,
+      String? team});
 }
 
 /// @nodoc
@@ -489,6 +492,7 @@ class _$ShitDataDtoCopyWithImpl<$Res, $Val extends ShitDataDto>
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
+    Object? team = freezed,
   }) {
     return _then(_value.copyWith(
       creationDateTime: null == creationDateTime
@@ -506,7 +510,7 @@ class _$ShitDataDtoCopyWithImpl<$Res, $Val extends ShitDataDto>
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser?,
+              as String?,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -515,19 +519,11 @@ class _$ShitDataDtoCopyWithImpl<$Res, $Val extends ShitDataDto>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
+      team: freezed == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ShatAppUserCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $ShatAppUserCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
   }
 }
 
@@ -543,12 +539,10 @@ abstract class _$$ShitDataDtoImplCopyWith<$Res>
       {DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
-      ShatAppUser? user,
+      String? user,
       String? note,
-      String? color});
-
-  @override
-  $ShatAppUserCopyWith<$Res>? get user;
+      String? color,
+      String? team});
 }
 
 /// @nodoc
@@ -568,6 +562,7 @@ class __$$ShitDataDtoImplCopyWithImpl<$Res>
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
+    Object? team = freezed,
   }) {
     return _then(_$ShitDataDtoImpl(
       creationDateTime: null == creationDateTime
@@ -585,7 +580,7 @@ class __$$ShitDataDtoImplCopyWithImpl<$Res>
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as ShatAppUser?,
+              as String?,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -593,6 +588,10 @@ class __$$ShitDataDtoImplCopyWithImpl<$Res>
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
+              as String?,
+      team: freezed == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -608,7 +607,8 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
       required this.consistency,
       this.user,
       this.note,
-      this.color});
+      this.color,
+      this.team});
 
   factory _$ShitDataDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShitDataDtoImplFromJson(json);
@@ -620,15 +620,17 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
   @override
   final ShitConsistency consistency;
   @override
-  final ShatAppUser? user;
+  final String? user;
   @override
   final String? note;
   @override
   final String? color;
+  @override
+  final String? team;
 
   @override
   String toString() {
-    return 'ShitDataDto(creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, user: $user, note: $note, color: $color)';
+    return 'ShitDataDto(creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, user: $user, note: $note, color: $color, team: $team)';
   }
 
   @override
@@ -643,13 +645,14 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
                 other.consistency == consistency) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.note, note) || other.note == note) &&
-            (identical(other.color, color) || other.color == color));
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.team, team) || other.team == team));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, creationDateTime, effort, consistency, user, note, color);
+  int get hashCode => Object.hash(runtimeType, creationDateTime, effort,
+      consistency, user, note, color, team);
 
   @JsonKey(ignore: true)
   @override
@@ -670,9 +673,10 @@ abstract class _ShitDataDto implements ShitDataDto {
       {required final DateTime creationDateTime,
       required final ShitEffort effort,
       required final ShitConsistency consistency,
-      final ShatAppUser? user,
+      final String? user,
       final String? note,
-      final String? color}) = _$ShitDataDtoImpl;
+      final String? color,
+      final String? team}) = _$ShitDataDtoImpl;
 
   factory _ShitDataDto.fromJson(Map<String, dynamic> json) =
       _$ShitDataDtoImpl.fromJson;
@@ -684,11 +688,13 @@ abstract class _ShitDataDto implements ShitDataDto {
   @override
   ShitConsistency get consistency;
   @override
-  ShatAppUser? get user;
+  String? get user;
   @override
   String? get note;
   @override
   String? get color;
+  @override
+  String? get team;
   @override
   @JsonKey(ignore: true)
   _$$ShitDataDtoImplCopyWith<_$ShitDataDtoImpl> get copyWith =>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shatapp/domain/repository/shit_team_repository.dart';
+import 'package:shatapp/domain/repository/team/shit_team_repository.dart';
 import 'package:shatapp/utils/builder/empty_data_builder.dart';
 import 'package:shatapp/utils/logger/logger_manager.dart';
 import 'package:shatapp/utils/provider_extension.dart';
@@ -13,7 +13,7 @@ class EditShitTeamsBottomSheet extends ConsumerWidget with UiUtility, UiDimensio
   Widget build(BuildContext context, WidgetRef ref) {
     final teams = ref.watch(myShitTeamsProvider);
     return BottomSheet(
-      shape: topRounded,
+      shape: mediumTopRounded,
       onClosing: () => ref.read(loggerManagerProvider).logMessage('Closing'),
       builder: (context) => teams.loadUntil(
         data: (data) => EmptyDataWidget(

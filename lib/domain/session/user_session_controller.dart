@@ -29,8 +29,12 @@ class UserSessionController extends StateNotifier<UserSession> {
   }
 
   Future<void> updadeSession() async {
-    await repository.setUserSession(session: state as CurrentSession);
-    await repository.updateAllSessions();
+    final newState = (state as CurrentSession).copyWith(
+      lastOnlineDateTime: DateTime.now(),
+    );
+    await repository.setUserSession(session: newState);
+    unawaited(repository.updateAllSessions());
+    state = newState;
   }
 
   void handleLogin(String userId) {

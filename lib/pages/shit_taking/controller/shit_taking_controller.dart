@@ -1,10 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
+import 'package:shatapp/domain/model/shit/shit.dart';
 import 'package:shatapp/domain/model/shit_team/shitteam.dart';
-import 'package:shatapp/domain/repository/firestore_repository.dart';
-import 'package:shatapp/domain/repository/i_shit_repository.dart';
-import 'package:shatapp/domain/repository/shit_team_repository.dart';
+import 'package:shatapp/domain/repository/shit/firestore_shit_repository.dart';
+import 'package:shatapp/domain/repository/shit/i_shit_repository.dart';
+import 'package:shatapp/domain/repository/team/shit_team_repository.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
 import 'package:shatapp/pages/shit_taking/controller/state/shittakingstate.dart';
 import 'package:shatapp/utils/dialog/dialog_manager.dart';
@@ -13,17 +14,16 @@ import 'package:shatapp/utils/router/showcase_router.dart';
 
 final shitTakingStateProvider = StateNotifierProvider.autoDispose<ShitTakingController, ShitTakingState>((ref) {
   final repo = ref.read(shitRepository);
-  final teamRepo = ref.watch(shitTeamRepositoryProvider);
   final dialogManager = ref.read(dialogManagerProvider);
   return ShitTakingController(
     repository: repo,
-    teamRepository: teamRepo,
     dialogManager: dialogManager,
-    onSuccess: () {
+    onSuccess: (shit) {
       ref
         ..invalidate(myShitProvider)
         ..invalidate(globalShitProvider)
         ..invalidate(myShitTeamsProvider);
+      if (shit?.teamId != null) ref.invalidate(shitsByTeamProvider(shit!.teamId!));
       ref.read(routerProvider).go(DashboardPageRoute.pagePath);
     },
   );
@@ -32,7 +32,6 @@ final shitTakingStateProvider = StateNotifierProvider.autoDispose<ShitTakingCont
 class ShitTakingController extends StateNotifier<ShitTakingState> {
   ShitTakingController({
     required this.repository,
-    required this.teamRepository,
     required this.dialogManager,
     required this.onSuccess,
   }) : super(
@@ -43,9 +42,8 @@ class ShitTakingController extends StateNotifier<ShitTakingState> {
         );
 
   final ShitRepository repository;
-  final IShitTeamRepository teamRepository;
   final DialogManager dialogManager;
-  final void Function() onSuccess;
+  final void Function(Shit? shit) onSuccess;
 
   void setEffort(ShitEffort effort) {
     state = state.copyWith(effort: effort);
@@ -75,14 +73,12 @@ class ShitTakingController extends StateNotifier<ShitTakingState> {
         consistency: state.consistency,
         note: state.note,
         color: state.color?.toString(),
+        team: state.team,
       );
-      if (shit == null) return;
-      if (state.team != null) {
-        await teamRepository.registerShit(team: state.team!, shit: shit);
-      }
-      onSuccess();
+      onSuccess(shit);
+      return Future.value();
     } catch (e) {
-      await dialogManager.showWarningDialog<void>(text: 'Error: $e');
+      return dialogManager.showWarningDialog<void>(text: 'Error: $e');
     }
   }
 }

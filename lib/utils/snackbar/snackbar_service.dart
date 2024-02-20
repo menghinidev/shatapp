@@ -20,7 +20,7 @@ class SnackBarManager with UiDimension, UiShape {
         context,
         message: message,
         padding: mediumPadding,
-        shape: roundedShape,
+        shape: mediumRoundedShape,
       ),
     );
     return;

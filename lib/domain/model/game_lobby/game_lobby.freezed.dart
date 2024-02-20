@@ -22,9 +22,12 @@ GameLobby _$GameLobbyFromJson(Map<String, dynamic> json) {
 mixin _$GameLobby {
   List<String> get players => throw _privateConstructorUsedError;
   List<String> get spectators => throw _privateConstructorUsedError;
+  @GameLobbyStatusConverter()
   GameLobbyStatus get status => throw _privateConstructorUsedError;
   int get maxPlayers => throw _privateConstructorUsedError;
   int get minPlayers => throw _privateConstructorUsedError;
+  @GamesConverter()
+  Games get game => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,9 +44,10 @@ abstract class $GameLobbyCopyWith<$Res> {
   $Res call(
       {List<String> players,
       List<String> spectators,
-      GameLobbyStatus status,
+      @GameLobbyStatusConverter() GameLobbyStatus status,
       int maxPlayers,
       int minPlayers,
+      @GamesConverter() Games game,
       String? id});
 }
 
@@ -65,6 +69,7 @@ class _$GameLobbyCopyWithImpl<$Res, $Val extends GameLobby>
     Object? status = null,
     Object? maxPlayers = null,
     Object? minPlayers = null,
+    Object? game = null,
     Object? id = freezed,
   }) {
     return _then(_value.copyWith(
@@ -88,6 +93,10 @@ class _$GameLobbyCopyWithImpl<$Res, $Val extends GameLobby>
           ? _value.minPlayers
           : minPlayers // ignore: cast_nullable_to_non_nullable
               as int,
+      game: null == game
+          ? _value.game
+          : game // ignore: cast_nullable_to_non_nullable
+              as Games,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -107,9 +116,10 @@ abstract class _$$GameLobbyImplCopyWith<$Res>
   $Res call(
       {List<String> players,
       List<String> spectators,
-      GameLobbyStatus status,
+      @GameLobbyStatusConverter() GameLobbyStatus status,
       int maxPlayers,
       int minPlayers,
+      @GamesConverter() Games game,
       String? id});
 }
 
@@ -129,6 +139,7 @@ class __$$GameLobbyImplCopyWithImpl<$Res>
     Object? status = null,
     Object? maxPlayers = null,
     Object? minPlayers = null,
+    Object? game = null,
     Object? id = freezed,
   }) {
     return _then(_$GameLobbyImpl(
@@ -152,6 +163,10 @@ class __$$GameLobbyImplCopyWithImpl<$Res>
           ? _value.minPlayers
           : minPlayers // ignore: cast_nullable_to_non_nullable
               as int,
+      game: null == game
+          ? _value.game
+          : game // ignore: cast_nullable_to_non_nullable
+              as Games,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -167,9 +182,10 @@ class _$GameLobbyImpl implements _GameLobby {
   _$GameLobbyImpl(
       {required final List<String> players,
       required final List<String> spectators,
-      required this.status,
+      @GameLobbyStatusConverter() required this.status,
       required this.maxPlayers,
       required this.minPlayers,
+      @GamesConverter() required this.game,
       this.id})
       : _players = players,
         _spectators = spectators;
@@ -194,17 +210,21 @@ class _$GameLobbyImpl implements _GameLobby {
   }
 
   @override
+  @GameLobbyStatusConverter()
   final GameLobbyStatus status;
   @override
   final int maxPlayers;
   @override
   final int minPlayers;
   @override
+  @GamesConverter()
+  final Games game;
+  @override
   final String? id;
 
   @override
   String toString() {
-    return 'GameLobby(players: $players, spectators: $spectators, status: $status, maxPlayers: $maxPlayers, minPlayers: $minPlayers, id: $id)';
+    return 'GameLobby(players: $players, spectators: $spectators, status: $status, maxPlayers: $maxPlayers, minPlayers: $minPlayers, game: $game, id: $id)';
   }
 
   @override
@@ -220,6 +240,7 @@ class _$GameLobbyImpl implements _GameLobby {
                 other.maxPlayers == maxPlayers) &&
             (identical(other.minPlayers, minPlayers) ||
                 other.minPlayers == minPlayers) &&
+            (identical(other.game, game) || other.game == game) &&
             (identical(other.id, id) || other.id == id));
   }
 
@@ -232,6 +253,7 @@ class _$GameLobbyImpl implements _GameLobby {
       status,
       maxPlayers,
       minPlayers,
+      game,
       id);
 
   @JsonKey(ignore: true)
@@ -252,9 +274,10 @@ abstract class _GameLobby implements GameLobby {
   factory _GameLobby(
       {required final List<String> players,
       required final List<String> spectators,
-      required final GameLobbyStatus status,
+      @GameLobbyStatusConverter() required final GameLobbyStatus status,
       required final int maxPlayers,
       required final int minPlayers,
+      @GamesConverter() required final Games game,
       final String? id}) = _$GameLobbyImpl;
 
   factory _GameLobby.fromJson(Map<String, dynamic> json) =
@@ -265,11 +288,15 @@ abstract class _GameLobby implements GameLobby {
   @override
   List<String> get spectators;
   @override
+  @GameLobbyStatusConverter()
   GameLobbyStatus get status;
   @override
   int get maxPlayers;
   @override
   int get minPlayers;
+  @override
+  @GamesConverter()
+  Games get game;
   @override
   String? get id;
   @override

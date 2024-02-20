@@ -24,24 +24,13 @@ class ShitUserAvatar extends ConsumerWidget with DateFormatter {
     return Tooltip(
       triggerMode: TooltipTriggerMode.tap,
       message: session.getMessage(dateFormatter: formatDateTime),
-      child: Stack(
-        children: [
-          CircleAvatar(
-            foregroundImage: NetworkImage(user?.imageUrl ?? ''),
-            child: const Icon(Icons.person),
-          ),
-          Positioned(
-            right: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: session.color,
-              ),
-              width: 10,
-              height: 10,
-            ),
-          ),
-        ],
+      child: Badge(
+        backgroundColor: session.color,
+        smallSize: 10,
+        child: CircleAvatar(
+          foregroundImage: NetworkImage(user?.imageUrl ?? ''),
+          child: const Icon(Icons.person),
+        ),
       ),
     );
   }
