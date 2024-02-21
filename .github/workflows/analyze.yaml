@@ -3,7 +3,7 @@ name: Analyze code
 on:
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   analysis:

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/user/shatappuser.dart';
-import 'package:shatapp/domain/repository/user/I_user_repository.dart';
+import 'package:shatapp/domain/repository/user/i_user_repository.dart';
 import 'package:shatapp/domain/session/authentication_session_controller.dart';
 import 'package:shatapp/domain/session/state/authenticationstate.dart';
 import 'package:shatapp/utils/logger/logger_manager.dart';
