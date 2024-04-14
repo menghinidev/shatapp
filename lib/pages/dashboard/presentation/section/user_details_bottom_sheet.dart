@@ -31,11 +31,10 @@ class ShatAppUserBottomSheet extends ConsumerWidget with UiDimension, UiUtility,
     final shitRecords = ref.watch(userShitsRecordProvider(user.id));
     return BottomSheet(
       onClosing: () => ref.logMessage('Closing bottom sheet'),
-      shape: mediumTopRounded,
-      showDragHandle: true,
       builder: (context) => shitRecords.loadUntil(
         data: (data) => SingleChildScrollView(
           padding: mediumPadding,
+          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -89,8 +88,21 @@ class _ShitRecords extends ConsumerWidget with UiUtility {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /* return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final shit in shitRecords) ...[
+          UserRecordShitListItem(
+            shit: shit,
+          ),
+          mediumDivider,
+        ],
+      ],
+    ); */
     return ListView.separated(
       shrinkWrap: true,
+      primary: false,
+      physics: const NeverScrollableScrollPhysics(),
       separatorBuilder: (context, index) => mediumDivider,
       itemCount: shitRecords.length,
       itemBuilder: (context, index) => UserRecordShitListItem(
@@ -120,6 +132,8 @@ extension ShatAppUserUtils on BuildContext {
         shape: shape,
         useSafeArea: true,
         isScrollControlled: true,
+        enableDrag: false,
+        showDragHandle: true,
         constraints: const BoxConstraints(maxHeight: 700),
         builder: (context) => ShatAppUserBottomSheet(
           user: user,
