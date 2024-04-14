@@ -108,3 +108,22 @@ extension ShitLeaderboard on List<Shit> {
     return myIndex + 1;
   }
 }
+
+extension ShatAppUserUtils on BuildContext {
+  Future<void> showShatAppUserBottomSheet(
+    ShatAppUser user, {
+    ShapeBorder? shape,
+    List<Shit>? data,
+  }) =>
+      showModalBottomSheet<void>(
+        context: this,
+        shape: shape,
+        useSafeArea: true,
+        isScrollControlled: true,
+        constraints: const BoxConstraints(maxHeight: 700),
+        builder: (context) => ShatAppUserBottomSheet(
+          user: user,
+          globalShits: data,
+        ),
+      );
+}

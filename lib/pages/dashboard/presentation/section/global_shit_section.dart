@@ -30,14 +30,10 @@ class GlobalShitSection extends ConsumerWidget with UiDimension, UiUtility, UiSh
           childBuilder: (context) => SliverList.separated(
             itemBuilder: (context, index) => DashboardShitListItem(
               shit: data[index],
-              onTap: (user) => showModalBottomSheet<void>(
-                context: context,
+              onTap: (user) => context.showShatAppUserBottomSheet(
+                user!,
+                data: data,
                 shape: mediumTopRounded,
-                useSafeArea: true,
-                builder: (context) => ShatAppUserBottomSheet(
-                  user: user!,
-                  globalShits: data,
-                ),
               ),
             ),
             separatorBuilder: (context, index) => mediumDivider,

@@ -31,10 +31,10 @@ class MyShitDiarySection extends ConsumerWidget with UiDimension, UiUtility, UiS
             itemBuilder: (context, index) => DashboardShitListItem(
               shit: data[index],
               canDelete: true,
-              onTap: (user) => showModalBottomSheet<void>(
-                context: context,
+              onTap: (user) => context.showShatAppUserBottomSheet(
+                user!,
+                data: data,
                 shape: mediumTopRounded,
-                builder: (context) => ShatAppUserBottomSheet(user: user!),
               ),
             ),
             separatorBuilder: (context, index) => mediumDivider,
