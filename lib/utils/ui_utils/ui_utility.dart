@@ -54,4 +54,7 @@ extension TextStyleModifier on TextStyle? {
   TextStyle? get withGrayColor => this?.copyWith(color: Colors.grey);
   TextStyle? get withLightBlack => this?.copyWith(color: Colors.black54);
   TextStyle? get withBold => this?.copyWith(fontWeight: FontWeight.bold);
+  TextStyle? get withItalic => this?.copyWith(
+        fontStyle: FontStyle.italic,
+      );
 }

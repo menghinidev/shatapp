@@ -5,6 +5,7 @@ import 'package:shatapp/domain/model/shit_team/shitteam.dart';
 
 abstract class ShitRepository {
   Future<List<Shit>> getMyShitDiary();
+  Future<List<Shit>> geUserShitDiary(String userId);
   Future<List<Shit>> getTeamShitDiary(String teamId);
   Future<List<Shit>> getCommunityShitDiary();
 
