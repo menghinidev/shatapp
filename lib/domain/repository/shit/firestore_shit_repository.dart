@@ -105,6 +105,14 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
       return Future.value(<Shit>[]);
     }
   }
+
+  @override
+  Future<List<Shit>> geUserShitDiary(String userId) async {
+    final collection = firestore.collection(shitCollectionKey);
+    final documents = await collection.byUser(userId).get();
+    return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList()
+      ..sort((a, b) => b.creationDateTime.compareTo(a.creationDateTime));
+  }
 }
 
 extension ShitCollectionQuery on Query<Map<String, dynamic>> {

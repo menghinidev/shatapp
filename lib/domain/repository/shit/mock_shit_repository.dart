@@ -75,4 +75,10 @@ class MockShitRepository implements ShitRepository {
     // TODO(mengo): implement getTeamShitDiary
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<Shit>> geUserShitDiary(String userId) {
+    // TODO: implement geUserShitDiary
+    throw UnimplementedError();
+  }
 }

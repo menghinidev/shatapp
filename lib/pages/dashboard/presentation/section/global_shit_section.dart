@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/pages/dashboard/controller/dashboard_controller.dart';
+import 'package:shatapp/pages/dashboard/presentation/section/user_details_bottom_sheet.dart';
 import 'package:shatapp/pages/dashboard/presentation/widgets/dashboard_shit_list_item.dart';
 import 'package:shatapp/utils/builder/empty_data_builder.dart';
 import 'package:shatapp/utils/provider_extension.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
-class GlobalShitSection extends ConsumerWidget with UiDimension, UiUtility {
+class GlobalShitSection extends ConsumerWidget with UiDimension, UiUtility, UiShape {
   const GlobalShitSection({super.key});
 
   @override
@@ -29,6 +30,15 @@ class GlobalShitSection extends ConsumerWidget with UiDimension, UiUtility {
           childBuilder: (context) => SliverList.separated(
             itemBuilder: (context, index) => DashboardShitListItem(
               shit: data[index],
+              onTap: (user) => showModalBottomSheet<void>(
+                context: context,
+                shape: mediumTopRounded,
+                useSafeArea: true,
+                builder: (context) => ShatAppUserBottomSheet(
+                  user: user!,
+                  globalShits: data,
+                ),
+              ),
             ),
             separatorBuilder: (context, index) => mediumDivider,
             itemCount: data.length,

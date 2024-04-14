@@ -48,12 +48,15 @@ class CreateShitTeamBottomSheet extends HookConsumerWidget with UiDimension, UiU
                 smallDivider,
                 _ShitTeamMembersBar(users: selectedUsers),
                 mediumDivider,
-                ElevatedButton(
-                  onPressed: () => onCreate(context, ref, controllerName.text, selectedUsers),
-                  style: ElevatedButton.styleFrom(
-                    shape: mediumRoundedShape,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () => onCreate(context, ref, controllerName.text, selectedUsers),
+                    style: ElevatedButton.styleFrom(
+                      shape: mediumRoundedShape,
+                    ),
+                    child: const Text('Crea'),
                   ),
-                  child: const Text('Crea'),
                 ),
               ],
             ),

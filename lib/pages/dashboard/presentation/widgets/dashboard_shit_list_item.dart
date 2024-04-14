@@ -2,6 +2,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/model/shit/shit.dart';
+import 'package:shatapp/domain/model/user/shatappuser.dart';
 import 'package:shatapp/domain/repository/shit/firestore_shit_repository.dart';
 import 'package:shatapp/domain/repository/team/shit_team_repository.dart';
 import 'package:shatapp/domain/repository/user/firestore_user_repository.dart';
@@ -15,19 +16,72 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
   const DashboardShitListItem({
     required this.shit,
     this.canDelete = false,
+    this.onTap,
     super.key,
   });
 
   final Shit shit;
   final bool canDelete;
+  final void Function(ShatAppUser? user)? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userByIdProvider(shit.user));
     return user.emptyUntil(
-      data: (user) => Card(
-        shape: mediumRoundedShape,
-        elevation: smallElevation,
+      data: (user) => _ShitListItem(
+        canDelete: canDelete,
+        shit: shit,
+        user: user,
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
+class UserRecordShitListItem extends ConsumerWidget with DateFormatter, UiUtility, UiShape, UiDimension {
+  const UserRecordShitListItem({
+    required this.shit,
+    this.onTap,
+    super.key,
+  });
+
+  final Shit shit;
+  final void Function(ShatAppUser? user)? onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userByIdProvider(shit.user));
+    return user.emptyUntil(
+      data: (user) => _ShitListItem(
+        canDelete: false,
+        shit: shit,
+        user: user,
+      ),
+    );
+  }
+}
+
+class _ShitListItem extends ConsumerWidget with UiUtility, DateFormatter, UiShape, UiDimension {
+  const _ShitListItem({
+    required this.shit,
+    required this.canDelete,
+    this.onTap,
+    this.user,
+  });
+
+  final Shit shit;
+  final ShatAppUser? user;
+  final bool canDelete;
+  final void Function(ShatAppUser? user)? onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Card(
+      shape: mediumRoundedShape,
+      elevation: smallElevation,
+      child: InkWell(
+        onTap: onTap != null ? () => onTap?.call(user) : null,
+        borderRadius: mediumRoundedBorderRadius,
         child: Padding(
           padding: mediumPadding,
           child: Column(
@@ -35,45 +89,46 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _ShitTeamSection(teamId: shit.teamId),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (user != null) ShitUserAvatar(user: user),
-                  smallDivider,
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (user != null)
+              if (user != null) ...[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ShitUserAvatar(user: user),
+                    smallDivider,
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
                           Text(
-                            user.name,
+                            user!.name,
                             style: context.textTheme.bodyLarge.withBold,
                           ),
-                        extraSmallDivider,
-                        Text(
-                          formatDateTime(shit.creationDateTime),
-                          style: context.textTheme.bodySmall,
-                        ),
-                      ],
+                          extraSmallDivider,
+                          Text(
+                            formatDateTime(shit.creationDateTime),
+                            style: context.textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  if (canDelete) ...[
-                    smallDivider,
-                    IconButton.outlined(
-                      onPressed: () async {
-                        await ref.read(shitRepository).removeShit(shit.id);
-                        ref
-                          ..invalidate(myShitProvider)
-                          ..invalidate(globalShitProvider);
-                      },
-                      visualDensity: VisualDensity.compact,
-                      color: Theme.of(context).colorScheme.error,
-                      icon: const Icon(Icons.delete_outline_rounded),
-                    ),
+                    if (canDelete) ...[
+                      smallDivider,
+                      IconButton.outlined(
+                        onPressed: () async {
+                          await ref.read(shitRepository).removeShit(shit.id);
+                          ref
+                            ..invalidate(myShitProvider)
+                            ..invalidate(globalShitProvider);
+                        },
+                        visualDensity: VisualDensity.compact,
+                        color: Theme.of(context).colorScheme.error,
+                        icon: const Icon(Icons.delete_outline_rounded),
+                      ),
+                    ],
                   ],
-                ],
-              ),
+                ),
+              ],
               smallDivider,
               Row(
                 children: [
@@ -102,9 +157,7 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
                 extraSmallDivider,
                 Text(
                   shit.note!,
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    fontStyle: FontStyle.italic,
-                  ),
+                  style: context.textTheme.bodyMedium?.withItalic,
                 ),
               ],
             ],
