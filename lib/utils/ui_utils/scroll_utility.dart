@@ -12,8 +12,7 @@ class CustomScrollConfiguration extends StatelessWidget {
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
         dragDevices: {
-          PointerDeviceKind.touch,
-          PointerDeviceKind.mouse,
+          ...PointerDeviceKind.values,
         },
         scrollbars: MediaQuery.of(context).onLayout(defaultValue: false, onDesktop: true),
       ),
