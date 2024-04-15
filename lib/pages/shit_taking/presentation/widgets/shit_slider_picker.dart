@@ -14,8 +14,8 @@ class ShitSliderPicker<T> extends StatelessWidget with UiUtility, UiDimension {
   final String label;
   final T selected;
   final List<T> values;
-  final void Function(T) onSelect;
-  final String Function(T) itemBuilder;
+  final void Function(T value) onSelect;
+  final String Function(T value) itemBuilder;
 
   @override
   Widget build(BuildContext context) {

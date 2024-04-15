@@ -45,8 +45,13 @@ class AuthenticationSessionController extends StateNotifier<AuthenticationState>
   ];
 
   Future<void> loginWithGoogle() async {
+    state = AuthenticationState.autenticating();
     final auth = await _authenticateWithGoogle();
-    if (auth == null) return dialogManager.showWarningDialog(text: 'Errore nel login');
+    if (auth == null) {
+      await dialogManager.showWarningDialog<void>(text: 'Errore nel login');
+      state = AuthenticationState.unknown();
+    }
+    return Future.value();
   }
 
   Future<void> logout() async {
