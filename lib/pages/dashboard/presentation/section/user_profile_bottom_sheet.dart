@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,50 +28,84 @@ class ShatAppUserBottomSheet extends ConsumerWidget with UiDimension, UiUtility,
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final shits = ref.watch(globalShitProvider);
-
+    final logged = ref.watch(authenticationSessionController).mapOrNull(logged: (value) => value.user);
     return shits.loadUntil(
-      data: (data) => CustomScrollConfiguration(
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: mediumPadding,
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            user.name.capitalize,
-                            style: context.textTheme.headlineSmall?.withBold,
-                            softWrap: true,
-                          ),
+      data: (data) => _ShatAppUserBottomSheet(
+        user: user,
+        loggedUser: logged!,
+        globalShits: data,
+        userShits: data.byUser(user.id),
+      ),
+    );
+  }
+
+  String shattedLabel(List<Shit> data) {
+    final len = data.length;
+    if (len == 0) return 'No shits recorded';
+    if (len == 1) return 'Shat $len time';
+    return 'Shat $len times';
+  }
+}
+
+class _ShatAppUserBottomSheet extends ConsumerWidget with UiDimension, UiUtility, UiShape {
+  const _ShatAppUserBottomSheet({
+    required this.user,
+    required this.globalShits,
+    required this.userShits,
+    required this.loggedUser,
+  });
+
+  final ShatAppUser user;
+  final List<Shit> globalShits;
+  final List<Shit> userShits;
+  final ShatAppUser loggedUser;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CustomScrollConfiguration(
+      child: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: mediumPadding,
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          user.name.capitalize,
+                          style: context.textTheme.headlineSmall?.withBold,
+                          softWrap: true,
                         ),
-                        smallDivider,
-                        Text(
-                          '#${data.position(user.id)} shitter',
-                          style: context.textTheme.titleLarge?.withBold.withItalic,
-                        ),
-                      ],
-                    ),
-                    extraSmallDivider,
-                    Text(
-                      shattedLabel(data),
-                      style: Theme.of(context).textTheme.titleLarge.withLightBlack,
-                    ),
-                    smallDivider,
-                  ],
-                ),
+                      ),
+                      smallDivider,
+                      Text(
+                        '#${globalShits.position(user.id)} shitter',
+                        style: context.textTheme.titleLarge?.withBold.withItalic,
+                      ),
+                    ],
+                  ),
+                  extraSmallDivider,
+                  Text(
+                    shattedLabel(userShits),
+                    style: Theme.of(context).textTheme.titleLarge.withLightBlack,
+                  ),
+                  smallDivider,
+                ],
               ),
             ),
-            SliverPadding(
-              padding: mediumPadding.copyWith(top: 0),
-              sliver: _ShitRecords(shitRecords: data),
+          ),
+          SliverPadding(
+            padding: mediumPadding.copyWith(top: 0),
+            sliver: _ShitRecords(
+              shitRecords: userShits,
+              loggedUser: loggedUser,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -88,30 +121,22 @@ class ShatAppUserBottomSheet extends ConsumerWidget with UiDimension, UiUtility,
 class _ShitRecords extends ConsumerWidget with UiUtility {
   const _ShitRecords({
     required this.shitRecords,
+    required this.loggedUser,
   });
 
   final List<Shit> shitRecords;
+  final ShatAppUser loggedUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logged = ref.watch(authenticationSessionController).mapOrNull(logged: (value) => value.user);
     return SliverList.separated(
       separatorBuilder: (context, index) => mediumDivider,
       itemCount: shitRecords.length,
       itemBuilder: (context, index) => UserRecordShitListItem(
-        loggedUser: logged!,
+        loggedUser: loggedUser,
         shit: shitRecords[index],
       ),
     );
-  }
-}
-
-extension ShitLeaderboard on List<Shit> {
-  int position(String userId) {
-    final grouped = groupListsBy((element) => element.user!).map((key, value) => MapEntry(key, value.length));
-    final entries = [...grouped.entries]..sort((a, b) => b.value.compareTo(a.value));
-    final myIndex = entries.map((e) => e.key).toList().indexOf(userId);
-    return myIndex + 1;
   }
 }
 

@@ -21,6 +21,7 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<bool> implements Listenabl
     });
     return authState.map(
       logged: (_) => true,
+      autenticating: (_) => false,
       unknown: (_) => false,
     );
   }

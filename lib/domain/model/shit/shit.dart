@@ -1,3 +1,5 @@
+// ignore: depend_on_referenced_packages
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
@@ -75,6 +77,16 @@ class ShitDataDto with _$ShitDataDto {
 enum ShitReaction {
   heart,
   respect,
+}
+
+extension ShitFilter on Iterable<Shit> {
+  List<Shit> byUser(String userId) => where((element) => element.user == userId).toList();
+  int position(String userId) {
+    final grouped = groupListsBy((element) => element.user).map((key, value) => MapEntry(key, value.length));
+    final entries = [...grouped.entries]..sort((a, b) => b.value.compareTo(a.value));
+    final myIndex = entries.map((e) => e.key).toList().indexOf(userId);
+    return myIndex + 1;
+  }
 }
 
 extension ShitReactionMatcher on Shit {

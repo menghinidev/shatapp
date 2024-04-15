@@ -19,18 +19,21 @@ mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ShatAppUser user) logged,
+    required TResult Function() autenticating,
     required TResult Function() unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ShatAppUser user)? logged,
+    TResult? Function()? autenticating,
     TResult? Function()? unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ShatAppUser user)? logged,
+    TResult Function()? autenticating,
     TResult Function()? unknown,
     required TResult orElse(),
   }) =>
@@ -38,18 +41,21 @@ mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Logged value) logged,
+    required TResult Function(Autenticating value) autenticating,
     required TResult Function(Unknown value) unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Logged value)? logged,
+    TResult? Function(Autenticating value)? autenticating,
     TResult? Function(Unknown value)? unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Logged value)? logged,
+    TResult Function(Autenticating value)? autenticating,
     TResult Function(Unknown value)? unknown,
     required TResult orElse(),
   }) =>
@@ -149,6 +155,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ShatAppUser user) logged,
+    required TResult Function() autenticating,
     required TResult Function() unknown,
   }) {
     return logged(user);
@@ -158,6 +165,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ShatAppUser user)? logged,
+    TResult? Function()? autenticating,
     TResult? Function()? unknown,
   }) {
     return logged?.call(user);
@@ -167,6 +175,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ShatAppUser user)? logged,
+    TResult Function()? autenticating,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {
@@ -180,6 +189,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Logged value) logged,
+    required TResult Function(Autenticating value) autenticating,
     required TResult Function(Unknown value) unknown,
   }) {
     return logged(this);
@@ -189,6 +199,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Logged value)? logged,
+    TResult? Function(Autenticating value)? autenticating,
     TResult? Function(Unknown value)? unknown,
   }) {
     return logged?.call(this);
@@ -198,6 +209,7 @@ class _$LoggedImpl implements Logged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Logged value)? logged,
+    TResult Function(Autenticating value)? autenticating,
     TResult Function(Unknown value)? unknown,
     required TResult orElse(),
   }) {
@@ -215,6 +227,114 @@ abstract class Logged implements AuthenticationState {
   @JsonKey(ignore: true)
   _$$LoggedImplCopyWith<_$LoggedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AutenticatingImplCopyWith<$Res> {
+  factory _$$AutenticatingImplCopyWith(
+          _$AutenticatingImpl value, $Res Function(_$AutenticatingImpl) then) =
+      __$$AutenticatingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AutenticatingImplCopyWithImpl<$Res>
+    extends _$AuthenticationStateCopyWithImpl<$Res, _$AutenticatingImpl>
+    implements _$$AutenticatingImplCopyWith<$Res> {
+  __$$AutenticatingImplCopyWithImpl(
+      _$AutenticatingImpl _value, $Res Function(_$AutenticatingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AutenticatingImpl implements Autenticating {
+  _$AutenticatingImpl();
+
+  @override
+  String toString() {
+    return 'AuthenticationState.autenticating()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AutenticatingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ShatAppUser user) logged,
+    required TResult Function() autenticating,
+    required TResult Function() unknown,
+  }) {
+    return autenticating();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ShatAppUser user)? logged,
+    TResult? Function()? autenticating,
+    TResult? Function()? unknown,
+  }) {
+    return autenticating?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ShatAppUser user)? logged,
+    TResult Function()? autenticating,
+    TResult Function()? unknown,
+    required TResult orElse(),
+  }) {
+    if (autenticating != null) {
+      return autenticating();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Logged value) logged,
+    required TResult Function(Autenticating value) autenticating,
+    required TResult Function(Unknown value) unknown,
+  }) {
+    return autenticating(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Logged value)? logged,
+    TResult? Function(Autenticating value)? autenticating,
+    TResult? Function(Unknown value)? unknown,
+  }) {
+    return autenticating?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Logged value)? logged,
+    TResult Function(Autenticating value)? autenticating,
+    TResult Function(Unknown value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (autenticating != null) {
+      return autenticating(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Autenticating implements AuthenticationState {
+  factory Autenticating() = _$AutenticatingImpl;
 }
 
 /// @nodoc
@@ -256,6 +376,7 @@ class _$UnknownImpl implements Unknown {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ShatAppUser user) logged,
+    required TResult Function() autenticating,
     required TResult Function() unknown,
   }) {
     return unknown();
@@ -265,6 +386,7 @@ class _$UnknownImpl implements Unknown {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ShatAppUser user)? logged,
+    TResult? Function()? autenticating,
     TResult? Function()? unknown,
   }) {
     return unknown?.call();
@@ -274,6 +396,7 @@ class _$UnknownImpl implements Unknown {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ShatAppUser user)? logged,
+    TResult Function()? autenticating,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {
@@ -287,6 +410,7 @@ class _$UnknownImpl implements Unknown {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Logged value) logged,
+    required TResult Function(Autenticating value) autenticating,
     required TResult Function(Unknown value) unknown,
   }) {
     return unknown(this);
@@ -296,6 +420,7 @@ class _$UnknownImpl implements Unknown {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Logged value)? logged,
+    TResult? Function(Autenticating value)? autenticating,
     TResult? Function(Unknown value)? unknown,
   }) {
     return unknown?.call(this);
@@ -305,6 +430,7 @@ class _$UnknownImpl implements Unknown {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Logged value)? logged,
+    TResult Function(Autenticating value)? autenticating,
     TResult Function(Unknown value)? unknown,
     required TResult orElse(),
   }) {

@@ -8,5 +8,6 @@ class AuthenticationState with _$AuthenticationState {
   factory AuthenticationState.logged({
     required ShatAppUser user,
   }) = Logged;
+  factory AuthenticationState.autenticating() = Autenticating;
   factory AuthenticationState.unknown() = Unknown;
 }

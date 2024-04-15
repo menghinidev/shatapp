@@ -73,8 +73,7 @@ class UserRecordShitListItem extends ConsumerWidget with DateFormatter, UiUtilit
         onReact: (reaction) => ref
             .read(shitRepository)
             .reactToShit(shitId: shit.id, reaction: reaction)
-            .then((value) => ref.invalidate(globalShitProvider))
-            .then((value) => ref.invalidate(userByIdProvider(shit.user))),
+            .then((value) => ref.invalidate(globalShitProvider)),
       ),
     );
   }
@@ -140,15 +139,15 @@ class _ShitListItem extends ConsumerWidget with UiUtility, DateFormatter, UiShap
                     if (canDelete) ...[
                       smallDivider,
                       IconButton.outlined(
+                        visualDensity: VisualDensity.compact,
+                        color: Theme.of(context).colorScheme.error,
+                        icon: const Icon(Icons.delete_outline_rounded),
                         onPressed: () async {
                           await ref.read(shitRepository).removeShit(shit.id);
                           ref
                             ..invalidate(myShitProvider)
                             ..invalidate(globalShitProvider);
                         },
-                        visualDensity: VisualDensity.compact,
-                        color: Theme.of(context).colorScheme.error,
-                        icon: const Icon(Icons.delete_outline_rounded),
                       ),
                     ],
                     if (canReact) ...[
@@ -308,8 +307,8 @@ class _ShitReactionWidget extends ConsumerWidget {
       children: [
         if (reactedIn != 0)
           Positioned(
-            bottom: 2.5,
-            right: 2.5,
+            bottom: 5,
+            right: 5,
             child: Text(
               '$reactedIn',
               style: context.textTheme.bodySmall,

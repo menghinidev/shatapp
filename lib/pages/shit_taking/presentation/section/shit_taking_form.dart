@@ -30,10 +30,10 @@ class ShitTakingForm extends ConsumerWidget with UiUtility, UiDimension {
         largeDivider,
         ShitSliderPicker<ShitConsistency>(
           label: 'Rate consistency',
-          onSelect: (p0) => ref.read(shitTakingStateProvider.notifier).setConsistency(p0),
+          onSelect: (consistency) => ref.read(shitTakingStateProvider.notifier).setConsistency(consistency),
           selected: state.consistency,
           values: ShitConsistency.values,
-          itemBuilder: (p0) => p0.name.capitalize,
+          itemBuilder: (consistency) => consistency.name.capitalize,
         ),
         largeDivider,
         const ShitTeamDropdown(),
