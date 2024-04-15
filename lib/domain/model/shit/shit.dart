@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shatapp/domain/enum/shit_consistency_enum.dart';
 import 'package:shatapp/domain/enum/shit_effort_enum.dart';
@@ -7,6 +8,7 @@ part 'shit.g.dart';
 
 mixin ShitDtoMapper {
   Shit mapFromDto(ShitDto dto) {
+    final reactions = dto.data.reactions ?? <ShitReaction, List<String>>{};
     return Shit(
       id: dto.id,
       consistency: dto.data.consistency,
@@ -16,6 +18,7 @@ mixin ShitDtoMapper {
       user: dto.data.user,
       color: dto.data.color,
       teamId: dto.data.team,
+      reactions: reactions,
     );
   }
 
@@ -34,6 +37,7 @@ class Shit with _$Shit {
     required DateTime creationDateTime,
     required ShitEffort effort,
     required ShitConsistency consistency,
+    Map<ShitReaction, List<String>>? reactions,
     String? user,
     String? note,
     String? color,
@@ -58,6 +62,7 @@ class ShitDataDto with _$ShitDataDto {
     required DateTime creationDateTime,
     required ShitEffort effort,
     required ShitConsistency consistency,
+    Map<ShitReaction, List<String>>? reactions,
     String? user,
     String? note,
     String? color,
@@ -65,4 +70,36 @@ class ShitDataDto with _$ShitDataDto {
   }) = _ShitDataDto;
 
   factory ShitDataDto.fromJson(Map<String, dynamic> json) => _$ShitDataDtoFromJson(json);
+}
+
+enum ShitReaction {
+  heart,
+  respect,
+}
+
+extension ShitReactionMatcher on Shit {
+  bool hasRated(ShitReaction reaction, String userId) {
+    final users = reactions?[reaction] ?? <String>[];
+    return users.contains(userId);
+  }
+}
+
+extension ShitReactionUI on ShitReaction {
+  Icon get unselectedIcon {
+    switch (this) {
+      case ShitReaction.heart:
+        return const Icon(Icons.favorite_border_outlined);
+      case ShitReaction.respect:
+        return const Icon(Icons.handshake_outlined);
+    }
+  }
+
+  Icon get selectedIcon {
+    switch (this) {
+      case ShitReaction.heart:
+        return const Icon(Icons.favorite_rounded, color: Colors.red);
+      case ShitReaction.respect:
+        return const Icon(Icons.handshake_rounded);
+    }
+  }
 }

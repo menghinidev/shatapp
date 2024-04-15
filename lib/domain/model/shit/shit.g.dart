@@ -23,6 +23,10 @@ _$ShitDataDtoImpl _$$ShitDataDtoImplFromJson(Map<String, dynamic> json) =>
       creationDateTime: DateTime.parse(json['creationDateTime'] as String),
       effort: $enumDecode(_$ShitEffortEnumMap, json['effort']),
       consistency: $enumDecode(_$ShitConsistencyEnumMap, json['consistency']),
+      reactions: (json['reactions'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry($enumDecode(_$ShitReactionEnumMap, k),
+            (e as List<dynamic>).map((e) => e as String).toList()),
+      ),
       user: json['user'] as String?,
       note: json['note'] as String?,
       color: json['color'] as String?,
@@ -42,6 +46,10 @@ Map<String, dynamic> _$$ShitDataDtoImplToJson(_$ShitDataDtoImpl instance) {
     }
   }
 
+  writeNotNull(
+      'reactions',
+      instance.reactions
+          ?.map((k, e) => MapEntry(_$ShitReactionEnumMap[k]!, e)));
   writeNotNull('user', instance.user);
   writeNotNull('note', instance.note);
   writeNotNull('color', instance.color);
@@ -63,4 +71,9 @@ const _$ShitConsistencyEnumMap = {
   ShitConsistency.normal: 'normal',
   ShitConsistency.solid: 'solid',
   ShitConsistency.cement: 'cement',
+};
+
+const _$ShitReactionEnumMap = {
+  ShitReaction.heart: 'heart',
+  ShitReaction.respect: 'respect',
 };

@@ -113,6 +113,33 @@ class FirestoreShitRepository with ShitDtoMapper implements ShitRepository {
     return documents.docs.map((e) => mapDtoFromJson(e.id, e.data())).map(mapFromDto).toList()
       ..sort((a, b) => b.creationDateTime.compareTo(a.creationDateTime));
   }
+
+  @override
+  Future<void> reactToShit({
+    required String shitId,
+    required ShitReaction reaction,
+  }) async {
+    final loggedUser = authState.mapOrNull(logged: (data) => data.user);
+    if (loggedUser == null) return Future.value();
+    final collection = firestore.collection(shitCollectionKey);
+    final document = await collection.doc(shitId).get();
+    final shit = mapDtoFromJson(document.id, document.data()!).data;
+    final reactionsOnShit = {...shit.reactions ?? <ShitReaction, List<String>>{}};
+    final usersWithSameReaction = [...shit.reactions?[reaction] ?? <String>[]];
+    usersWithSameReaction.contains(loggedUser.id)
+        ? usersWithSameReaction.remove(loggedUser.id)
+        : usersWithSameReaction.add(loggedUser.id);
+    reactionsOnShit.update(
+      reaction,
+      (value) => usersWithSameReaction,
+      ifAbsent: () => usersWithSameReaction,
+    );
+    final newDto = shit.copyWith(
+      reactions: reactionsOnShit,
+    );
+    await collection.doc(shitId).update(newDto.toJson());
+    return Future.value();
+  }
 }
 
 extension ShitCollectionQuery on Query<Map<String, dynamic>> {
