@@ -17,5 +17,10 @@ abstract class ShitRepository {
     String? color,
   });
 
+  Future<void> reactToShit({
+    required String shitId,
+    required ShitReaction reaction,
+  });
+
   Future<void> removeShit(String shitId);
 }

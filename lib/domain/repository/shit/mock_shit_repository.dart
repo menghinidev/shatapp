@@ -81,4 +81,10 @@ class MockShitRepository implements ShitRepository {
     // TODO: implement geUserShitDiary
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> reactToShit({required String shitId, required ShitReaction reaction}) {
+    // TODO: implement reactToShit
+    throw UnimplementedError();
+  }
 }

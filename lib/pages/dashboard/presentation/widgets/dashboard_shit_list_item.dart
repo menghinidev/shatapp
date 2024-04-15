@@ -15,13 +15,17 @@ import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility, UiShape, UiDimension {
   const DashboardShitListItem({
     required this.shit,
+    required this.loggedUser,
     this.canDelete = false,
+    this.canReact = false,
     this.onTap,
     super.key,
   });
 
   final Shit shit;
+  final ShatAppUser loggedUser;
   final bool canDelete;
+  final bool canReact;
   final void Function(ShatAppUser? user)? onTap;
 
   @override
@@ -30,9 +34,15 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
     return user.emptyUntil(
       data: (user) => _ShitListItem(
         canDelete: canDelete,
+        canReact: canReact,
         shit: shit,
         user: user,
-        onTap: onTap,
+        loggedUser: loggedUser,
+        onOpen: onTap,
+        onReact: (reaction) => ref
+            .read(shitRepository)
+            .reactToShit(shitId: shit.id, reaction: reaction)
+            .then((value) => ref.invalidate(globalShitProvider)),
       ),
     );
   }
@@ -41,11 +51,13 @@ class DashboardShitListItem extends ConsumerWidget with DateFormatter, UiUtility
 class UserRecordShitListItem extends ConsumerWidget with DateFormatter, UiUtility, UiShape, UiDimension {
   const UserRecordShitListItem({
     required this.shit,
+    required this.loggedUser,
     this.onTap,
     super.key,
   });
 
   final Shit shit;
+  final ShatAppUser loggedUser;
   final void Function(ShatAppUser? user)? onTap;
 
   @override
@@ -54,8 +66,15 @@ class UserRecordShitListItem extends ConsumerWidget with DateFormatter, UiUtilit
     return user.emptyUntil(
       data: (user) => _ShitListItem(
         canDelete: false,
+        canReact: true,
         shit: shit,
         user: user,
+        loggedUser: loggedUser,
+        onReact: (reaction) => ref
+            .read(shitRepository)
+            .reactToShit(shitId: shit.id, reaction: reaction)
+            .then((value) => ref.invalidate(globalShitProvider))
+            .then((value) => ref.invalidate(userByIdProvider(shit.user))),
       ),
     );
   }
@@ -65,14 +84,20 @@ class _ShitListItem extends ConsumerWidget with UiUtility, DateFormatter, UiShap
   const _ShitListItem({
     required this.shit,
     required this.canDelete,
-    this.onTap,
+    required this.canReact,
+    required this.loggedUser,
+    this.onReact,
+    this.onOpen,
     this.user,
   });
 
   final Shit shit;
   final ShatAppUser? user;
+  final ShatAppUser loggedUser;
   final bool canDelete;
-  final void Function(ShatAppUser? user)? onTap;
+  final bool canReact;
+  final void Function(ShatAppUser? user)? onOpen;
+  final void Function(ShitReaction reaction)? onReact;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -80,7 +105,7 @@ class _ShitListItem extends ConsumerWidget with UiUtility, DateFormatter, UiShap
       shape: mediumRoundedShape,
       elevation: smallElevation,
       child: InkWell(
-        onTap: onTap != null ? () => onTap?.call(user) : null,
+        onTap: onOpen != null ? () => onOpen?.call(user) : null,
         borderRadius: mediumRoundedBorderRadius,
         child: Padding(
           padding: mediumPadding,
@@ -125,6 +150,18 @@ class _ShitListItem extends ConsumerWidget with UiUtility, DateFormatter, UiShap
                         color: Theme.of(context).colorScheme.error,
                         icon: const Icon(Icons.delete_outline_rounded),
                       ),
+                    ],
+                    if (canReact) ...[
+                      for (final reaction in ShitReaction.values) ...[
+                        _ShitReactionWidget(
+                          loggedUser: loggedUser,
+                          reactedIn: shit.reactions?[reaction]?.length ?? 0,
+                          reaction: reaction,
+                          shit: shit,
+                          onReact: () => onReact?.call(reaction),
+                        ),
+                        extraSmallDivider,
+                      ],
                     ],
                   ],
                 ),
@@ -246,6 +283,43 @@ class _ShitTeamNameChip extends ConsumerWidget with UiUtility, UiDimension, UiSh
       labelStyle: context.textTheme.bodySmall?.copyWith(
         color: Theme.of(context).colorScheme.onPrimaryContainer,
       ),
+    );
+  }
+}
+
+class _ShitReactionWidget extends ConsumerWidget {
+  const _ShitReactionWidget({
+    required this.shit,
+    required this.loggedUser,
+    required this.reaction,
+    required this.reactedIn,
+    this.onReact,
+  });
+
+  final VoidCallback? onReact;
+  final Shit shit;
+  final ShitReaction reaction;
+  final int reactedIn;
+  final ShatAppUser loggedUser;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Stack(
+      children: [
+        if (reactedIn != 0)
+          Positioned(
+            bottom: 2.5,
+            right: 2.5,
+            child: Text(
+              '$reactedIn',
+              style: context.textTheme.bodySmall,
+            ),
+          ),
+        IconButton(
+          onPressed: onReact,
+          icon: shit.hasRated(reaction, loggedUser.id) ? reaction.selectedIcon : reaction.unselectedIcon,
+        ),
+      ],
     );
   }
 }

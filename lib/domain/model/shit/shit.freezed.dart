@@ -20,6 +20,8 @@ mixin _$Shit {
   DateTime get creationDateTime => throw _privateConstructorUsedError;
   ShitEffort get effort => throw _privateConstructorUsedError;
   ShitConsistency get consistency => throw _privateConstructorUsedError;
+  Map<ShitReaction, List<String>>? get reactions =>
+      throw _privateConstructorUsedError;
   String? get user => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
@@ -39,6 +41,7 @@ abstract class $ShitCopyWith<$Res> {
       DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
+      Map<ShitReaction, List<String>>? reactions,
       String? user,
       String? note,
       String? color,
@@ -62,6 +65,7 @@ class _$ShitCopyWithImpl<$Res, $Val extends Shit>
     Object? creationDateTime = null,
     Object? effort = null,
     Object? consistency = null,
+    Object? reactions = freezed,
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
@@ -84,6 +88,10 @@ class _$ShitCopyWithImpl<$Res, $Val extends Shit>
           ? _value.consistency
           : consistency // ignore: cast_nullable_to_non_nullable
               as ShitConsistency,
+      reactions: freezed == reactions
+          ? _value.reactions
+          : reactions // ignore: cast_nullable_to_non_nullable
+              as Map<ShitReaction, List<String>>?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -116,6 +124,7 @@ abstract class _$$ShitImplCopyWith<$Res> implements $ShitCopyWith<$Res> {
       DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
+      Map<ShitReaction, List<String>>? reactions,
       String? user,
       String? note,
       String? color,
@@ -136,6 +145,7 @@ class __$$ShitImplCopyWithImpl<$Res>
     Object? creationDateTime = null,
     Object? effort = null,
     Object? consistency = null,
+    Object? reactions = freezed,
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
@@ -158,6 +168,10 @@ class __$$ShitImplCopyWithImpl<$Res>
           ? _value.consistency
           : consistency // ignore: cast_nullable_to_non_nullable
               as ShitConsistency,
+      reactions: freezed == reactions
+          ? _value._reactions
+          : reactions // ignore: cast_nullable_to_non_nullable
+              as Map<ShitReaction, List<String>>?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -186,10 +200,12 @@ class _$ShitImpl implements _Shit {
       required this.creationDateTime,
       required this.effort,
       required this.consistency,
+      final Map<ShitReaction, List<String>>? reactions,
       this.user,
       this.note,
       this.color,
-      this.teamId});
+      this.teamId})
+      : _reactions = reactions;
 
   @override
   final String id;
@@ -199,6 +215,16 @@ class _$ShitImpl implements _Shit {
   final ShitEffort effort;
   @override
   final ShitConsistency consistency;
+  final Map<ShitReaction, List<String>>? _reactions;
+  @override
+  Map<ShitReaction, List<String>>? get reactions {
+    final value = _reactions;
+    if (value == null) return null;
+    if (_reactions is EqualUnmodifiableMapView) return _reactions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final String? user;
   @override
@@ -210,7 +236,7 @@ class _$ShitImpl implements _Shit {
 
   @override
   String toString() {
-    return 'Shit(id: $id, creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, user: $user, note: $note, color: $color, teamId: $teamId)';
+    return 'Shit(id: $id, creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, reactions: $reactions, user: $user, note: $note, color: $color, teamId: $teamId)';
   }
 
   @override
@@ -224,6 +250,8 @@ class _$ShitImpl implements _Shit {
             (identical(other.effort, effort) || other.effort == effort) &&
             (identical(other.consistency, consistency) ||
                 other.consistency == consistency) &&
+            const DeepCollectionEquality()
+                .equals(other._reactions, _reactions) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.color, color) || other.color == color) &&
@@ -231,8 +259,17 @@ class _$ShitImpl implements _Shit {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, creationDateTime, effort,
-      consistency, user, note, color, teamId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      creationDateTime,
+      effort,
+      consistency,
+      const DeepCollectionEquality().hash(_reactions),
+      user,
+      note,
+      color,
+      teamId);
 
   @JsonKey(ignore: true)
   @override
@@ -247,6 +284,7 @@ abstract class _Shit implements Shit {
       required final DateTime creationDateTime,
       required final ShitEffort effort,
       required final ShitConsistency consistency,
+      final Map<ShitReaction, List<String>>? reactions,
       final String? user,
       final String? note,
       final String? color,
@@ -260,6 +298,8 @@ abstract class _Shit implements Shit {
   ShitEffort get effort;
   @override
   ShitConsistency get consistency;
+  @override
+  Map<ShitReaction, List<String>>? get reactions;
   @override
   String? get user;
   @override
@@ -446,6 +486,8 @@ mixin _$ShitDataDto {
   DateTime get creationDateTime => throw _privateConstructorUsedError;
   ShitEffort get effort => throw _privateConstructorUsedError;
   ShitConsistency get consistency => throw _privateConstructorUsedError;
+  Map<ShitReaction, List<String>>? get reactions =>
+      throw _privateConstructorUsedError;
   String? get user => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
@@ -467,6 +509,7 @@ abstract class $ShitDataDtoCopyWith<$Res> {
       {DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
+      Map<ShitReaction, List<String>>? reactions,
       String? user,
       String? note,
       String? color,
@@ -489,6 +532,7 @@ class _$ShitDataDtoCopyWithImpl<$Res, $Val extends ShitDataDto>
     Object? creationDateTime = null,
     Object? effort = null,
     Object? consistency = null,
+    Object? reactions = freezed,
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
@@ -507,6 +551,10 @@ class _$ShitDataDtoCopyWithImpl<$Res, $Val extends ShitDataDto>
           ? _value.consistency
           : consistency // ignore: cast_nullable_to_non_nullable
               as ShitConsistency,
+      reactions: freezed == reactions
+          ? _value.reactions
+          : reactions // ignore: cast_nullable_to_non_nullable
+              as Map<ShitReaction, List<String>>?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -539,6 +587,7 @@ abstract class _$$ShitDataDtoImplCopyWith<$Res>
       {DateTime creationDateTime,
       ShitEffort effort,
       ShitConsistency consistency,
+      Map<ShitReaction, List<String>>? reactions,
       String? user,
       String? note,
       String? color,
@@ -559,6 +608,7 @@ class __$$ShitDataDtoImplCopyWithImpl<$Res>
     Object? creationDateTime = null,
     Object? effort = null,
     Object? consistency = null,
+    Object? reactions = freezed,
     Object? user = freezed,
     Object? note = freezed,
     Object? color = freezed,
@@ -577,6 +627,10 @@ class __$$ShitDataDtoImplCopyWithImpl<$Res>
           ? _value.consistency
           : consistency // ignore: cast_nullable_to_non_nullable
               as ShitConsistency,
+      reactions: freezed == reactions
+          ? _value._reactions
+          : reactions // ignore: cast_nullable_to_non_nullable
+              as Map<ShitReaction, List<String>>?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -605,10 +659,12 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
       {required this.creationDateTime,
       required this.effort,
       required this.consistency,
+      final Map<ShitReaction, List<String>>? reactions,
       this.user,
       this.note,
       this.color,
-      this.team});
+      this.team})
+      : _reactions = reactions;
 
   factory _$ShitDataDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShitDataDtoImplFromJson(json);
@@ -619,6 +675,16 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
   final ShitEffort effort;
   @override
   final ShitConsistency consistency;
+  final Map<ShitReaction, List<String>>? _reactions;
+  @override
+  Map<ShitReaction, List<String>>? get reactions {
+    final value = _reactions;
+    if (value == null) return null;
+    if (_reactions is EqualUnmodifiableMapView) return _reactions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final String? user;
   @override
@@ -630,7 +696,7 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
 
   @override
   String toString() {
-    return 'ShitDataDto(creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, user: $user, note: $note, color: $color, team: $team)';
+    return 'ShitDataDto(creationDateTime: $creationDateTime, effort: $effort, consistency: $consistency, reactions: $reactions, user: $user, note: $note, color: $color, team: $team)';
   }
 
   @override
@@ -643,6 +709,8 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
             (identical(other.effort, effort) || other.effort == effort) &&
             (identical(other.consistency, consistency) ||
                 other.consistency == consistency) &&
+            const DeepCollectionEquality()
+                .equals(other._reactions, _reactions) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.color, color) || other.color == color) &&
@@ -651,8 +719,16 @@ class _$ShitDataDtoImpl implements _ShitDataDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, creationDateTime, effort,
-      consistency, user, note, color, team);
+  int get hashCode => Object.hash(
+      runtimeType,
+      creationDateTime,
+      effort,
+      consistency,
+      const DeepCollectionEquality().hash(_reactions),
+      user,
+      note,
+      color,
+      team);
 
   @JsonKey(ignore: true)
   @override
@@ -673,6 +749,7 @@ abstract class _ShitDataDto implements ShitDataDto {
       {required final DateTime creationDateTime,
       required final ShitEffort effort,
       required final ShitConsistency consistency,
+      final Map<ShitReaction, List<String>>? reactions,
       final String? user,
       final String? note,
       final String? color,
@@ -687,6 +764,8 @@ abstract class _ShitDataDto implements ShitDataDto {
   ShitEffort get effort;
   @override
   ShitConsistency get consistency;
+  @override
+  Map<ShitReaction, List<String>>? get reactions;
   @override
   String? get user;
   @override
