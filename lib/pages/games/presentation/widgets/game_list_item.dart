@@ -5,9 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/games_enum.dart';
 import 'package:shatapp/domain/session/authentication_session_controller.dart';
 import 'package:shatapp/domain/session/state/authenticationstate.dart';
-import 'package:shatapp/pages/games/application/game_manager.dart';
+import 'package:shatapp/pages/games/application/game_lobby_manager.dart';
 import 'package:shatapp/pages/games/utils/games_extension.dart';
-import 'package:shatapp/utils/logger/logger_manager.dart';
 import 'package:shatapp/utils/router/routes/game_lobby_route.dart';
 import 'package:shatapp/utils/ui_utils/ui_utility.dart';
 
@@ -21,19 +20,19 @@ class GameListItem extends ConsumerWidget with UiShape, UiDimension, UiUtility {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () async {
-        final user = ref.read(authenticationSessionController);
-        if (user is Logged) {
-          await ref.read(gameManagerProvider(game)).joinLobby(userId: user.user.id).then((value) {
-            ref.logMessage(value.toJson().toString());
-            context.go(GameLobbyRoute.fromHome, extra: value.id);
-          });
-        }
-      },
-      child: Card(
-        shape: mediumRoundedShape,
-        elevation: smallElevation,
+    return Card(
+      shape: mediumRoundedShape,
+      elevation: smallElevation,
+      child: InkWell(
+        borderRadius: mediumRoundedBorderRadius,
+        onTap: () async {
+          final user = ref.read(authenticationSessionController);
+          if (user is Logged) {
+            await ref.read(gameManagerProvider(game)).joinLobby(userId: user.user.id).then((value) {
+              context.go(GameLobbyRoute.fromHome, extra: value.id);
+            });
+          }
+        },
         child: Padding(
           padding: mediumPadding,
           child: Row(

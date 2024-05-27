@@ -1,3 +1,4 @@
 enum Games {
-  tris;
+  tris,
+  snake;
 }

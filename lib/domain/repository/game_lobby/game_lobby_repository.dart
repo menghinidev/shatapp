@@ -22,14 +22,28 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
   }
 
   @override
-  Future<GameLobby?> getPendingGameLobby({required Games game}) async {
-    final document = await firestore
+  Future<GameLobby?> getAvailableGameLobby({
+    required Games game,
+    required String userId,
+  }) async {
+    var document = await firestore
         .collection(shitCollectionKey)
         .where('game', isEqualTo: game.name)
-        .where('status', isEqualTo: GameLobbyStatus.pending.name)
+        .where('status', isEqualTo: GameLobbyStatus.playing.name)
+        .where('players', arrayContains: userId)
         .limit(1)
         .get();
-    final doc = document.docs.firstOrNull;
+
+    var doc = document.docs.firstOrNull;
+    if (doc == null) {
+      document = await firestore
+          .collection(shitCollectionKey)
+          .where('game', isEqualTo: game.name)
+          .where('status', isEqualTo: GameLobbyStatus.pending.name)
+          .limit(1)
+          .get();
+      doc = document.docs.firstOrNull;
+    }
     return doc != null ? GameLobby.fromJson(doc.data()) : null;
   }
 
@@ -50,14 +64,11 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
     final status = gameLobby.status;
     if (status == GameLobbyStatus.pending && gameLobby.maxPlayers > gameLobby.players.length) {
       final players = [...gameLobby.players, userId];
-      final updateLobby = gameLobby.copyWith(
+      final newLobby = gameLobby.copyWith(
         players: players,
-        status: players.length > gameLobby.minPlayers ? GameLobbyStatus.playing : gameLobby.status,
+        status: players.length >= gameLobby.minPlayers ? GameLobbyStatus.playing : gameLobby.status,
       );
-      await collection.doc(id).update(
-            updateLobby.toJson(),
-          );
-      return updateLobby;
+      return updateLobby(lobby: newLobby);
     }
     return joinLobbyAsSpectator(id: id, userId: userId);
   }
@@ -72,11 +83,8 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
     final gameLobby = document.data()!;
     if (gameLobby.spectators.contains(userId)) return gameLobby;
     final spectators = <String>[...gameLobby.spectators, userId];
-    final newLobby = gameLobby.copyWith(spectators: spectators).toJson();
-    await collection.doc(id).update(
-          newLobby,
-        );
-    return gameLobby;
+    final newLobby = gameLobby.copyWith(spectators: spectators);
+    return updateLobby(lobby: newLobby);
   }
 
   @override
@@ -87,14 +95,13 @@ class GameLobbyRepositoryImpl implements GameLobbyRepository {
 
   @override
   Future<void> removeLobby({required String id}) {
-    // TODO(tommy): implement removeLobby
-    throw UnimplementedError();
+    return collection.doc(id).delete();
   }
 
   @override
-  Future<GameLobby> updateLobby({required GameLobby lobby}) {
-    // TODO(tommy): implement updateLobby
-    throw UnimplementedError();
+  Future<GameLobby> updateLobby({required GameLobby lobby}) async {
+    await collection.doc(lobby.id).update(lobby.toJson());
+    return lobby;
   }
 
   @override

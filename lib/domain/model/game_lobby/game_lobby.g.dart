@@ -15,10 +15,12 @@ _$GameLobbyImpl _$$GameLobbyImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       status:
           const GameLobbyStatusConverter().fromJson(json['status'] as String),
-      maxPlayers: json['maxPlayers'] as int,
-      minPlayers: json['minPlayers'] as int,
+      maxPlayers: (json['maxPlayers'] as num).toInt(),
+      minPlayers: (json['minPlayers'] as num).toInt(),
       game: const GamesConverter().fromJson(json['game'] as String),
       id: json['id'] as String?,
+      gameData: json['gameData'] as Map<String, dynamic>? ??
+          const <String, dynamic>{},
     );
 
 Map<String, dynamic> _$$GameLobbyImplToJson(_$GameLobbyImpl instance) {
@@ -38,5 +40,6 @@ Map<String, dynamic> _$$GameLobbyImplToJson(_$GameLobbyImpl instance) {
   }
 
   writeNotNull('id', instance.id);
+  val['gameData'] = instance.gameData;
   return val;
 }

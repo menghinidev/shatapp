@@ -18,6 +18,7 @@ class GameLobby with _$GameLobby {
     required int minPlayers,
     @GamesConverter() required Games game,
     String? id,
+    @Default(<String, dynamic>{}) Map<String, dynamic> gameData,
   }) = _GameLobby;
 
   factory GameLobby.fromJson(Map<String, dynamic> json) => _$GameLobbyFromJson(json);

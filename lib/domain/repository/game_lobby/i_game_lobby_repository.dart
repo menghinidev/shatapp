@@ -30,8 +30,9 @@ abstract class GameLobbyRepository {
     required String userId,
   });
 
-  Future<GameLobby?> getPendingGameLobby({
+  Future<GameLobby?> getAvailableGameLobby({
     required Games game,
+    required String userId,
   });
 
   Stream<GameLobby> getLobbyAsStream({
