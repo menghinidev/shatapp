@@ -24,6 +24,7 @@ mixin UiDimension {
   EdgeInsets get mediumPadding => const EdgeInsets.all(mediumSize);
   EdgeInsets get mediumHorizontalPadding => const EdgeInsets.symmetric(horizontal: mediumSize);
   EdgeInsets get mediumVerticalPadding => const EdgeInsets.symmetric(vertical: mediumSize);
+  EdgeInsets get largePadding => const EdgeInsets.all(largeSize);
 }
 
 mixin UiShape {

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shatapp/domain/enum/games_enum.dart';
-import 'package:shatapp/domain/session/authentication_session_controller.dart';
-import 'package:shatapp/domain/session/state/authenticationstate.dart';
 import 'package:shatapp/pages/games/application/game_lobby_manager.dart';
 import 'package:shatapp/pages/games/utils/games_extension.dart';
 import 'package:shatapp/utils/router/routes/game_lobby_route.dart';
@@ -26,12 +24,11 @@ class GameListItem extends ConsumerWidget with UiShape, UiDimension, UiUtility {
       child: InkWell(
         borderRadius: mediumRoundedBorderRadius,
         onTap: () async {
-          final user = ref.read(authenticationSessionController);
-          if (user is Logged) {
-            await ref.read(gameManagerProvider(game)).joinLobby(userId: user.user.id).then((value) {
-              context.go(GameLobbyRoute.fromHome, extra: value.id);
-            });
-          }
+          await ref.read(gameManagerProvider(game)).joinLobby().then((lobby) {
+            if (lobby != null) {
+              context.go(GameLobbyRoute.fromHome, extra: lobby.id);
+            }
+          });
         },
         child: Padding(
           padding: mediumPadding,

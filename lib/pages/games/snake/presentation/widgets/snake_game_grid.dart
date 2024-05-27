@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shatapp/pages/games/game_lobby/presentation/widgets/game_lobby_container.dart';
 import 'package:shatapp/pages/games/snake/presentation/widgets/snake_game_cell.dart';
 import 'package:shatapp/pages/games/snake/utils/snake_game_constants.dart';
 
@@ -12,11 +13,12 @@ class SnakeGameGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final size = MediaQuery.of(context).size;
-        return ConstrainedBox(
-          constraints: constraints.copyWith(maxWidth: size.width / 2),
+    final size = MediaQuery.of(context).size;
+    return Center(
+      child: GameLobbyContainer(
+        child: SizedBox(
+          width: size.height / 2,
+          height: size.height / 2,
           child: GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -28,8 +30,8 @@ class SnakeGameGrid extends StatelessWidget {
               return grid[index];
             },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

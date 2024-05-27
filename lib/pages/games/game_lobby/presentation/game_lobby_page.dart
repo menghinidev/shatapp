@@ -27,7 +27,8 @@ class GameLobbyPage extends ConsumerWidget {
             const SliverAppBar.large(
               title: Text('Shit game'),
             ),
-            SliverToBoxAdapter(
+            SliverFillRemaining(
+              hasScrollBody: false,
               child: gameLobby.when(
                 error: (error, stackTrace) => Center(
                   child: Text(error.toString()),
